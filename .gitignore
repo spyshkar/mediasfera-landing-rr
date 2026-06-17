@@ -1,0 +1,5 @@
+# Credentials — never commit!
+.env.php
+
+# Source copy — not needed in repo
+short_source.html
