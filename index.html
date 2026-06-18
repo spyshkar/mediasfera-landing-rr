@@ -1139,8 +1139,31 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       });
     }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
     reveals.forEach(function(el){ io.observe(el); });
-    setTimeout(showAll, 2600);
+    // таймаут убран — элементы появляются только при скролле
   } else { showAll(); }
+
+  /* ---- STAGGER: карточки/цифры/логотипы появляются поочерёдно при скролле ---- */
+  if(!reduce && 'IntersectionObserver' in window){
+    var staggerGroups = document.querySelectorAll('.stats,.people,.trophies,.logos');
+    staggerGroups.forEach(function(group){
+      var children = Array.prototype.slice.call(group.children);
+      children.forEach(function(child){
+        child.style.opacity = '0';
+        child.style.transform = 'translateY(16px)';
+        child.style.transition = 'opacity .55s ease, transform .55s var(--ease-out)';
+      });
+      var sio = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            var idx = Array.prototype.indexOf.call(e.target.parentNode.children, e.target);
+            setTimeout(function(){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }, idx * 90);
+            sio.unobserve(e.target);
+          }
+        });
+      }, {threshold:0.08});
+      children.forEach(function(child){ sio.observe(child); });
+    });
+  }
 
   /* ---- ФИЗИКА БУМАГИ: дрейф на скролле + наклон/подъём листа от курсора (десктоп) ---- */
   var sheets = Array.prototype.slice.call(document.querySelectorAll('.sheet'));
