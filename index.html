@@ -488,7 +488,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .js .reveal.pre .note{opacity:0;transform:translateY(10px)}
 
   /* pin-стрелка: только для мобайла, на десктопе стрелка через CSS ::before/::after */
-  .note .pin{display:none}
+  .note .pin{display:none !important}
+  @media (max-width:920px){.note .pin{display:inline-block !important}}
 
   /* sheet-wrap — позиционный контекст для плавающего листа */
   .sheet-wrap{position:relative}
@@ -786,7 +787,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           <!-- H1 с переносом строки в духе варианта C -->
           <h1 class="headline">
             <span class="line-reveal"><span>Контент,</span></span>
-            <span class="line-reveal"><span>который <span class="mark">продаёт</span></span></span>
+            <span class="line-reveal"><span>который приводит <span class="mark">вашу ЦА</span></span></span>
           </h1>
           <span class="doc-meta">черновик → правки → чистовик → деньги</span>
 
@@ -819,7 +820,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           <div class="cta-row">
             <span class="magnetic"><a href="#contact" class="btn-primary" data-cta data-cursor="поехали">Обсудить задачу</a></span>
             <button class="link-secondary" id="openLM" type="button" data-cursor="проверить">
-              <span>А ваш текст уже продаёт? Вставьте абзац — <span class="em">AI вынесет вердикт и 3 правки</span> →</span>
+              <span>А ваш контент работает? <span class="em">Проверьте бесплатно →</span></span>
             </button>
           </div>
 
@@ -879,8 +880,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 <section class="beat reveal pre" id="beat" aria-label="Ключевая мысль">
   <div class="beat-inner">
     <div class="beat-kicker">Один кадр · без воды</div>
-    <p class="beat-line">Мало написать — текст нужно <span class="um">довести до продаж</span>: написать <span class="hot">и продвинуть</span>.</p>
-    <p class="beat-sub">Текст без дистрибуции — расход. Нужен подрядчик, который не только напишет статью, но и доведёт её до читателя и до продаж. Дальше — где именно мы это делаем.</p>
+    <p class="beat-line">Мало написать текст — важно получить <span class="um">измеримый результат</span>.</p>
+    <p class="beat-sub">Текст без дистрибуции — расход. Нужен подрядчик, который ведёт материал от черновика до читателя и дальше — до целевых метрик: дочитываний, переходов, заявок. Дальше — где именно мы это делаем.</p>
     <div class="beat-cta">
       <a href="#contact" class="btn-primary" data-cta data-cursor="поехали">Обсудить задачу</a>
       <span class="beat-note">пишем и продвигаем →</span>
