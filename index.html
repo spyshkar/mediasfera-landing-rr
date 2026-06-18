@@ -374,9 +374,11 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .cases.reveal.in .case:nth-child(2){transition-delay:.12s}
   .cases.reveal.in .case:nth-child(3){transition-delay:.20s}
   .cases.reveal.in .case:nth-child(4){transition-delay:.28s}
-  .cases.reveal.in .case:nth-child(odd){transform:rotate(-.4deg)}
-  .cases.reveal.in .case:nth-child(even){transform:rotate(.4deg)}
-  .case:hover{transform:translateY(-6px) rotate(0) !important;box-shadow:0 26px 44px -24px rgba(27,27,29,.36);border-color:rgba(227,6,19,.4)}
+  .cases.reveal.in .case:nth-child(odd){animation:cardSway1 5.6s var(--ease-soft) .7s infinite both}
+  .cases.reveal.in .case:nth-child(even){animation:cardSway2 6.3s var(--ease-soft) 1s infinite both}
+  .cases.reveal.in .case:nth-child(3){animation-duration:5.9s;animation-delay:.9s}
+  .cases.reveal.in .case:nth-child(4){animation-duration:6.7s;animation-delay:1.2s}
+  .case:hover{animation:none !important;transform:translateY(-6px) rotate(0) !important;box-shadow:0 26px 44px -24px rgba(27,27,29,.36);border-color:rgba(227,6,19,.4)}
   .case-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px}
   .case-tags span{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--grey);background:#fff;border:1px solid var(--line);padding:3px 9px;border-radius:100px}
   .case-name{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);margin-bottom:8px}
@@ -385,7 +387,12 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .case-sub b{color:var(--ink);font-weight:600}
   .case .case-link{display:inline-block;margin-top:11px;font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--red);text-decoration:none;border-bottom:1px solid rgba(227,6,19,.4);padding-bottom:1px}
   .case .case-link:hover{color:var(--red-dark)}
-  .case .stamp{position:absolute;top:12px;right:12px;font-family:var(--hand);font-weight:700;color:var(--green);font-size:17px;transform:rotate(7deg);border:2px solid var(--green);border-radius:7px;padding:0 8px;line-height:1.4;opacity:.92}
+  .case .stamp{position:absolute;top:12px;right:12px;font-family:var(--hand);font-weight:700;color:var(--green);font-size:17px;border:2px solid var(--green);border-radius:7px;padding:0 8px;line-height:1.4;opacity:0;transform:rotate(7deg) scale(2.4)}
+  .cases.reveal.in .case:nth-child(1) .stamp{animation:stampPress .42s var(--ease-spring) .65s both}
+  .cases.reveal.in .case:nth-child(2) .stamp{animation:stampPress .42s var(--ease-spring) .84s both}
+  .cases.reveal.in .case:nth-child(3) .stamp{animation:stampPress .42s var(--ease-spring) 1.02s both}
+  .cases.reveal.in .case:nth-child(4) .stamp{animation:stampPress .42s var(--ease-spring) 1.20s both}
+  html:not(.js) .case .stamp{opacity:.92;transform:rotate(7deg) scale(1)}
 
   .logos{display:flex;flex-wrap:wrap;gap:9px 11px;align-items:center;margin:4px 0 16px}
   .logo-pill{font-family:var(--sans);font-size:13.5px;font-weight:700;letter-spacing:.02em;color:#4a4a4a;background:var(--bg);border:1px solid var(--line);padding:8px 16px;border-radius:8px;transition:transform .2s var(--ease-out),border-color .2s ease,color .2s ease}
@@ -591,6 +598,16 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .stamp-num,.stamp-dot{opacity:1 !important;transform:rotate(-5deg) scale(1) !important}
     .stamp-num.s2{transform:rotate(4deg) scale(1) !important}
     .story-replay{display:none !important}
+    .case .stamp{opacity:.92 !important;transform:rotate(7deg) scale(1) !important}
+  }
+
+  @keyframes cardSway1{0%,100%{transform:rotate(-.4deg) translateY(0)}50%{transform:rotate(.6deg) translateY(-4px)}}
+  @keyframes cardSway2{0%,100%{transform:rotate(.4deg) translateY(0)}50%{transform:rotate(-.6deg) translateY(-5px)}}
+  @keyframes stampPress{
+    0%  {opacity:0;transform:rotate(7deg) scale(2.4)}
+    55% {opacity:1;transform:rotate(7deg) scale(.82)}
+    75% {transform:rotate(7deg) scale(1.1)}
+    100%{opacity:.92;transform:rotate(7deg) scale(1)}
   }
 
   /* ============ RESPONSIVE ============ */
@@ -651,6 +668,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .people{grid-template-columns:1fr}
     .trophies{grid-template-columns:1fr}
     .case:nth-child(odd),.case:nth-child(even){transform:none}
+    .cases.reveal.in .case:nth-child(n){animation:none;transform:none}
+    .cases.reveal.in .case .stamp{animation:stampPress .42s var(--ease-spring) .3s both}
   }
   @media (max-width:560px){
     .stage{padding:22px 12px 18px}
