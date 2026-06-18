@@ -476,14 +476,14 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     opacity:1;transform:none;transition:opacity .6s ease,transform .6s var(--ease-out);
   }
   .note small{display:block;font-size:18px;font-weight:500;opacity:.92;margin-top:1px}
-  /* в правый гаттер */
-  .note.right{left:calc(100% + 40px);text-align:left}
-  .note.right::before{content:"";position:absolute;left:-32px;top:11px;width:20px;height:2px;background:var(--red);opacity:.55}
-  .note.right::after{content:"";position:absolute;left:-18px;top:6px;width:8px;height:8px;border-top:2px solid var(--red);border-right:2px solid var(--red);transform:rotate(45deg);opacity:.55}
+  /* в правый гаттер — отступ считаем от col-pad, чтобы заметка не вылезала за красную линию */
+  .note.right{left:calc(100% + var(--col-pad) + 24px);text-align:left}
+  .note.right::before{content:"";position:absolute;left:-20px;top:11px;width:8px;height:2px;background:var(--red);opacity:.55}
+  .note.right::after{content:"";position:absolute;left:-14px;top:6px;width:8px;height:8px;border-top:2px solid var(--red);border-right:2px solid var(--red);transform:rotate(45deg);opacity:.55}
   /* в левый гаттер */
-  .note.left{right:calc(100% + 40px);text-align:right}
-  .note.left::before{content:"";position:absolute;right:-32px;top:11px;width:20px;height:2px;background:var(--red);opacity:.55}
-  .note.left::after{content:"";position:absolute;right:-18px;top:6px;width:8px;height:8px;border-top:2px solid var(--red);border-left:2px solid var(--red);transform:rotate(-45deg);opacity:.55}
+  .note.left{right:calc(100% + var(--col-pad) + 24px);text-align:right}
+  .note.left::before{content:"";position:absolute;right:-20px;top:11px;width:8px;height:2px;background:var(--red);opacity:.55}
+  .note.left::after{content:"";position:absolute;right:-14px;top:6px;width:8px;height:8px;border-top:2px solid var(--red);border-left:2px solid var(--red);transform:rotate(-45deg);opacity:.55}
   /* стрелки заметок скрыты пока секция не открылась */
   .js .reveal.pre .note::before,.js .reveal.pre .note::after{opacity:0}
   /* появление пометки (scroll-driven) */
@@ -624,23 +624,11 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     :root{--gutter:210px;--col-pad:56px}
     .note{font-size:24px;width:calc(var(--gutter) - 28px)}
     .note small{font-size:17px}
-    .note.right{left:calc(100% + 30px)}
-    .note.left{right:calc(100% + 30px)}
-    .note.right::before,.note.left::before{width:14px}
-    .note.right::before{left:-22px}
-    .note.left::before{right:-22px}
   }
   @media (max-width:1040px){
     :root{--gutter:178px;--col-pad:52px}
     .note{font-size:22px;width:calc(var(--gutter) - 22px)}
     .note small{font-size:16px}
-    .note.right{left:calc(100% + 24px)}
-    .note.left{right:calc(100% + 24px)}
-    .note.right::before,.note.left::before{width:8px}
-    .note.right::before{left:-16px}
-    .note.left::before{right:-16px}
-    .note.right::after{left:-12px}
-    .note.left::after{right:-12px}
   }
 
   /* ===== ПЕРЕКЛЮЧЕНИЕ ПОМЕТОК В ПОТОК (гаттер схлопывается) ===== */
