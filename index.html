@@ -235,7 +235,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     padding:0 3px;font-weight:600;color:var(--ink);
     box-decoration-break:clone;-webkit-box-decoration-break:clone;border-radius:1px;
   }
-  .reveal.in .mark{animation:markFill .65s var(--ease-out) .25s forwards}
+  .reveal.in .mark{animation:markFill 1.1s cubic-bezier(.25,0,.35,1) .35s forwards}
   @keyframes markFill{from{background-size:0% 100%}to{background-size:100% 100%}}
   .was{color:var(--grey);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
 
@@ -487,6 +487,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   /* появление пометки (scroll-driven) */
   .js .reveal.pre .note{opacity:0;transform:translateY(10px)}
 
+  /* pin-стрелка: только для мобайла, на десктопе стрелка через CSS ::before/::after */
+  .note .pin{display:none}
+
   /* sheet-wrap — позиционный контекст для плавающего листа */
   .sheet-wrap{position:relative}
 
@@ -664,7 +667,10 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .layout,.beat-inner{max-width:680px}
   }
   @media (max-width:680px){
-    .cases{grid-template-columns:1fr}
+    /* кейсы — горизонтальный свайп */
+    .cases{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:12px;padding-bottom:14px;scrollbar-width:none}
+    .cases::-webkit-scrollbar{display:none}
+    .case{flex:0 0 85%;scroll-snap-align:start}
     .people{grid-template-columns:1fr}
     .trophies{grid-template-columns:1fr}
     .case:nth-child(odd),.case:nth-child(even){transform:none}
@@ -698,40 +704,30 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
 <!-- курсор-карандаш (десктоп) -->
 <div class="quill" aria-hidden="true">
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Грифель (тёмный кончик) -->
-    <circle cx="2.5" cy="28.5" r="1.3" fill="#3D3D3D"/>
-
-    <!-- Дерево: верхняя грань конуса -->
-    <polygon points="2.5,28.5 3,24 5,26" fill="#C8904A"/>
-    <!-- Дерево: нижняя грань конуса -->
-    <polygon points="2.5,28.5 5,26 7,28" fill="#A87038"/>
-
-    <!-- Тело карандаша: верхняя грань (светло-жёлтая) -->
-    <polygon points="3,24 20,7 22,9 5,26" fill="#FFD43B"/>
-    <!-- Тело карандаша: нижняя грань (тёмно-жёлтая — даёт объём и гранёность) -->
-    <polygon points="5,26 22,9 24,11 7,28" fill="#C4A200"/>
-
-    <!-- Рёбра граней (гексагональные канты карандаша) -->
-    <line x1="3"  y1="24" x2="20" y2="7"  stroke="#B89000" stroke-width="1.1"/>
-    <line x1="5"  y1="26" x2="22" y2="9"  stroke="#E8C400" stroke-width="1.3"/>
-    <line x1="7"  y1="28" x2="24" y2="11" stroke="#9A7400" stroke-width="1.1"/>
-    <!-- Бликовая линия на верхней грани -->
-    <line x1="3.8" y1="24.8" x2="20.8" y2="7.8" stroke="#FFF176" stroke-width="0.5" opacity="0.55"/>
-
-    <!-- Обводка силуэта тела -->
-    <polygon points="3,24 20,7 22,9 5,26" fill="none" stroke="#8A6800" stroke-width="0.5" opacity="0.6"/>
-    <polygon points="5,26 22,9 24,11 7,28" fill="none" stroke="#8A6800" stroke-width="0.5" opacity="0.6"/>
-
-    <!-- Ферула (металлическая полоска): верхняя грань -->
-    <polygon points="20,7 22,5 24,7 22,9" fill="#D0D0D0" stroke="#999" stroke-width="0.5"/>
-    <!-- Ферула: нижняя грань -->
-    <polygon points="22,9 24,7 26,9 24,11" fill="#ABABAB" stroke="#888" stroke-width="0.5"/>
-
-    <!-- Ластик: верхняя грань (розовая) -->
-    <polygon points="22,5 24,3 26,5 24,7" fill="#F4AAAA" stroke="#C08080" stroke-width="0.5"/>
-    <!-- Ластик: нижняя грань (темнее) -->
-    <polygon points="24,7 26,5 28,7 26,9" fill="#D98080" stroke="#C07070" stroke-width="0.5"/>
+  <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g transform="rotate(45 17 17)">
+      <!-- Ластик: красный округлый колпачок -->
+      <rect x="12" y="1" width="10" height="9" rx="4.5" fill="#E53935" stroke="#1a1a1a" stroke-width="1.4"/>
+      <ellipse cx="15" cy="3.5" rx="1.4" ry="1" fill="rgba(255,255,255,0.38)" transform="rotate(-15 15 3.5)"/>
+      <circle cx="15.2" cy="6.5" r="0.75" fill="rgba(0,0,0,0.22)"/>
+      <circle cx="18.2" cy="6" r="0.75" fill="rgba(0,0,0,0.22)"/>
+      <!-- Ферула: серебряные полоски -->
+      <rect x="12" y="9.5" width="10" height="5" fill="#CFD8DC" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="12.6" y1="11.3" x2="21.4" y2="11.3" stroke="#78909C" stroke-width="1.1"/>
+      <line x1="12.6" y1="13" x2="21.4" y2="13" stroke="#78909C" stroke-width="1.1"/>
+      <!-- Тело карандаша: жёлтый -->
+      <rect x="12" y="14" width="10" height="11" fill="#FFD600" stroke="#1a1a1a" stroke-width="1.3"/>
+      <!-- Боковые грани (эффект шестигранника) -->
+      <rect x="12" y="14" width="3.2" height="11" fill="#F9A825" stroke="none"/>
+      <rect x="18.8" y="14" width="3.2" height="11" fill="#E65100" opacity="0.35" stroke="none"/>
+      <line x1="15.2" y1="14.2" x2="15.2" y2="24.8" stroke="#1a1a1a" stroke-width="0.9" opacity="0.4"/>
+      <line x1="18.8" y1="14.2" x2="18.8" y2="24.8" stroke="#1a1a1a" stroke-width="0.9" opacity="0.4"/>
+      <!-- Деревянный конус (персиковый) -->
+      <polygon points="12,25 22,25 17,31" fill="#FFCCBC" stroke="#1a1a1a" stroke-width="1.3"/>
+      <line x1="17" y1="25.5" x2="17" y2="30.5" stroke="#A1887F" stroke-width="0.8" opacity="0.6"/>
+      <!-- Грифель (тёмный кончик) -->
+      <polygon points="14.8,30 19.2,30 17,33.5" fill="#37474F" stroke="#1a1a1a" stroke-width="0.9"/>
+    </g>
   </svg>
 </div>
 
@@ -1051,7 +1047,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             </div>
             <div class="field">
               <label for="f-email">Email <span style="color:var(--red)">*</span></label>
-              <input id="f-email" type="email" placeholder="you@company.ru">
+              <input id="f-email" type="email" placeholder="почта@компания.ру">
             </div>
             <div class="field">
               <label>Как удобнее связаться</label>
@@ -1150,7 +1146,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       </div>
       <div class="field">
         <label for="p-email">Email <span style="color:var(--red)">*</span></label>
-        <input id="p-email" type="email" placeholder="you@company.ru">
+        <input id="p-email" type="email" placeholder="почта@компания.ру">
       </div>
       <div class="field">
         <label>Как удобнее связаться</label>
@@ -1381,17 +1377,33 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   });
 
   /* ---- ФОРМА ---- */
-  var ph = {Telegram:'@username в Telegram', 'Телефон':'+7 (000) 000-00-00', 'Почта':'you@company.ru'};
+  var ph = {Telegram:'@username в Telegram', 'Телефон':'+7 (000) 000-00-00', 'Почта':'почта@компания.ру'};
   var contact = document.getElementById('f-contact');
   var activeMethod = 'Telegram';
+
+  function phoneFormat(val){
+    var d = val.replace(/\D/g,'');
+    if(d[0]==='8') d='7'+d.slice(1);
+    if(d[0]!=='7') d='7'+d;
+    d = d.slice(0,11);
+    var r='+7';
+    if(d.length>1) r+=' ('+d.slice(1,4);
+    if(d.length>=4) r+=') '+d.slice(4,7);
+    if(d.length>=7) r+='-'+d.slice(7,9);
+    if(d.length>=9) r+='-'+d.slice(9,11);
+    return r;
+  }
+
   document.querySelectorAll('#seg button').forEach(function(b){
     b.addEventListener('click', function(){
       document.querySelectorAll('#seg button').forEach(function(x){x.classList.remove('on');});
       b.classList.add('on');
       activeMethod = b.dataset.m;
       contact.placeholder = ph[b.dataset.m] || '';
+      contact.value = '';
     });
   });
+  contact.addEventListener('input', function(){ if(activeMethod==='Телефон') this.value = phoneFormat(this.value); });
 
   function captureUtms(){
     var p = new URLSearchParams(window.location.search);
@@ -1606,8 +1618,10 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       b.classList.add('on');
       popupMethod = b.dataset.m;
       pContactEl.placeholder = ph[b.dataset.m] || '';
+      pContactEl.value = '';
     });
   });
+  pContactEl.addEventListener('input', function(){ if(popupMethod==='Телефон') this.value = phoneFormat(this.value); });
 
   document.getElementById('p-submit').addEventListener('click', function(){
     var nameEl    = document.getElementById('p-name');
@@ -1664,78 +1678,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     });
   }
 
-  /* ====================================================================== */
-  /* ---- КУРСОР-ПЕРО (десктоп) — спрайт следует 1:1, КЛИК МГНОВЕННЫЙ ----  */
-  /* Перо позиционируется тем же кадром, что и mousemove (без догоняющего  */
-  /* кольца). Перо и чернильные капли pointer-events:none — клики/ховеры   */
-  /* идут к элементам под ними без задержки. На тач / reduced-motion —     */
-  /* обычный системный курсор (этот блок просто не выполняется).           */
-  /* ====================================================================== */
-  if(!reduce && !isTouch && window.matchMedia('(pointer:fine)').matches && window.innerWidth > 920){
-    var quill = document.querySelector('.quill');
-    document.body.classList.add('quill-on');
-    var qx = -100, qy = -100, lastDropAt = 0;
-
-    window.addEventListener('mousemove', function(e){
-      var x = e.clientX, y = e.clientY;
-      // перо — мгновенно в точку курсора (кончик пера = низ-лево спрайта смещено CSS)
-      quill.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-      var now = performance.now();
-      var dist = Math.hypot(x - qx, y - qy);
-      qx = x; qy = y;
-      if(dist > 9 && (now - lastDropAt) > 26){ lastDropAt = now; spawnDrop(x, y); }
-    }, {passive:true});
-
-    function spawnDrop(x, y){
-      var d = document.createElement('span');
-      d.className = 'ink-drop';
-      var jx = (Math.random()*6 - 3), jy = (Math.random()*6 - 3);
-      var sz = 4 + Math.random()*3.5;
-      d.style.width = sz + 'px'; d.style.height = sz + 'px';
-      d.style.transform = 'translate(' + (x+jx) + 'px,' + (y+jy) + 'px) translate(-50%,-50%) scale(1)';
-      document.body.appendChild(d);
-      requestAnimationFrame(function(){
-        d.style.transition = 'opacity .55s ease, transform .55s ease';
-        d.style.opacity = '0';
-        d.style.transform = 'translate(' + (x+jx) + 'px,' + (y+jy+6) + 'px) translate(-50%,-50%) scale(.35)';
-      });
-      setTimeout(function(){ if(d.parentNode) d.parentNode.removeChild(d); }, 620);
-    }
-
-    // визуальная подсветка пера над интерактивом (клики не трогаем)
-    document.querySelectorAll('a,button,[data-cursor],.case,.faq-q,input,textarea').forEach(function(el){
-      el.addEventListener('mouseenter', function(){ document.body.classList.add('quill-hot'); });
-      el.addEventListener('mouseleave', function(){ document.body.classList.remove('quill-hot'); });
-    });
-
-    document.addEventListener('mouseleave', function(){ quill.style.opacity = '0'; });
-    document.addEventListener('mouseenter', function(){ quill.style.opacity = ''; });
-
-    /* ---- CANVAS: рисование карандашом при зажатой мышке ---- */
-    var drawCanvas = document.createElement('canvas');
-    drawCanvas.style.cssText = 'position:fixed;top:0;left:0;z-index:198;pointer-events:none';
-    document.body.appendChild(drawCanvas);
-    var dctx = drawCanvas.getContext('2d');
-    var drawing = false, dlx = 0, dly = 0;
-    function resizeDraw(){ drawCanvas.width = window.innerWidth; drawCanvas.height = window.innerHeight; }
-    resizeDraw();
-    window.addEventListener('resize', resizeDraw, {passive:true});
-    window.addEventListener('mousedown', function(e){ drawing = true; dlx = e.clientX; dly = e.clientY; }, {passive:true});
-    window.addEventListener('mousemove', function(e){
-      if(!drawing) return;
-      dctx.beginPath();
-      dctx.moveTo(dlx, dly);
-      dctx.lineTo(e.clientX, e.clientY);
-      dctx.strokeStyle = 'rgba(40,28,12,.78)';
-      dctx.lineWidth = 2.4;
-      dctx.lineCap = 'round';
-      dctx.lineJoin = 'round';
-      dctx.stroke();
-      dlx = e.clientX; dly = e.clientY;
-    }, {passive:true});
-    window.addEventListener('mouseup', function(){ drawing = false; });
-    window.addEventListener('dblclick', function(){ dctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height); });
-  }
+  /* карандаш-курсор убран — используется обычный системный курсор */
 
   /* ---- LOTTIE: фоновая анимация в hero ---- */
   if(typeof lottie !== 'undefined' && !reduce){
