@@ -1554,6 +1554,31 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
     document.addEventListener('mouseleave', function(){ quill.style.opacity = '0'; });
     document.addEventListener('mouseenter', function(){ quill.style.opacity = ''; });
+
+    /* ---- CANVAS: рисование карандашом при зажатой мышке ---- */
+    var drawCanvas = document.createElement('canvas');
+    drawCanvas.style.cssText = 'position:fixed;top:0;left:0;z-index:198;pointer-events:none';
+    document.body.appendChild(drawCanvas);
+    var dctx = drawCanvas.getContext('2d');
+    var drawing = false, dlx = 0, dly = 0;
+    function resizeDraw(){ drawCanvas.width = window.innerWidth; drawCanvas.height = window.innerHeight; }
+    resizeDraw();
+    window.addEventListener('resize', resizeDraw, {passive:true});
+    window.addEventListener('mousedown', function(e){ drawing = true; dlx = e.clientX; dly = e.clientY; }, {passive:true});
+    window.addEventListener('mousemove', function(e){
+      if(!drawing) return;
+      dctx.beginPath();
+      dctx.moveTo(dlx, dly);
+      dctx.lineTo(e.clientX, e.clientY);
+      dctx.strokeStyle = 'rgba(40,28,12,.78)';
+      dctx.lineWidth = 2.4;
+      dctx.lineCap = 'round';
+      dctx.lineJoin = 'round';
+      dctx.stroke();
+      dlx = e.clientX; dly = e.clientY;
+    }, {passive:true});
+    window.addEventListener('mouseup', function(){ drawing = false; });
+    window.addEventListener('dblclick', function(){ dctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height); });
   }
 
   /* ---- LOTTIE: фоновая анимация в hero ---- */
