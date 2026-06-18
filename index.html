@@ -477,11 +477,11 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   }
   .note small{display:block;font-size:18px;font-weight:500;opacity:.92;margin-top:1px}
   /* в правый гаттер — отступ считаем от col-pad, чтобы заметка не вылезала за красную линию */
-  .note.right{left:calc(100% + var(--col-pad) + 24px);text-align:left}
+  .note.right{left:calc(100% + var(--col-pad) + 36px);text-align:left}
   .note.right::before{content:"";position:absolute;left:-20px;top:11px;width:8px;height:2px;background:var(--red);opacity:.55}
   .note.right::after{content:"";position:absolute;left:-14px;top:6px;width:8px;height:8px;border-top:2px solid var(--red);border-right:2px solid var(--red);transform:rotate(45deg);opacity:.55}
   /* в левый гаттер */
-  .note.left{right:calc(100% + var(--col-pad) + 24px);text-align:right}
+  .note.left{right:calc(100% + var(--col-pad) + 36px);text-align:right}
   .note.left::before{content:"";position:absolute;right:-20px;top:11px;width:8px;height:2px;background:var(--red);opacity:.55}
   .note.left::after{content:"";position:absolute;right:-14px;top:6px;width:8px;height:8px;border-top:2px solid var(--red);border-left:2px solid var(--red);transform:rotate(-45deg);opacity:.55}
   /* стрелки заметок скрыты пока секция не открылась */
