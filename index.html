@@ -746,7 +746,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       <a href="#contact" data-cursor="написать">Контакты</a>
       <a href="#" class="nav-lm" id="navLM" data-cursor="проверить">Продаст или нет</a>
     </nav>
-    <a href="#contact" class="btn-head" data-cta data-cursor="обсудить">Обсудить задачу</a>
+    <a href="#" class="btn-head" id="btnHead" data-cursor="обсудить">Обсудить задачу</a>
     <button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -1133,6 +1133,48 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       <p class="edits-title">3 правки «было → стало»</p>
       <ul class="edits" id="edits"></ul>
       <div class="vfoot">Это упрощённое демо. Полный разбор с правками под вашу нишу делает живая редакция — <a href="#contact" id="vfootLink">обсудить задачу →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ПОПАП "ОБСУДИТЬ ЗАДАЧУ" (шапка) ============ -->
+<div class="lm-backdrop" id="contactBackdrop" aria-hidden="true">
+  <div class="lm-panel" role="dialog" aria-modal="true" aria-label="Обсудить задачу">
+    <div class="lm-kicker">Старт · оставьте заявку</div>
+    <h3>Обсудить задачу</h3>
+    <p class="lm-sub">Вернёмся в течение рабочего дня, посмотрим вашу нишу и предложим, в каких каналах статья принесёт заявки.</p>
+    <form class="form-grid" id="popupForm" onsubmit="return false" style="margin-top:4px">
+      <div class="field">
+        <label for="p-name">Имя <span style="color:var(--red)">*</span></label>
+        <input id="p-name" type="text" placeholder="Как к вам обращаться">
+      </div>
+      <div class="field">
+        <label for="p-email">Email <span style="color:var(--red)">*</span></label>
+        <input id="p-email" type="email" placeholder="you@company.ru">
+      </div>
+      <div class="field">
+        <label>Как удобнее связаться</label>
+        <div class="seg" id="p-seg">
+          <button type="button" class="on" data-m="Telegram">Telegram</button>
+          <button type="button" data-m="Телефон">Телефон</button>
+          <button type="button" data-m="Почта">Почта</button>
+        </div>
+        <input id="p-contact" type="text" placeholder="@username в Telegram">
+      </div>
+      <div class="field">
+        <label for="p-task">О задаче <span class="opt">(необязательно)</span></label>
+        <textarea id="p-task" placeholder="Пара слов о продукте — остальное спросим сами"></textarea>
+      </div>
+      <div class="form-check-row">
+        <input type="checkbox" id="p-consent">
+        <label for="p-consent">Нажимая «Обсудить задачу», я соглашаюсь с <a href="https://www.media-sfera.com/agreement/" target="_blank" rel="noopener">политикой обработки персональных данных</a> <span style="color:var(--red)">*</span></label>
+      </div>
+      <button class="btn-primary" style="text-align:center" id="p-submit" type="button">Обсудить задачу</button>
+      <div class="microcopy">Вернёмся в течение рабочего дня. Без рассылок и звонков.</div>
+      <div class="form-sent" id="popupSent">Спасибо! Мы получили заявку и вернёмся в течение рабочего дня.</div>
+    </form>
+    <div class="lm-actions" style="margin-top:0;justify-content:flex-end">
+      <button class="lm-close" id="contactClose" type="button">Закрыть</button>
     </div>
   </div>
 </div>
@@ -1533,6 +1575,78 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     else if(n < 12){ lmHintEl.textContent = 'Ещё чуть-чуть — и можно проверять…'; }
     else if(n < 120){ lmHintEl.textContent = 'Достаточно. Нажмите «Проверить текст» →'; }
     else { lmHintEl.textContent = n + ' символов — разберём по полной.'; }
+  });
+
+  /* ---- ПОПАП "ОБСУДИТЬ ЗАДАЧУ" (шапка) ---- */
+  var contactBackdrop = document.getElementById('contactBackdrop');
+  var pContactEl = document.getElementById('p-contact');
+  var popupMethod = 'Telegram';
+
+  function openContact(){
+    contactBackdrop.classList.add('open');
+    contactBackdrop.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ var n = document.getElementById('p-name'); if(n) n.focus(); }, 60);
+  }
+  function closeContact(){
+    contactBackdrop.classList.remove('open');
+    contactBackdrop.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  var btnHead = document.getElementById('btnHead');
+  if(btnHead){ btnHead.addEventListener('click', function(e){ e.preventDefault(); openContact(); }); }
+  document.getElementById('contactClose').addEventListener('click', closeContact);
+  contactBackdrop.addEventListener('click', function(e){ if(e.target===contactBackdrop) closeContact(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && contactBackdrop.classList.contains('open')) closeContact(); });
+
+  document.querySelectorAll('#p-seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#p-seg button').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      popupMethod = b.dataset.m;
+      pContactEl.placeholder = ph[b.dataset.m] || '';
+    });
+  });
+
+  document.getElementById('p-submit').addEventListener('click', function(){
+    var nameEl    = document.getElementById('p-name');
+    var emailEl   = document.getElementById('p-email');
+    var consentEl = document.getElementById('p-consent');
+    var submitBtn = this;
+    [nameEl, emailEl, pContactEl].forEach(function(el){ el.classList.remove('field-err'); });
+    var valid = true;
+    if(!nameEl.value.trim()){ nameEl.classList.add('field-err'); nameEl.focus(); valid = false; }
+    if(!emailEl.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())){
+      emailEl.classList.add('field-err'); if(valid) emailEl.focus(); valid = false;
+    }
+    if(!consentEl.checked){ if(valid) consentEl.focus(); valid = false; }
+    if(!valid) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправляем…';
+    var cType = popupMethod==='Telegram' ? 'telegram' : popupMethod==='Телефон' ? 'phone' : 'email_contact';
+    fetch('submit.php', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: nameEl.value.trim(), email: emailEl.value.trim(),
+        contactType: cType, contactValue: pContactEl.value.trim(),
+        task: (document.getElementById('p-task')||{}).value || '',
+        consent: true, utms: captureUtms()
+      })
+    })
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(){
+      document.getElementById('popupSent').classList.add('show');
+      if(typeof ym==='function') ym(57355,'reachGoal','form_rr_send');
+      submitBtn.textContent = 'Заявка отправлена';
+      submitBtn.style.background = 'var(--green)';
+      setTimeout(closeContact, 2800);
+    })
+    .catch(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Ошибка — попробуйте ещё раз';
+      setTimeout(function(){ submitBtn.textContent = 'Обсудить задачу'; }, 3000);
+    });
   });
 
   /* ---- МАГНИТНАЯ КНОПКА ---- */
