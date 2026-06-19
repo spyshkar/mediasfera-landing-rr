@@ -387,7 +387,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .case-sub b{color:var(--ink);font-weight:600}
   .case .case-link{display:inline-block;margin-top:11px;font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--red);text-decoration:none;border-bottom:1px solid rgba(227,6,19,.4);padding-bottom:1px}
   .case .case-link:hover{color:var(--red-dark)}
-  .case .stamp{position:absolute;top:12px;right:12px;font-family:var(--hand);font-weight:700;color:var(--green);font-size:17px;border:2px solid var(--green);border-radius:7px;padding:0 8px;line-height:1.4;opacity:0;transform:rotate(7deg) scale(2.4)}
+  .case .stamp{position:absolute;top:12px;right:12px;font-family:var(--hand);font-weight:700;color:#1a5fb0;font-size:17px;border:2px solid #1a5fb0;border-radius:7px;padding:0 8px;line-height:1.4;opacity:0;transform:rotate(7deg) scale(2.4)}
   .cases.reveal.in .case:nth-child(1) .stamp{animation:stampPress .42s var(--ease-spring) .65s both}
   .cases.reveal.in .case:nth-child(2) .stamp{animation:stampPress .42s var(--ease-spring) .84s both}
   .cases.reveal.in .case:nth-child(3) .stamp{animation:stampPress .42s var(--ease-spring) 1.02s both}
@@ -659,6 +659,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .note.blue .pin{color:#1a5fb0}
     /* trust-ноты на мобайле убираем — они добавляют ~80px к герою и выталкивают CTA за экран */
     .trust-notes{display:none}
+    /* ! на Масштабе — только десктоп */
+    .flow-step-scale .note{display:none}
   }
   @media (max-width:920px){
     .topbar-inner{padding:12px 16px;gap:12px}
@@ -864,7 +866,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             </div>
             <div class="flow-step"><span class="num">4</span><h4>Тесты</h4><p>Заголовки и обложки гоняем, пока не найдём рабочую связку.</p></div>
             <div class="flow-step"><span class="num">5</span><h4>Аналитика</h4><p>Дашборд: дочитывания, переходы, цена заявки, ROMI — цифры, не «всё хорошо».</p></div>
-            <div class="flow-step"><span class="num">6</span><h4>Масштаб</h4><p>Рабочие связки усиливаем, тёплых догоняем ретаргетингом.</p></div>
+            <div class="flow-step has-note flow-step-scale"><span class="num">6</span><h4>Масштаб</h4><p>Рабочие связки усиливаем, тёплых догоняем ретаргетингом.</p><span class="note right blue" style="font-size:36px;line-height:1">!</span></div>
           </div>
 
           <div class="cta-row nomb">
@@ -900,7 +902,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             Где продвигаем: ПромоСтраницы, Дзен, СМИ — <span class="mark">до денег</span>
             <span class="note right"><span class="pin">←</span>считаем до денег<small>не «50 статей», а что они принесли</small></span>
           </h2>
-          <p class="subhead">Основной канал — <b>Яндекс ПромоСтраницы</b>: статья находит покупателя внутри экосистемы Яндекса. Плюс Дзен, СМИ и блоги. Не «написали много статей», а что эти статьи принесли. Каждую цифру можно проверить.</p>
+          <p class="subhead has-note">Основной канал — <b>Яндекс ПромоСтраницы</b>: статья находит покупателя внутри экосистемы Яндекса. Плюс Дзен, СМИ и блоги.<span class="note left blue"><span class="pin">←</span>Не «написали много статей»<small>а что эти статьи принесли. Каждую цифру можно проверить.</small></span></p>
 
           <div class="cases reveal pre">
             <div class="case">
