@@ -659,8 +659,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .note.blue .pin{color:#1a5fb0}
     /* trust-ноты на мобайле убираем — они добавляют ~80px к герою и выталкивают CTA за экран */
     .trust-notes{display:none}
-    /* ! на Масштабе — только десктоп */
-    .flow-step-scale .note{display:none}
+    /* !!! на Масштабе — на мобайле показываем в стандартном красном стиле */
+    .flow-step-scale .note.blue{border-left-color:var(--red);background:linear-gradient(90deg,rgba(255,230,128,.28),rgba(255,230,128,0))}
+    .flow-step-scale .note.blue .pin{color:var(--red)}
   }
   @media (max-width:920px){
     .topbar-inner{padding:12px 16px;gap:12px}
@@ -866,7 +867,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             </div>
             <div class="flow-step"><span class="num">4</span><h4>Тесты</h4><p>Заголовки и обложки гоняем, пока не найдём рабочую связку.</p></div>
             <div class="flow-step"><span class="num">5</span><h4>Аналитика</h4><p>Дашборд: дочитывания, переходы, цена заявки, ROMI — цифры, не «всё хорошо».</p></div>
-            <div class="flow-step has-note flow-step-scale"><span class="num">6</span><h4>Масштаб</h4><p>Рабочие связки усиливаем, тёплых догоняем ретаргетингом.</p><span class="note right blue" style="font-size:36px;line-height:1">!</span></div>
+            <div class="flow-step has-note flow-step-scale"><span class="num">6</span><h4>Масштаб</h4><p>Рабочие связки усиливаем, тёплых догоняем ретаргетингом.</p><span class="note right blue" style="font-size:36px;line-height:1">!!!</span></div>
           </div>
 
           <div class="cta-row nomb">
