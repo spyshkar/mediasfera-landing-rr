@@ -709,6 +709,31 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .magnetic{width:100%}
     .beat-cta .btn-primary{width:auto}
   }
+
+  /* ============ BOOKMARKS (фиксированные закладки) ============ */
+  .bookmarks{position:fixed;right:0;top:50%;transform:translateY(-60%);z-index:55;display:flex;flex-direction:column;gap:10px}
+  .bookmark{
+    display:flex;align-items:center;justify-content:center;
+    width:46px;height:54px;
+    border-radius:8px 0 0 8px;
+    text-decoration:none;
+    font-family:var(--hand);font-size:30px;font-weight:700;line-height:1;
+    box-shadow:-3px 2px 12px rgba(0,0,0,.18);
+    position:relative;
+    transition:transform .22s var(--ease-out),box-shadow .22s var(--ease-out);
+  }
+  .bookmark::after{
+    content:"";position:absolute;bottom:-10px;left:0;
+    width:0;height:0;
+    border-left:23px solid transparent;
+    border-right:23px solid transparent;
+  }
+  .bookmark:hover{transform:translateX(-6px);box-shadow:-5px 4px 18px rgba(0,0,0,.26)}
+  .bookmark-blue{background:#1a5fb0;color:#fff}
+  .bookmark-blue::after{border-top:10px solid #1a5fb0}
+  .bookmark-yellow{background:var(--marker);color:var(--ink)}
+  .bookmark-yellow::after{border-top:10px solid var(--marker)}
+  @media(max-width:920px){.bookmarks{display:none}}
 </style>
 </head>
 <body>
@@ -967,7 +992,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             Пишет не биржа. Пишет <span class="mark">редакция</span>
             <span class="note left"><span class="pin">↓</span>не биржа<small>штатная редакция полного цикла</small></span>
           </h2>
-          <p class="subhead">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>. Все сертифицированы Яндексом по ПромоСтраницам.</p>
+          <p class="subhead has-note">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>.<span class="note left blue"><span class="pin">←</span>Все сертифицированы Яндексом<small>по ПромоСтраницам</small></span></p>
 
           <div class="people">
             <div class="person"><div class="ava">ТУ</div><div><div class="pname">Тимур Угулава</div><div class="prole">Совладелец, официальный эксперт Яндекс Рекламы по ПромоСтраницам</div></div></div>
@@ -1700,5 +1725,11 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   }
 })();
 </script>
+
+<nav class="bookmarks" aria-label="Быстрые якоря">
+  <a class="bookmark bookmark-blue" href="#how" title="Хороший текст не продаёт. Продаёт система">!</a>
+  <a class="bookmark bookmark-yellow" href="#team" title="Нас рекомендует сам Яндекс">✓</a>
+</nav>
+
 </body>
 </html>
