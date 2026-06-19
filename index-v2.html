@@ -484,10 +484,6 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .note.left{right:calc(100% + var(--col-pad) + 36px);text-align:right}
   .note.left::before{content:"";position:absolute;right:-20px;top:11px;width:8px;height:2px;background:var(--red);opacity:.55}
   .note.left::after{content:"";position:absolute;right:-14px;top:6px;width:8px;height:8px;border-top:2px solid var(--red);border-left:2px solid var(--red);transform:rotate(-45deg);opacity:.55}
-  /* овал-аннотация */
-  .note.oval{border:2px solid rgba(191,26,26,.52);border-radius:52% 48% 55% 45% / 42% 55% 48% 58%;padding:10px 18px 10px 14px;background:rgba(255,255,255,.92);box-sizing:border-box}
-  .note.left.oval::before{top:19px}
-  .note.left.oval::after{top:14px}
   /* стрелки заметок скрыты пока секция не открылась */
   .js .reveal.pre .note::before,.js .reveal.pre .note::after{opacity:0}
   /* появление пометки (scroll-driven) */
@@ -794,7 +790,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           <!-- HERO «СЮЖЕТ»: кинетическая редактура (короткий вариант) -->
           <div class="story" id="story" aria-hidden="true">
             <div class="has-note" style="height:0">
-              <span class="note left oval" aria-hidden="false"><span class="pin">←</span>Пишем статьи<br>для<br>Яндекс ПромоСтраниц, Дзена, СМИ и блогов<small>и ведём до результата: дочитывания → переходы → заявки → продажи.</small></span>
+              <span class="note left" aria-hidden="false"><span class="pin">←</span>Пишем статьи<br>для<br>Яндекс ПромоСтраниц, Дзена, СМИ и блогов<small>и ведём до результата: дочитывания → переходы → заявки → продажи.</small></span>
             </div>
             <p class="story-draft" id="storyDraft"></p>
             <p class="story-clean" id="storyClean">
