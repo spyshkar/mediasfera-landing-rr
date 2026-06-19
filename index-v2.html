@@ -710,26 +710,37 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .beat-cta .btn-primary{width:auto}
   }
 
-  /* ============ BOOKMARKS (фиксированные закладки) ============ */
-  /* z-index:95 — выше lm-tab (90); top:68% — ниже lm-tab (42%) чтобы не слипаться */
+  /* ============ BOOKMARKS (выдвижные закладки) ============ */
   .bookmarks{position:fixed;right:0;top:68%;transform:translateY(-50%);z-index:95;display:flex;flex-direction:column;gap:24px}
   .bookmark{
-    display:flex;align-items:center;justify-content:center;
-    width:46px;height:54px;
+    display:flex;align-items:center;
+    width:182px;height:54px;
     border-radius:8px 0 0 8px;
     text-decoration:none;
-    font-family:var(--hand);font-size:30px;font-weight:700;line-height:1;
     box-shadow:-3px 2px 12px rgba(0,0,0,.18);
     position:relative;
-    transition:transform .22s var(--ease-out),box-shadow .22s var(--ease-out);
+    transform:translateX(136px); /* прячем подпись, видна только иконка (46px) */
+    transition:transform .34s var(--ease-out),box-shadow .22s ease;
+  }
+  .bookmark:hover{transform:translateX(0);box-shadow:-6px 4px 20px rgba(0,0,0,.28)}
+  .bm-label{
+    flex:1;padding:0 6px 0 14px;
+    font-family:var(--sans);font-size:12px;font-weight:600;line-height:1.35;
+    white-space:nowrap;
+    opacity:0;transition:opacity .15s ease;
+  }
+  .bookmark:hover .bm-label{opacity:1;transition-delay:.14s}
+  .bm-icon{
+    flex:0 0 46px;height:100%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--hand);font-size:26px;font-weight:700;
   }
   .bookmark::after{
-    content:"";position:absolute;bottom:-10px;left:0;
+    content:"";position:absolute;bottom:-10px;right:0;
     width:0;height:0;
     border-left:23px solid transparent;
     border-right:23px solid transparent;
   }
-  .bookmark:hover{transform:translateX(-6px);box-shadow:-5px 4px 18px rgba(0,0,0,.26)}
   .bookmark-blue{background:#1a5fb0;color:#fff}
   .bookmark-blue::after{border-top:10px solid #1a5fb0}
   .bookmark-yellow{background:var(--marker);color:var(--ink)}
@@ -1728,8 +1739,14 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 </script>
 
 <nav class="bookmarks" aria-label="Быстрые якоря">
-  <a class="bookmark bookmark-blue" href="#analytics" title="Аналитика — реальный дашборд">!</a>
-  <a class="bookmark bookmark-yellow" href="#team" title="Нас рекомендует сам Яндекс">✓</a>
+  <a class="bookmark bookmark-blue" href="#analytics">
+    <span class="bm-label">Реальный дашборд</span>
+    <span class="bm-icon">!</span>
+  </a>
+  <a class="bookmark bookmark-yellow" href="#team">
+    <span class="bm-label">Нас рекомендует Яндекс</span>
+    <span class="bm-icon">✓</span>
+  </a>
 </nav>
 
 </body>
