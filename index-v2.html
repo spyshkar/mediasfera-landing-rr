@@ -721,14 +721,14 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     overflow:hidden;
     transition:max-width .34s var(--ease-out),box-shadow .22s ease;
   }
-  .bookmark.bm-open{max-width:182px;box-shadow:-6px 4px 20px rgba(0,0,0,.28)}
+  .bookmark:hover{max-width:182px;box-shadow:-6px 4px 20px rgba(0,0,0,.28)}
   .bm-label{
     flex:0 0 136px;padding:0 6px 0 14px;
     font-family:var(--sans);font-size:12px;font-weight:600;line-height:1.35;
     white-space:nowrap;
     opacity:0;transition:opacity .15s ease;
   }
-  .bookmark.bm-open .bm-label{opacity:1;transition-delay:.18s}
+  .bookmark:hover .bm-label{opacity:1;transition-delay:.18s}
   .bm-icon{
     flex:0 0 46px;height:100%;
     display:flex;align-items:center;justify-content:center;
@@ -1739,12 +1739,6 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     <span class="bm-label">Нас рекомендует Яндекс</span>
   </a>
 </nav>
-<script>
-document.querySelectorAll('.bookmark').forEach(function(bm){
-  bm.addEventListener('mouseenter',function(){bm.classList.add('bm-open')});
-  bm.addEventListener('mouseleave',function(){bm.classList.remove('bm-open')});
-});
-</script>
 
 </body>
 </html>
