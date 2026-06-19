@@ -711,8 +711,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   }
 
   /* ============ BOOKMARKS (выдвижные закладки) ============ */
-  .bookmarks{position:fixed;right:0;top:68%;transform:translateY(-50%);z-index:95;display:flex;flex-direction:column;gap:24px}
   .bookmark{
+    position:fixed;right:0;z-index:95;
     display:flex;align-items:center;flex-direction:row-reverse;
     width:182px;max-width:46px;height:54px;
     border-radius:8px 0 0 8px;
@@ -724,7 +724,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .bookmark:hover{max-width:182px;box-shadow:-6px 4px 20px rgba(0,0,0,.28)}
   .bm-label{
     flex:0 0 136px;padding:0 6px 0 14px;
-    font-family:var(--sans);font-size:12px;font-weight:600;line-height:1.35;
+    font-family:var(--sans);font-size:13px;font-weight:600;line-height:1.35;
     white-space:nowrap;
     opacity:0;transition:opacity .15s ease;
   }
@@ -734,9 +734,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     display:flex;align-items:center;justify-content:center;
     font-family:var(--hand);font-size:26px;font-weight:700;
   }
-  .bookmark-blue{background:#1a5fb0;color:#fff}
-  .bookmark-yellow{background:var(--marker);color:var(--ink)}
-  @media(max-width:920px){.bookmarks{display:none}}
+  .bookmark-blue{top:60%;background:#1a5fb0;color:#fff}
+  .bookmark-yellow{top:72%;background:var(--marker);color:var(--ink)}
+  @media(max-width:920px){.bookmark{display:none}}
 </style>
 </head>
 <body>
@@ -1736,7 +1736,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   </a>
   <a class="bookmark bookmark-yellow" href="#team">
     <span class="bm-icon">✓</span>
-    <span class="bm-label">Нас рекомендует Яндекс</span>
+    <span class="bm-label">Рекомендует Яндекс</span>
   </a>
 </nav>
 
