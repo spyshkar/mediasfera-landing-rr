@@ -484,6 +484,10 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .note.left{right:calc(100% + var(--col-pad) + 36px);text-align:right}
   .note.left::before{content:"";position:absolute;right:-20px;top:11px;width:8px;height:2px;background:var(--red);opacity:.55}
   .note.left::after{content:"";position:absolute;right:-14px;top:6px;width:8px;height:8px;border-top:2px solid var(--red);border-left:2px solid var(--red);transform:rotate(-45deg);opacity:.55}
+  /* синяя заметка — «написано ручкой» */
+  .note.blue{color:#1a5fb0}
+  .note.blue::before{background:#1a5fb0}
+  .note.blue::after{border-color:#1a5fb0}
   /* стрелки заметок скрыты пока секция не открылась */
   .js .reveal.pre .note::before,.js .reveal.pre .note::after{opacity:0}
   /* появление пометки (scroll-driven) */
@@ -651,6 +655,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .note::before,.note::after{display:none}
     .note.left,.note.right{text-align:left;left:auto;right:auto}
     .note .pin{display:inline-block;margin-right:6px;color:var(--red);font-weight:700}
+    .note.blue{border-left-color:#1a5fb0;background:linear-gradient(90deg,rgba(26,95,176,.12),rgba(26,95,176,0))}
+    .note.blue .pin{color:#1a5fb0}
   }
   @media (max-width:920px){
     .topbar-inner{padding:12px 16px;gap:12px}
@@ -818,10 +824,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             </button>
           </div>
 
-          <div class="trust">
-            <span>сертифицированный партнёр <b>Яндекса</b></span>
-            <span>официальный <b>эксперт</b> Яндекс Рекламы</span>
-            <span>победитель <b>Silver Mercury 2024</b></span>
+          <div class="has-note" style="padding-top:16px;border-top:1px solid rgba(27,27,29,.10)">
+            <span class="note left blue"><span class="pin">←</span>сертифицированный партнёр Яндекса<small>официальный эксперт Яндекс Рекламы</small></span>
+            <span class="note right blue"><span class="pin">→</span>победитель Silver Mercury 2024</span>
           </div>
         </div>
       </article>
