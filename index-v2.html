@@ -633,6 +633,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
   /* ===== ПЕРЕКЛЮЧЕНИЕ ПОМЕТОК В ПОТОК (гаттер схлопывается) ===== */
   @media (max-width:920px){
+    /* hero-заметки на мобайле скрыты — в гаттер не влезают, в поток не нужны */
+    .story .note{display:none}
     .sheet{grid-template-columns:1fr;transform:none !important}
     .sheet-wrap{animation:none !important}
     .layout{perspective:none}
@@ -790,7 +792,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           <!-- HERO «СЮЖЕТ»: кинетическая редактура (короткий вариант) -->
           <div class="story" id="story" aria-hidden="true">
             <div class="has-note" style="height:0">
-              <span class="note left" aria-hidden="false"><span class="pin">←</span>Пишем статьи<br>для<br>Яндекс ПромоСтраниц, Дзена, СМИ и блогов<small>и ведём до результата: дочитывания → переходы → заявки → продажи.</small></span>
+              <span class="note left" aria-hidden="false"><span class="pin">←</span>Пишем статьи<br>для<br>Яндекс ПромоСтраниц, Дзена, СМИ и блогов</span>
             </div>
             <p class="story-draft" id="storyDraft"></p>
             <p class="story-clean" id="storyClean">
