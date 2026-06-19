@@ -711,7 +711,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   }
 
   /* ============ BOOKMARKS (фиксированные закладки) ============ */
-  .bookmarks{position:fixed;right:0;top:50%;transform:translateY(-60%);z-index:55;display:flex;flex-direction:column;gap:10px}
+  /* z-index:95 — выше lm-tab (90); top:68% — ниже lm-tab (42%) чтобы не слипаться */
+  .bookmarks{position:fixed;right:0;top:68%;transform:translateY(-50%);z-index:95;display:flex;flex-direction:column;gap:24px}
   .bookmark{
     display:flex;align-items:center;justify-content:center;
     width:46px;height:54px;
