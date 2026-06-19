@@ -713,7 +713,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   /* ============ BOOKMARKS (выдвижные закладки) ============ */
   .bookmarks{position:fixed;right:0;top:68%;transform:translateY(-50%);z-index:95;display:flex;flex-direction:column;gap:24px}
   .bookmark{
-    display:flex;align-items:center;
+    display:flex;align-items:center;flex-direction:row-reverse;
     width:182px;max-width:46px;height:54px;
     border-radius:8px 0 0 8px;
     text-decoration:none;
@@ -1731,12 +1731,12 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
 <nav class="bookmarks" aria-label="Быстрые якоря">
   <a class="bookmark bookmark-blue" href="#analytics">
-    <span class="bm-label">Реальный дашборд</span>
     <span class="bm-icon">!</span>
+    <span class="bm-label">Реальный дашборд</span>
   </a>
   <a class="bookmark bookmark-yellow" href="#team">
-    <span class="bm-label">Нас рекомендует Яндекс</span>
     <span class="bm-icon">✓</span>
+    <span class="bm-label">Нас рекомендует Яндекс</span>
   </a>
 </nav>
 <script>
