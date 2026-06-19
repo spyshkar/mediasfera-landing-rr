@@ -633,8 +633,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
   /* ===== ПЕРЕКЛЮЧЕНИЕ ПОМЕТОК В ПОТОК (гаттер схлопывается) ===== */
   @media (max-width:920px){
-    /* hero-заметки на мобайле скрыты — в гаттер не влезают, в поток не нужны */
-    .story .note{display:none}
+    /* hero: anchor-div раскрываем, правая заметка занимает всю строку */
+    .story > .has-note{height:auto !important}
+    .story-stamps .note{width:100%;flex:0 0 100%}
     .sheet{grid-template-columns:1fr;transform:none !important}
     .sheet-wrap{animation:none !important}
     .layout{perspective:none}
