@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Медиасфера — контент, который продаёт</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<!-- Lottie player (diffusionstudio/lottie) -->
+<script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+<!-- Яндекс.Метрика -->
+<script type="text/javascript">
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/57355" style="position:absolute;left:-9999px;" alt="" /></div></noscript>
+<style>
+  :root{
+    --bg:#f3efe7;            /* воздушный off-white фон за листом */
+    --bg-2:#ece6da;          /* мягкий край-градиент */
+    --sheet:#ffffff;
+    --ink:#1b1b1d;
+    --ink-soft:#36363a;
+    --grey:#6c6c70;
+    --red:#E30613;
+    --red-dark:#bd0005;
+    --marker:#ffe680;        /* жёлтый маркер */
+    --green:#1f9d52;
+    --line:rgba(27,27,29,.10);
+    --serif:'Lora',Georgia,'Times New Roman',serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --hand:'Caveat',cursive;
+
+    /* геометрия листа: текстовая колонка УЖЕ листа, по бокам — гаттеры под пометки */
+    --sheet-max:1180px;      /* весь лист, включая гаттеры */
+    --gutter:230px;          /* зарезервированное поле под пометку */
+    --col-pad:64px;          /* внутренний отступ текстовой колонки */
+
+    --ease-out:cubic-bezier(.16,1,.3,1);
+    --ease-spring:cubic-bezier(.2,1.25,.4,1);
+    --ease-soft:cubic-bezier(.4,0,.2,1);
+    --ease-paper:cubic-bezier(.22,.61,.36,1);
+    --ease-cine:cubic-bezier(.19,1,.22,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  html{overflow-x:clip}
+  body{
+    font-family:var(--sans);color:var(--ink);line-height:1.55;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:clip;max-width:100%;
+    background:
+      radial-gradient(130% 90% at 50% -12%, #fbf9f5 0%, var(--bg) 46%, var(--bg-2) 100%);
+    background-attachment:fixed;
+  }
+  /* почти невидимая бумажная текстура за листом */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.4;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+  /* мягкие красные «облака» за листом для воздуха (parallax-слой B) */
+  .bg-blobs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .bg-blobs i{position:absolute;display:block;border-radius:50%;filter:blur(60px);opacity:.10}
+  .bg-blobs i:nth-child(1){width:520px;height:520px;background:var(--red);top:-160px;left:-140px}
+  .bg-blobs i:nth-child(2){width:440px;height:440px;background:#ffd23a;bottom:-180px;right:-120px;opacity:.14}
+  .bg-blobs i:nth-child(3){width:360px;height:360px;background:var(--red);top:48%;right:-160px;opacity:.07}
+
+  ::selection{background:var(--marker);color:var(--ink)}
+
+  /* ============ HEADER ============ */
+  header.topbar{
+    position:sticky;top:0;z-index:60;
+    background:rgba(243,239,231,.78);
+    backdrop-filter:saturate(180%) blur(16px);
+    -webkit-backdrop-filter:saturate(180%) blur(16px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:1240px;margin:0 auto;padding:13px 34px;
+    display:flex;align-items:center;justify-content:space-between;gap:22px;
+  }
+  .logo{
+    text-decoration:none;user-select:none;white-space:nowrap;
+    display:inline-flex;align-items:center;
+    font-family:var(--sans);font-weight:800;font-size:22px;letter-spacing:-.025em;color:var(--ink);gap:9px;
+  }
+  .logo-img{height:34px;width:auto;display:block}
+  .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(227,6,19,.4);animation:pulseDot 2.6s ease-in-out infinite}
+  @keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(227,6,19,.4)}50%{box-shadow:0 0 0 6px rgba(227,6,19,0)}}
+  nav.mainnav{display:flex;align-items:center;gap:26px}
+  nav.mainnav a{
+    font-size:14.5px;font-weight:500;color:var(--ink);text-decoration:none;
+    opacity:.82;transition:opacity .18s ease;position:relative;
+  }
+  nav.mainnav a::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:2px;background:var(--red);transition:right .3s var(--ease-out)}
+  nav.mainnav a:hover{opacity:1}
+  nav.mainnav a:hover::after{right:0}
+  /* пункт-лид-магнит в шапке — выделен красным акцентом */
+  nav.mainnav a.nav-lm{color:var(--red);font-weight:600;opacity:1;display:inline-flex;align-items:center;gap:6px}
+  nav.mainnav a.nav-lm::before{content:"✦";font-size:11px}
+  .btn-head{
+    font-family:var(--sans);font-size:14.5px;font-weight:600;
+    background:var(--red);color:#fff;border:none;cursor:pointer;
+    padding:11px 21px;border-radius:10px;text-decoration:none;white-space:nowrap;
+    transition:background .18s ease, transform .18s ease, box-shadow .18s ease;
+    box-shadow:0 6px 16px -9px rgba(227,6,19,.6);
+  }
+  .btn-head:hover{background:var(--red-dark);transform:translateY(-1px)}
+  .burger{display:none;background:none;border:none;cursor:pointer;width:44px;height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px;padding:8px;z-index:130;position:relative}
+  .burger span{display:block;height:2px;width:24px;background:var(--ink);border-radius:2px;transition:transform .28s var(--ease-out),opacity .2s ease,background .2s ease}
+  .burger.open span{background:#fff}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* ============ ПОЛНОЭКРАННОЕ ОВЕРЛЕЙ-МЕНЮ ============ */
+  .overlay-menu{
+    position:fixed;inset:0;z-index:120;overflow:hidden;
+    background:linear-gradient(160deg,#fbf9f5,#efe9de);
+    clip-path:circle(0% at calc(100% - 44px) 36px);
+    transition:clip-path .6s var(--ease-out);
+    display:flex;flex-direction:column;justify-content:center;
+    padding:90px 8vw 60px;visibility:hidden;
+  }
+  .overlay-menu.open{clip-path:circle(150% at calc(100% - 44px) 36px);visibility:visible}
+  .overlay-menu .om-deco{position:absolute;right:7vw;top:14vh;font-family:var(--hand);color:var(--red);font-size:30px;transform:rotate(-7deg);opacity:0;transition:opacity .4s ease .25s}
+  .overlay-menu.open .om-deco{opacity:.9}
+  .om-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .om-list li{overflow:hidden}
+  .om-list a{
+    display:inline-block;font-family:var(--serif);font-weight:600;
+    font-size:clamp(30px,6.4vw,60px);line-height:1.12;letter-spacing:-.02em;
+    color:var(--ink);text-decoration:none;position:relative;padding:4px 0;
+    transform:translateY(110%);transition:transform .6s var(--ease-out),color .25s ease;
+  }
+  .overlay-menu.open .om-list a{transform:translateY(0)}
+  .overlay-menu.open .om-list li:nth-child(1) a{transition-delay:.16s}
+  .overlay-menu.open .om-list li:nth-child(2) a{transition-delay:.23s}
+  .overlay-menu.open .om-list li:nth-child(3) a{transition-delay:.30s}
+  .overlay-menu.open .om-list li:nth-child(4) a{transition-delay:.37s}
+  .overlay-menu.open .om-list li:nth-child(5) a{transition-delay:.44s}
+  .om-list a.om-lm{color:var(--red)}
+  /* спокойный сдвиг на ховер, без тяжёлого свайп-подчёркивания */
+  .om-list a:hover{color:var(--red);transform:translateX(18px)}
+  .om-foot{margin-top:42px;font-family:var(--sans);font-size:14px;color:var(--grey);display:flex;gap:8px 22px;flex-wrap:wrap;opacity:0;transition:opacity .4s ease .5s}
+  .overlay-menu.open .om-foot{opacity:1}
+  .om-foot a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:1px}
+  .om-cta{margin-top:28px;align-self:flex-start;opacity:0;transition:opacity .4s ease .46s}
+  .overlay-menu.open .om-cta{opacity:1}
+
+  /* ============ STAGE / SECTIONS ============ */
+  .stage{padding:52px 22px 40px;display:flex;justify-content:center}
+  .section{padding:44px 22px;display:flex;justify-content:center}
+  .layout{position:relative;width:100%;max-width:var(--sheet-max);min-width:0;perspective:1600px}
+
+  /* ============ THE SHEET (документ) ============ */
+  .sheet{
+    background:var(--sheet);border-radius:10px;position:relative;
+    display:grid;
+    grid-template-columns:var(--gutter) minmax(0,1fr) var(--gutter);
+    box-shadow:
+      0 1px 1px rgba(27,27,29,.04),
+      0 2px 6px rgba(27,27,29,.05),
+      0 40px 80px -34px rgba(27,27,29,.26),
+      0 12px 30px -18px rgba(27,27,29,.16);
+    will-change:transform;
+    --py:0px;--rx:0deg;--ry:0deg;--lift:0px;
+    transform:translateY(var(--py)) translateZ(0) rotateX(var(--rx)) rotateY(var(--ry)) scale(calc(1 + var(--lift)/1000));
+    transform-style:preserve-3d;
+    transition:box-shadow .5s var(--ease-paper);
+    max-width:100%;min-width:0;
+  }
+  @keyframes paperFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
+  .sheet-wrap{animation:paperFloat 9s var(--ease-soft) infinite}
+  #how .sheet-wrap{animation-duration:8.2s;animation-delay:-1.4s}
+  #cases .sheet-wrap{animation-duration:9.6s;animation-delay:-3s}
+  #team .sheet-wrap{animation-duration:8.8s;animation-delay:-2.2s}
+  #faq .sheet-wrap{animation-duration:9s;animation-delay:-1.9s}
+  #contact .sheet-wrap{animation-duration:9.2s;animation-delay:-.8s}
+  .sheet-wrap.lifted .sheet{box-shadow:
+      0 1px 1px rgba(27,27,29,.04),
+      0 2px 6px rgba(27,27,29,.05),
+      0 60px 110px -36px rgba(27,27,29,.34),
+      0 20px 44px -20px rgba(27,27,29,.2)}
+  .sheet-col{
+    grid-column:2;padding:72px 0 64px;position:relative;
+    border-left:1px solid rgba(227,6,19,.10);
+    border-right:1px solid rgba(227,6,19,.06);
+    padding-left:var(--col-pad);padding-right:var(--col-pad);
+    min-width:0;
+  }
+  .sheet.compact .sheet-col{padding-top:60px;padding-bottom:56px}
+  .sheet::before{
+    content:"";position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-1.4deg);
+    width:140px;height:28px;background:rgba(255,230,128,.6);
+    border:1px solid rgba(210,180,70,.4);border-radius:2px;
+    box-shadow:0 4px 10px -6px rgba(0,0,0,.25);z-index:2;
+  }
+
+  .kicker{
+    font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--red);
+    display:inline-flex;align-items:center;gap:9px;margin-bottom:20px;
+  }
+  .kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--red);display:inline-block;animation:pulseDot 2.4s ease-in-out infinite}
+  .kicker.static::before{animation:none}
+
+  h1.headline{font-family:var(--serif);font-weight:600;font-size:clamp(34px,4.4vw,50px);line-height:1.1;letter-spacing:-.018em;color:var(--ink);margin-bottom:8px}
+  h2.sec-title{font-family:var(--serif);font-weight:600;font-size:clamp(27px,3.2vw,36px);line-height:1.16;letter-spacing:-.016em;color:var(--ink);margin-bottom:14px}
+  h3.sub-title{font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.3;color:var(--ink);margin-bottom:12px}
+  .doc-meta{font-family:var(--sans);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--grey);font-weight:500;border-top:1px dashed var(--line);padding-top:9px;margin:14px 0 22px;display:inline-block}
+
+  /* построчное проявление заголовка (clip-mask) */
+  .line-reveal{display:block;overflow:hidden}
+  .line-reveal>span{display:inline-block;transform:translateY(105%);transition:transform .8s var(--ease-out)}
+  .js .reveal.pre .line-reveal>span{transform:translateY(105%)}
+  .reveal.in .line-reveal>span{transform:translateY(0)}
+  .reveal.in .line-reveal:nth-child(2)>span{transition-delay:.08s}
+  .reveal.in .line-reveal:nth-child(3)>span{transition-delay:.16s}
+
+  .subhead{font-family:var(--sans);font-size:16.5px;line-height:1.62;color:var(--ink-soft);margin-bottom:24px;max-width:60ch}
+  .subhead b{color:var(--ink);font-weight:600}
+  .body-p{font-family:var(--serif);font-size:18px;line-height:1.7;color:var(--ink-soft);margin-bottom:20px;position:relative}
+  .body-p:last-child{margin-bottom:0}
+  .body-p b{font-weight:600;color:var(--ink)}
+
+  /* маркер, закрашивается на скролле */
+  .mark{
+    background:linear-gradient(transparent 56%, var(--marker) 56%);
+    background-size:0% 100%;background-repeat:no-repeat;
+    padding:0 3px;font-weight:600;color:var(--ink);
+    box-decoration-break:clone;-webkit-box-decoration-break:clone;border-radius:1px;
+  }
+  .reveal.in .mark{animation:markFill 1.1s cubic-bezier(.25,0,.35,1) .35s forwards}
+  .trust .mark{background-size:100% 100%}
+  @keyframes markFill{from{background-size:0% 100%}to{background-size:100% 100%}}
+  .was{color:var(--grey);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+
+  .divider{border:none;border-top:1px solid var(--line);margin:0 0 26px}
+  .divider.mt{margin-top:30px}
+
+  /* META TWIST */
+  .meta{border-left:4px solid var(--red);padding:5px 0 5px 20px;margin-bottom:28px}
+  .meta p{font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.34;letter-spacing:-.01em;color:var(--ink)}
+  .meta .accent{color:var(--red)}
+
+  /* CTA */
+  .cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:8px}
+  .cta-row.nomb{margin-bottom:0}
+  .magnetic{position:relative;display:inline-block}
+  .btn-primary{
+    font-family:var(--sans);font-size:16px;font-weight:600;
+    background:var(--red);color:#fff;border:none;cursor:pointer;
+    padding:15px 30px;border-radius:11px;text-decoration:none;white-space:nowrap;
+    transition:transform .2s var(--ease-out), background .16s ease, box-shadow .2s var(--ease-out);
+    box-shadow:0 8px 18px -8px rgba(227,6,19,.55);display:inline-block;
+  }
+  .btn-primary:hover{background:var(--red-dark);box-shadow:0 16px 30px -12px rgba(189,0,5,.6)}
+  .link-secondary{
+    font-family:var(--sans);font-size:15px;font-weight:500;color:var(--ink);
+    text-decoration:none;cursor:pointer;background:none;border:none;padding:0;
+    line-height:1.4;max-width:40ch;text-align:left;
+  }
+  .link-secondary span{border-bottom:2px dashed var(--red);padding-bottom:2px;transition:color .18s ease,border-color .18s ease}
+  .link-secondary:hover span{color:var(--red-dark)}
+  .link-secondary .em{color:var(--red);font-weight:600}
+
+  /* TRUST */
+  .trust{font-family:var(--sans);font-size:13px;color:var(--grey);border-top:1px solid var(--line);padding-top:16px;display:flex;flex-wrap:wrap;gap:6px 16px}
+  .trust span{display:inline-flex;align-items:center;white-space:nowrap}
+  .trust b{color:var(--ink);font-weight:600;margin:0 .25em}
+  .trust span+span::before{content:"·";margin-right:16px;color:rgba(27,27,29,.3)}
+
+  /* ============ HERO «СЮЖЕТ» (кинетическая редактура) ============ */
+  .story{position:relative;margin:4px 0 22px;min-height:150px}
+  .story-draft{font-family:var(--serif);font-size:clamp(18px,2.2vw,22px);line-height:1.5;color:var(--grey);position:relative;display:inline;font-style:italic}
+  .story-draft .w{position:relative;display:inline-block}
+  .story-draft .w.strike::after{content:"";position:absolute;left:-2px;right:-2px;top:54%;height:2.5px;background:var(--red);transform:scaleX(0);transform-origin:left center;border-radius:2px}
+  .story-draft .w.strike.go::after{transform:scaleX(1);transition:transform .34s var(--ease-out)}
+  .type-caret{display:inline-block;width:2px;height:1.05em;background:var(--ink);margin-left:1px;vertical-align:-.16em;animation:caretBlink .9s steps(1) infinite}
+  .type-caret.gone{display:none}
+  @keyframes caretBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  .story-clean{margin-top:14px;font-family:var(--serif);font-weight:700;font-size:clamp(21px,2.7vw,26px);line-height:1.32;letter-spacing:-.01em;color:var(--ink);opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
+  .story-clean.show{opacity:1;transform:none}
+  .story-clean .hl{background:linear-gradient(transparent 60%, var(--marker) 60%);background-size:0% 100%;background-repeat:no-repeat;padding:0 3px;border-radius:1px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .story-clean .hl.swipe{background-size:100% 100%;transition:background-size .55s var(--ease-out)}
+  .story-stamps{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;min-height:50px;align-items:center}
+  .stamp-num{font-family:var(--hand);font-weight:700;font-size:clamp(26px,3.2vw,32px);line-height:1;color:var(--red);border:2.5px solid var(--red);border-radius:9px;padding:6px 13px 7px;transform:rotate(-5deg) scale(2.4);opacity:0;transition:transform .5s var(--ease-spring),opacity .3s ease}
+  .stamp-num.s2{transform:rotate(4deg) scale(2.4)}
+  .stamp-num.stamped{opacity:1;transform:rotate(-5deg) scale(1)}
+  .stamp-num.s2.stamped{transform:rotate(4deg) scale(1)}
+  .stamp-dot{font-family:var(--serif);color:var(--grey);font-size:22px;opacity:0;transition:opacity .3s ease}
+  .stamp-dot.stamped{opacity:.7}
+  .story-replay{margin-top:14px;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--grey);display:inline-flex;align-items:center;gap:7px;padding:4px 0;opacity:0;transition:opacity .4s ease,color .18s ease}
+  .story-replay.show{opacity:1}
+  .story-replay:hover{color:var(--red)}
+  .story-replay svg{width:15px;height:15px;transition:transform .5s var(--ease-out)}
+  .story-replay:hover svg{transform:rotate(-180deg)}
+  /* фолбэк без JS: сразу финал */
+  html:not(.js) .story-draft,html:not(.js) .type-caret{display:none}
+  html:not(.js) .story-clean{opacity:1;transform:none}
+  html:not(.js) .story-clean .hl{background-size:100% 100%}
+  html:not(.js) .stamp-num,html:not(.js) .stamp-dot{opacity:1;transform:rotate(-5deg) scale(1)}
+  html:not(.js) .stamp-num.s2{transform:rotate(4deg) scale(1)}
+
+  /* ============ STATS STRIP (спокойная сетка цифр вместо бегущей строки) ============ */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:30px 0 4px}
+  .stats .stat{padding:18px 16px;text-align:left;position:relative}
+  .stats .stat+.stat::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:1px;background:var(--line)}
+  .stats .stat .snum{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.4vw,27px);line-height:1;letter-spacing:-.01em;color:var(--ink);display:block;margin-bottom:6px}
+  .stats .stat .slabel{font-family:var(--sans);font-size:12px;line-height:1.4;color:var(--grey)}
+  @media (max-width:680px){.stats{grid-template-columns:1fr 1fr}.stats .stat:nth-child(3)::before,.stats .stat:nth-child(odd)::before{display:none}}
+
+  /* ============ FLOW (схема пути) ============ */
+  .flow{margin:6px 0 24px;display:flex;flex-direction:column}
+  .flow-step{position:relative;padding:15px 18px 15px 58px;border:1.5px solid rgba(227,6,19,.28);border-radius:13px;background:#fff;margin-bottom:13px;opacity:1;transform:none;transition:opacity .55s ease,transform .55s var(--ease-out),border-color .18s ease,box-shadow .25s var(--ease-out)}
+  .js .flow.reveal.pre .flow-step{opacity:0;transform:translateX(-22px)}
+  .flow.reveal.in .flow-step{opacity:1;transform:none}
+  .flow.reveal.in .flow-step:nth-child(1){transition-delay:.05s}
+  .flow.reveal.in .flow-step:nth-child(2){transition-delay:.14s}
+  .flow.reveal.in .flow-step:nth-child(3){transition-delay:.23s}
+  .flow.reveal.in .flow-step:nth-child(4){transition-delay:.32s}
+  .flow.reveal.in .flow-step:nth-child(5){transition-delay:.41s}
+  .flow.reveal.in .flow-step:nth-child(6){transition-delay:.5s}
+  .flow-step:hover{border-color:rgba(227,6,19,.65);box-shadow:0 12px 24px -16px rgba(27,27,29,.35);transform:translateX(4px)}
+  .flow-step:last-child{margin-bottom:0}
+  .flow-step .num{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;font-family:var(--sans);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:opacity .3s ease,transform .5s var(--ease-spring)}
+  .js .flow.reveal.pre .flow-step .num{opacity:0;transform:translateY(-50%) scale(2.6)}
+  .flow.reveal.in .flow-step .num{opacity:1;transform:translateY(-50%) scale(1)}
+  .flow.reveal.in .flow-step:nth-child(1) .num{transition-delay:.1s}
+  .flow.reveal.in .flow-step:nth-child(2) .num{transition-delay:.2s}
+  .flow.reveal.in .flow-step:nth-child(3) .num{transition-delay:.3s}
+  .flow.reveal.in .flow-step:nth-child(4) .num{transition-delay:.4s}
+  .flow.reveal.in .flow-step:nth-child(5) .num{transition-delay:.5s}
+  .flow.reveal.in .flow-step:nth-child(6) .num{transition-delay:.6s}
+  .flow.reveal.in .flow-step:nth-child(7) .num{transition-delay:.7s}
+  .flow-step h4{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em;position:relative;padding-bottom:5px}
+  .flow-step h4::after{content:"";position:absolute;bottom:0;left:0;height:2px;background:var(--red);width:0;transition:width .45s var(--ease-out);border-radius:1px}
+  .flow.reveal.in .flow-step h4::after{width:50%}
+  .flow.reveal.in .flow-step:nth-child(1) h4::after{transition-delay:.26s}
+  .flow.reveal.in .flow-step:nth-child(2) h4::after{transition-delay:.36s}
+  .flow.reveal.in .flow-step:nth-child(3) h4::after{transition-delay:.46s}
+  .flow.reveal.in .flow-step:nth-child(4) h4::after{transition-delay:.56s}
+  .flow.reveal.in .flow-step:nth-child(5) h4::after{transition-delay:.66s}
+  .flow.reveal.in .flow-step:nth-child(6) h4::after{transition-delay:.76s}
+  .flow.reveal.in .flow-step:nth-child(7) h4::after{transition-delay:.86s}
+  .flow-step p{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--grey)}
+  .flow-step .branch{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .flow-step .branch span{font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--red);background:#fff;border:1px solid rgba(227,6,19,.3);padding:3px 9px;border-radius:100px}
+  .flow-step::after{content:"";position:absolute;left:30px;bottom:-13px;width:2px;height:13px;background:rgba(227,6,19,.35)}
+  .flow-step:last-child::after{display:none}
+
+  /* stamp подписи */
+  .stamp-num small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-top:3px;opacity:.78;line-height:1}
+  .stamps-note{font-family:var(--sans);font-size:12px;color:var(--grey);margin-top:8px;letter-spacing:.01em}
+
+  /* note right — отступ от края */
+  .note.right{padding-right:14px}
+
+  /* ============ TEAM SLIDER ============ */
+  .team-slider-wrap{position:relative;margin:8px -8px 24px}
+  .team-slider{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 8px 8px}
+  .team-slider::-webkit-scrollbar{display:none}
+  .team-slide{flex:0 0 calc(33.333% - 10px);min-width:160px;scroll-snap-align:start;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:22px 16px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+  .team-slide:hover{transform:translateY(-4px);box-shadow:0 16px 28px -18px rgba(27,27,29,.3)}
+  .ava-lg{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;font-family:var(--serif);font-weight:600;font-size:22px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0}
+  .ts-name{font-family:var(--sans);font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em}
+  .ts-role{font-family:var(--sans);font-size:12px;line-height:1.45;color:var(--grey)}
+  .ts-nav{display:flex;justify-content:center;gap:10px;margin-top:10px}
+  .ts-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:border-color .18s ease,background .18s ease,color .18s ease;color:var(--ink)}
+  .ts-btn:hover{border-color:var(--red);background:var(--red);color:#fff}
+  @media(max-width:680px){.team-slide{flex:0 0 78%}}
+
+  /* ============ LOGO CAROUSEL ============ */
+  .logo-carousel{overflow:hidden;margin:4px 0 16px;-webkit-mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%)}
+  .logo-track{display:flex;gap:32px;align-items:center;animation:logoScroll 24s linear infinite;width:max-content;padding:4px 0}
+  .logo-track:hover{animation-play-state:paused}
+  .logo-item{flex-shrink:0;height:44px;display:flex;align-items:center}
+  .logo-item img{height:36px;width:auto;max-width:130px;object-fit:contain;filter:grayscale(25%) opacity(.8);transition:filter .2s ease}
+  .logo-item img:hover{filter:none}
+  @keyframes logoScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ============ CERT GRID (блок Яндекс) ============ */
+  .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0 24px}
+  .cert-card{padding:18px 16px 16px 20px;border-radius:12px;background:#fff;border-left:4px solid var(--red);border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+  .cert-card:hover{transform:translateY(-3px);box-shadow:0 10px 22px -14px rgba(27,27,29,.22)}
+  .cert-card-title{font-family:var(--sans);font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em}
+  .cert-card-text{font-family:var(--sans);font-size:13px;color:var(--grey);line-height:1.5}
+  @media(max-width:560px){.cert-grid{grid-template-columns:1fr}}
+
+  /* ============ LM CONTACT SECTION ============ */
+  .lm-contact{margin:12px 0 0;padding:12px 0 0;border-top:1px dashed var(--line)}
+  .lm-contact-head{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px}
+  .lm-row{display:flex;gap:10px}
+  .lm-row .field{flex:1}
+
+  /* ============ DARK BRIDGE BEAT (перенесено из C) ============ */
+  .beat{position:relative;padding:6px 22px 6px;display:flex;justify-content:center}
+  .beat-inner{position:relative;width:100%;max-width:var(--sheet-max);
+    background:#141417;border-radius:18px;color:#f3efe7;overflow:hidden;
+    padding:66px 9% 60px;text-align:center;
+    box-shadow:0 40px 90px -40px rgba(0,0,0,.6);
+    opacity:1;transform:none;
+    transition:opacity 1s var(--ease-cine),transform 1s var(--ease-cine)}
+  .js .beat.reveal.pre .beat-inner{opacity:0;transform:translateY(40px) scale(.985)}
+  .beat.reveal.in .beat-inner{opacity:1;transform:none}
+  .beat-inner::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(90% 70% at 50% 0%, rgba(227,6,19,.18), transparent 60%)}
+  .beat-inner::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(0,0,0,.5) 100%)}
+  .beat-kicker{position:relative;font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--red);margin-bottom:18px}
+  .beat-line{position:relative;font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.6vw,40px);
+    line-height:1.22;letter-spacing:-.018em;color:#fff;max-width:24ch;margin:0 auto}
+  .beat-line .hot{color:var(--red)}
+  .beat-line .um{background:linear-gradient(transparent 60%,rgba(227,6,19,.34) 60%);
+    background-size:0% 100%;background-repeat:no-repeat;padding:0 4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .beat.reveal.in .beat-line .um{animation:markFill .7s var(--ease-out) .35s forwards}
+  html:not(.js) .beat-line .um{background-size:100% 100%}
+  .beat-sub{position:relative;font-family:var(--sans);font-size:15px;line-height:1.6;color:#b9b4ab;
+    max-width:50ch;margin:18px auto 0}
+  .beat-cta{position:relative;margin-top:26px;display:inline-flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
+  .beat-cta .btn-primary{box-shadow:0 8px 22px -6px rgba(227,6,19,.6)}
+  .beat-cta .beat-note{font-family:var(--hand);color:#ff6a73;font-size:21px;transform:rotate(-3deg)}
+
+  /* ============ CASES ============ */
+  .cases{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:4px 0 22px}
+  .case{border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;background:var(--bg);position:relative;transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out),border-color .25s ease,opacity .6s ease}
+  .case:nth-child(odd){transform:rotate(-.4deg)}
+  .case:nth-child(even){transform:rotate(.4deg)}
+  .js .cases.reveal.pre .case{opacity:0;transform:translateY(18px)}
+  .cases.reveal.in .case:nth-child(1){transition-delay:.04s}
+  .cases.reveal.in .case:nth-child(2){transition-delay:.12s}
+  .cases.reveal.in .case:nth-child(3){transition-delay:.20s}
+  .cases.reveal.in .case:nth-child(4){transition-delay:.28s}
+  .cases.reveal.in .case:nth-child(odd){animation:cardSway1 5.6s var(--ease-soft) .7s infinite both}
+  .cases.reveal.in .case:nth-child(even){animation:cardSway2 6.3s var(--ease-soft) 1s infinite both}
+  .cases.reveal.in .case:nth-child(3){animation-duration:5.9s;animation-delay:.9s}
+  .cases.reveal.in .case:nth-child(4){animation-duration:6.7s;animation-delay:1.2s}
+  .case:hover{animation:none !important;transform:translateY(-6px) rotate(0) !important;box-shadow:0 26px 44px -24px rgba(27,27,29,.36);border-color:rgba(227,6,19,.4)}
+  .case-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px}
+  .case-tags span{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--grey);background:#fff;border:1px solid var(--line);padding:3px 9px;border-radius:100px}
+  .case-name{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);margin-bottom:8px}
+  .case-hero{font-family:var(--serif);font-size:25px;font-weight:700;line-height:1.18;color:var(--red);margin-bottom:8px;letter-spacing:-.01em}
+  .case-sub{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-soft)}
+  .case-sub b{color:var(--ink);font-weight:600}
+  .case .case-link{display:inline-block;margin-top:11px;font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--red);text-decoration:none;border-bottom:1px solid rgba(227,6,19,.4);padding-bottom:1px}
+  .case .case-link:hover{color:var(--red-dark)}
+  .case .stamp{position:absolute;top:12px;right:12px;font-family:var(--hand);font-weight:700;color:var(--green);font-size:17px;border:2px solid var(--green);border-radius:7px;padding:0 8px;line-height:1.4;opacity:0;transform:rotate(7deg) scale(2.4)}
+  .cases.reveal.in .case:nth-child(1) .stamp{animation:stampPress .42s var(--ease-spring) .65s both}
+  .cases.reveal.in .case:nth-child(2) .stamp{animation:stampPress .42s var(--ease-spring) .84s both}
+  .cases.reveal.in .case:nth-child(3) .stamp{animation:stampPress .42s var(--ease-spring) 1.02s both}
+  .cases.reveal.in .case:nth-child(4) .stamp{animation:stampPress .42s var(--ease-spring) 1.20s both}
+  html:not(.js) .case .stamp{opacity:.92;transform:rotate(7deg) scale(1)}
+
+  .logos{display:flex;flex-wrap:wrap;gap:9px 11px;align-items:center;margin:4px 0 16px}
+  .logo-pill{font-family:var(--sans);font-size:13.5px;font-weight:700;letter-spacing:.02em;color:#4a4a4a;background:var(--bg);border:1px solid var(--line);padding:8px 16px;border-radius:8px;transition:transform .2s var(--ease-out),border-color .2s ease,color .2s ease}
+  .logo-pill:hover{transform:translateY(-2px);border-color:rgba(227,6,19,.4);color:var(--ink)}
+  .softline{font-family:var(--serif);font-style:italic;font-size:14.5px;line-height:1.55;color:var(--grey);margin-bottom:4px}
+
+  /* ============ TEAM + YANDEX ============ */
+  .people{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0 22px}
+  .person{display:flex;gap:13px;align-items:flex-start;padding:15px;border:1px solid var(--line);border-radius:12px;background:var(--bg);transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+  .person:hover{transform:translateY(-3px);box-shadow:0 14px 26px -18px rgba(27,27,29,.3)}
+  .person .ava{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;font-family:var(--serif);font-weight:600;font-size:17px;display:flex;align-items:center;justify-content:center}
+  .person .pname{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:2px;letter-spacing:-.01em}
+  .person .prole{font-family:var(--sans);font-size:12.5px;line-height:1.45;color:var(--grey)}
+  .trophies{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:4px 0 20px}
+  .trophy{padding:15px 16px 15px 46px;border:1px solid var(--line);border-radius:12px;background:var(--bg);position:relative;transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+  .trophy:hover{transform:translateY(-3px);box-shadow:0 14px 26px -18px rgba(27,27,29,.3)}
+  .trophy::before{content:"";position:absolute;left:15px;top:17px;width:18px;height:18px;border-radius:4px;background:var(--marker);border:2px solid var(--red)}
+  .trophy b{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--ink);display:block;margin-bottom:2px}
+  .trophy span{font-family:var(--sans);font-size:12.5px;line-height:1.42;color:var(--grey)}
+
+  /* ============ FAQ ============ */
+  .faq{margin:4px 0 6px}
+  .faq-item{border-top:1px solid var(--line);transition:padding-left .3s var(--ease-paper)}
+  .faq-item:last-child{border-bottom:1px solid var(--line)}
+  .faq-item:hover,.faq-item.open{padding-left:10px}
+  .faq-q{width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);padding:19px 44px 19px 0;position:relative;line-height:1.35;transition:color .2s ease}
+  .faq-q:hover{color:var(--red)}
+  .faq-q::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--sans);font-size:26px;font-weight:400;color:var(--red);transition:transform .35s var(--ease-spring);line-height:1}
+  .faq-item.open .faq-q::after{transform:translateY(-50%) rotate(135deg)}
+  .faq-item.open .faq-q{color:var(--red)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .36s var(--ease-out)}
+  @media (prefers-reduced-motion:reduce){.faq-a{transition:none}}
+  .faq-a-inner{font-family:var(--serif);font-size:16px;line-height:1.62;color:var(--ink-soft);padding:0 36px 20px 0}
+
+  /* ============ FORM (отдельная секция) ============ */
+  #contact .sheet-col{border-top:3px solid var(--red)}
+  .form-lead{font-family:var(--serif);font-weight:700;font-size:clamp(24px,3vw,32px);line-height:1.18;letter-spacing:-.018em;color:var(--ink);margin-bottom:10px}
+  .form-lead .mark{font-weight:700}
+  .form-intro{font-family:var(--sans);font-size:15.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:18px;max-width:54ch}
+  .form-grid{display:flex;flex-direction:column;gap:16px;margin:6px 0 0}
+  .field label{display:block;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px;letter-spacing:.01em}
+  .field input,.field textarea{width:100%;font-family:var(--serif);font-size:16px;line-height:1.5;color:var(--ink);border:1px solid rgba(27,27,29,.18);border-radius:10px;padding:13px 15px;outline:none;background:#fff;transition:border-color .18s ease,box-shadow .18s ease}
+  .field input:focus,.field textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(227,6,19,.08)}
+  .field textarea{min-height:80px;resize:vertical}
+  .field .opt{color:var(--grey);font-weight:500}
+  .seg{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:9px}
+  .seg button{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink-soft);background:var(--bg);border:1px solid rgba(27,27,29,.16);padding:9px 18px;border-radius:100px;cursor:pointer;transition:all .18s var(--ease-out)}
+  .seg button.on{background:var(--red);color:#fff;border-color:var(--red)}
+  .microcopy{font-family:var(--sans);font-size:13px;color:var(--grey);margin-top:12px;line-height:1.5}
+  .form-sent{display:none;margin-top:16px;padding:16px 18px;border-radius:10px;background:rgba(255,230,128,.3);border:1px solid rgba(227,6,19,.25);font-family:var(--serif);font-size:16px;color:var(--ink);line-height:1.55}
+  .form-sent.show{display:block;animation:fadeIn .3s ease}
+  /* Lottie */
+  #lottie-hero{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.07;overflow:hidden}
+  #lottie-success{width:72px;height:72px;margin:0 auto 10px}
+  .form-check-row{display:flex;align-items:flex-start;gap:10px;margin-top:4px}
+  .form-check-row input[type=checkbox]{width:17px;height:17px;flex-shrink:0;margin-top:3px;accent-color:var(--red);cursor:pointer}
+  .form-check-row label{font-family:var(--sans);font-size:13px;color:var(--grey);line-height:1.5;cursor:pointer}
+  .form-check-row label a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(227,6,19,.35)}
+  .field-err{border-color:var(--red) !important;box-shadow:0 0 0 3px rgba(227,6,19,.1) !important}
+  .relaunch-box{margin-top:28px;border-top:1px dashed var(--line);padding-top:22px}
+  .relaunch-box h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:7px}
+  .relaunch-box p{font-family:var(--sans);font-size:14.5px;line-height:1.58;color:var(--ink-soft);margin-bottom:13px}
+
+  /* ============ FOOTER ============ */
+  footer.site-footer{background:#1b1b1d;color:#cfcfcf;padding:42px 24px 38px;margin-top:34px}
+  .footer-inner{max-width:1100px;margin:0 auto}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .footer-top .logo{color:#fff}
+  .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+  .footer-links a{font-family:var(--sans);font-size:14px;color:#cfcfcf;text-decoration:none;transition:color .16s ease}
+  .footer-links a:hover{color:#fff}
+  .footer-meta{font-family:var(--sans);font-size:12.5px;line-height:1.7;color:#9a9a9a}
+  .footer-meta .soft{color:#bdbdbd;font-style:italic;margin-top:9px;display:block}
+
+  /* ============ MARGIN NOTES (рукописные) — СЕРДЦЕ КОНЦЕПЦИИ ============ */
+  .has-note{position:relative}
+  .note{
+    font-family:var(--hand);color:var(--red);font-weight:600;
+    position:absolute;top:-2px;width:calc(var(--gutter) - 32px);z-index:7;
+    font-size:26px;line-height:1.16;pointer-events:none;
+    opacity:1;transform:none;transition:opacity .6s ease,transform .6s var(--ease-out);
+  }
+  .note small{display:block;font-size:18px;font-weight:500;opacity:.92;margin-top:1px}
+  /* в правый гаттер — отступ считаем от col-pad, чтобы заметка не вылезала за красную линию */
+  .note.right{left:calc(100% + var(--col-pad) + 36px);text-align:left}
+  .note.right::before{content:"";position:absolute;left:-36px;top:3px;width:32px;height:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 16'%3E%3Cpath d='M2 8 C10 6 20 10 27 8' stroke='%23E30613' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 4 L28 8 L23 12' stroke='%23E30613' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;opacity:.7}
+  .note.right::after{display:none}
+  /* в левый гаттер */
+  .note.left{right:calc(100% + var(--col-pad) + 36px);text-align:right}
+  .note.left::before{content:"";position:absolute;right:-36px;top:3px;width:32px;height:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 16'%3E%3Cpath d='M30 8 C22 6 12 10 5 8' stroke='%23E30613' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M9 4 L4 8 L9 12' stroke='%23E30613' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;opacity:.7}
+  .note.left::after{display:none}
+  /* синяя заметка — «написано ручкой» */
+  .note.blue{color:#1a5fb0}
+  .note.blue.right::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 16'%3E%3Cpath d='M2 8 C10 6 20 10 27 8' stroke='%231a5fb0' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 4 L28 8 L23 12' stroke='%231a5fb0' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+  .note.blue.left::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 16'%3E%3Cpath d='M30 8 C22 6 12 10 5 8' stroke='%231a5fb0' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M9 4 L4 8 L9 12' stroke='%231a5fb0' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+  /* стрелки заметок скрыты пока секция не открылась */
+  .js .reveal.pre .note::before,.js .reveal.pre .note::after{opacity:0}
+  /* появление пометки (scroll-driven) */
+  .js .reveal.pre .note{opacity:0;transform:translateY(10px)}
+
+  /* pin-стрелка: только для мобайла, на десктопе стрелка через CSS ::before/::after */
+  .note .pin{display:none !important}
+  @media (max-width:920px){.note .pin{display:inline-block !important}}
+
+  /* sheet-wrap — позиционный контекст для плавающего листа */
+  .sheet-wrap{position:relative}
+
+  /* ============ STICKY-ЗАКЛАДКА (уголок-ярлычок лид-магнита) ============ */
+  .lm-tab{
+    position:fixed;right:0;top:42%;z-index:90;
+    transform:translateY(-50%) translateX(calc(100% - 42px));
+    transition:transform .4s var(--ease-out),box-shadow .3s ease;
+    background:var(--red);color:#fff;border:none;cursor:pointer;
+    border-radius:12px 0 0 12px;padding:14px 16px 14px 18px;
+    box-shadow:-8px 10px 26px -12px rgba(189,0,5,.6);
+    display:flex;align-items:center;gap:11px;
+    font-family:var(--sans);font-size:14px;font-weight:700;letter-spacing:.01em;line-height:1.15;text-align:left;
+  }
+  .lm-tab .lm-tab-corner{position:absolute;left:0;top:0;width:0;height:0;border-style:solid;border-width:14px 14px 0 0;border-color:rgba(255,255,255,.45) transparent transparent transparent;border-radius:12px 0 0 0}
+  .lm-tab .lm-tab-icon{font-size:16px;line-height:1}
+  .lm-tab:hover,.lm-tab:focus-visible{transform:translateY(-50%) translateX(0);box-shadow:-12px 14px 32px -12px rgba(189,0,5,.7);outline:none}
+  .lm-tab .lm-tab-label{opacity:.95}
+  @media (max-width:560px){
+    .lm-tab{top:auto;bottom:18px;right:14px;transform:none;border-radius:100px;padding:11px 16px;font-size:12.5px;box-shadow:0 12px 26px -10px rgba(189,0,5,.6)}
+    .lm-tab .lm-tab-label br{display:none}
+    .lm-tab:hover,.lm-tab:focus-visible{transform:translateY(-2px)}
+    .lm-tab .lm-tab-corner{display:none}
+  }
+
+  /* ============ LEAD-MAGNET PANEL ============ */
+  .lm-backdrop{position:fixed;inset:0;z-index:140;background:rgba(27,27,29,.46);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:24px}
+  .lm-backdrop.open{display:flex;animation:fadeIn .2s ease}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .lm-panel{background:#fff;border-radius:16px;box-shadow:0 30px 70px -20px rgba(27,27,29,.45);width:100%;max-width:580px;padding:32px 32px 28px;animation:popUp .3s var(--ease-spring);max-height:90vh;overflow:auto;position:relative}
+  @keyframes popUp{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+  .lm-panel .lm-kicker{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+  .lm-panel h3{font-family:var(--serif);font-size:24px;font-weight:600;margin-bottom:6px;line-height:1.18}
+  .lm-panel .lm-sub{font-size:14px;color:var(--grey);margin-bottom:16px;line-height:1.5}
+  .lm-panel textarea{width:100%;min-height:118px;resize:vertical;font-family:var(--serif);font-size:15.5px;line-height:1.6;color:var(--ink);border:1px solid rgba(27,27,29,.18);border-radius:11px;padding:14px 16px;outline:none;transition:border-color .18s ease}
+  .lm-panel textarea:focus{border-color:var(--red)}
+  .lm-actions{display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap}
+  .lm-actions .btn-primary{padding:12px 24px;font-size:15px}
+  .lm-actions .btn-primary.loading{opacity:.75;cursor:progress}
+  .lm-actions .btn-primary.ready{animation:readyPulse 1.8s var(--ease-soft) infinite}
+  @keyframes readyPulse{0%,100%{box-shadow:0 8px 18px -8px rgba(227,6,19,.55)}50%{box-shadow:0 10px 26px -6px rgba(227,6,19,.75)}}
+  .lm-close{margin-left:auto;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:14px;color:var(--grey)}
+  .lm-close:hover{color:var(--ink)}
+  .lm-hint{font-family:var(--sans);font-size:12.5px;color:var(--grey)}
+  .verdict{margin-top:18px;display:none;border-top:1px dashed rgba(27,27,29,.18);padding-top:18px}
+  .verdict.show{display:block;animation:fadeIn .3s ease}
+  .verdict-head{display:flex;gap:15px;align-items:center;margin-bottom:14px}
+  .gauge{flex-shrink:0;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;text-align:center;position:relative;--p:0;--gcol:var(--marker);
+    background:conic-gradient(var(--gcol) calc(var(--p)*1%), rgba(27,27,29,.08) 0);
+    transition:--p .9s var(--ease-paper)}
+  .gauge::before{content:"";position:absolute;inset:7px;border-radius:50%;background:#fffaf0;transition:background .4s ease}
+  .gauge[data-tone=good]{--gcol:var(--green)}
+  .gauge[data-tone=good]::before{background:#f0faf3}
+  .gauge[data-tone=bad]{--gcol:var(--red)}
+  .gauge[data-tone=bad]::before{background:#fff2f2}
+  .gauge .ginner{position:relative;z-index:1}
+  .gauge .gnum{font-family:var(--serif);font-weight:700;font-size:26px;line-height:1;color:var(--ink)}
+  .gauge .gunit{font-size:10px;color:var(--grey)}
+  @property --p{syntax:'<number>';inherits:false;initial-value:0}
+  .vtag{font-family:var(--serif);font-weight:700;font-size:18px;line-height:1.1;color:var(--ink)}
+  .vsum{font-size:13px;color:var(--grey);margin-top:4px;line-height:1.45}
+  .edits-title{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin:0 0 8px}
+  .edits{display:flex;flex-direction:column;gap:9px;margin:0;padding:0;list-style:none;counter-reset:fix}
+  .edit{display:flex;gap:11px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+  .edit-n{counter-increment:fix;flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--marker);color:var(--ink);font-family:var(--sans);font-weight:700;font-size:12px;display:grid;place-items:center;margin-top:1px}
+  .edit-n::before{content:counter(fix)}
+  .edit-was{font-size:13px;color:var(--grey);text-decoration:line-through;text-decoration-color:var(--red)}
+  .edit-now{font-size:13.5px;color:var(--ink);font-weight:600;margin-top:3px}
+  .edit-now::before{content:"→ ";color:var(--green);font-weight:700}
+  .vfoot{margin-top:15px;font-size:13px;color:var(--grey);line-height:1.5}
+  .vfoot a{color:var(--red);font-weight:600;text-decoration:none}
+
+  /* ============ КУРСОР-ПЕРО (десктоп) ============ */
+  /* спрайт пера следует за курсором 1:1 (тем же кадром) → клик мгновенный, без догоняющего кольца.
+     Чернильный след — отдельные затухающие капли. Перо и капли pointer-events:none. */
+  .quill{position:fixed;top:0;left:0;pointer-events:none;z-index:200;opacity:0;
+    width:34px;height:34px;will-change:transform;
+    transition:opacity .25s ease,filter .2s ease}
+  body.quill-on .quill{opacity:1}
+  .quill svg{display:block;width:34px;height:34px;filter:drop-shadow(0 3px 5px rgba(27,27,29,.32))}
+  body.quill-on.quill-hot .quill{filter:drop-shadow(0 0 6px rgba(227,6,19,.5))}
+  .ink-drop{position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #6b6b6b, #3a3a3a);
+    pointer-events:none;z-index:199;transform:translate(-50%,-50%) scale(1);opacity:.4;
+    will-change:transform,opacity}
+  body.quill-on,
+  body.quill-on a,body.quill-on button,body.quill-on input,body.quill-on textarea,
+  body.quill-on .faq-q,body.quill-on [data-cursor]{cursor:none}
+
+  /* ============ REVEAL (с фолбэком: контент виден по умолчанию) ============ */
+  .reveal{opacity:1;transform:none}
+  .js .reveal.pre{opacity:0;transform:translateY(20px)}
+  .reveal{transition:opacity .8s ease, transform .8s var(--ease-out)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    .js .reveal.pre{opacity:1 !important;transform:none !important}
+    .js .reveal.pre .note{opacity:1 !important;transform:none !important}
+    .line-reveal>span{transform:none !important}
+    .mark{background-size:100% 100% !important}
+    .sheet{transform:none !important}
+    .beat-inner{opacity:1 !important;transform:none !important}
+    .beat-line .um{background-size:100% 100% !important}
+    /* при reduced-motion JS-«сюжет» не проигрывается — показываем сразу финал */
+    .story-draft,.type-caret{display:none !important}
+    .story-clean{opacity:1 !important;transform:none !important}
+    .story-clean .hl{background-size:100% 100% !important}
+    .stamp-num,.stamp-dot{opacity:1 !important;transform:rotate(-5deg) scale(1) !important}
+    .stamp-num.s2{transform:rotate(4deg) scale(1) !important}
+    .story-replay{display:none !important}
+    .case .stamp{opacity:.92 !important;transform:rotate(7deg) scale(1) !important}
+  }
+
+  @keyframes cardSway1{0%,100%{transform:rotate(-.4deg) translateY(0)}50%{transform:rotate(.6deg) translateY(-4px)}}
+  @keyframes cardSway2{0%,100%{transform:rotate(.4deg) translateY(0)}50%{transform:rotate(-.6deg) translateY(-5px)}}
+  @keyframes stampPress{
+    0%  {opacity:0;transform:rotate(7deg) scale(2.4)}
+    55% {opacity:1;transform:rotate(7deg) scale(.82)}
+    75% {transform:rotate(7deg) scale(1.1)}
+    100%{opacity:.92;transform:rotate(7deg) scale(1)}
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (min-width:1340px){
+    :root{--gutter:240px}
+  }
+  @media (max-width:1180px){
+    :root{--gutter:210px;--col-pad:56px}
+    .note{font-size:24px;width:calc(var(--gutter) - 28px)}
+    .note small{font-size:17px}
+  }
+  @media (max-width:1040px){
+    :root{--gutter:178px;--col-pad:52px}
+    .note{font-size:22px;width:calc(var(--gutter) - 22px)}
+    .note small{font-size:16px}
+  }
+
+  /* ===== ПЕРЕКЛЮЧЕНИЕ ПОМЕТОК В ПОТОК (гаттер схлопывается) ===== */
+  @media (max-width:920px){
+    /* hero: anchor-div раскрываем, правая заметка занимает всю строку */
+    .story > .has-note{height:auto !important}
+    .story-stamps .note{width:100%;flex:0 0 100%}
+    .sheet{grid-template-columns:1fr;transform:none !important}
+    .sheet-wrap{animation:none !important}
+    .layout{perspective:none}
+    .sheet-col{grid-column:1;padding-left:clamp(24px,5vw,48px);padding-right:clamp(24px,5vw,48px);border-left:none;border-right:none}
+    .note{
+      position:static;width:auto;display:block;margin:8px 0 4px;
+      padding:7px 12px 7px 14px;
+      border-left:3px solid var(--red);
+      background:linear-gradient(90deg, rgba(255,230,128,.28), rgba(255,230,128,0));
+      border-radius:0 8px 8px 0;
+      transform:none !important;
+    }
+    .note::before,.note::after{display:none}
+    .note.left,.note.right{text-align:left;left:auto;right:auto}
+    .note .pin{display:inline-block;margin-right:6px;color:var(--red);font-weight:700}
+    .note.blue{border-left-color:#1a5fb0;background:linear-gradient(90deg,rgba(26,95,176,.12),rgba(26,95,176,0))}
+    .note.blue .pin{color:#1a5fb0}
+  }
+  @media (max-width:920px){
+    .topbar-inner{padding:12px 16px;gap:12px}
+    nav.mainnav{display:none}
+    .topbar .btn-head{display:none}
+    .burger{display:flex}
+    .stage{padding:26px 16px 22px}
+    .section{padding:16px 16px}
+    .beat{padding:10px 16px}
+    .beat-inner{padding:48px 28px 44px}
+    .sheet{border-radius:8px}
+    h1.headline{font-size:32px}
+    .cases{grid-template-columns:1fr 1fr}
+    .people{grid-template-columns:1fr 1fr}
+    .trophies{grid-template-columns:1fr 1fr}
+    .layout,.beat-inner{max-width:680px}
+  }
+  @media (max-width:680px){
+    /* кейсы — горизонтальный свайп */
+    .cases{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:12px;padding-bottom:14px;scrollbar-width:none}
+    .cases::-webkit-scrollbar{display:none}
+    .case{flex:0 0 85%;scroll-snap-align:start}
+    .people{grid-template-columns:1fr}
+    .trophies{grid-template-columns:1fr}
+    .case:nth-child(odd),.case:nth-child(even){transform:none}
+    .cases.reveal.in .case:nth-child(n){animation:none;transform:none}
+    .cases.reveal.in .case .stamp{animation:stampPress .42s var(--ease-spring) .3s both}
+  }
+  @media (max-width:560px){
+    .stage{padding:22px 12px 18px}
+    .section{padding:14px 12px}
+    .beat{padding:8px 12px}
+    .beat-inner{padding:40px 20px 38px}
+    .sheet-col{padding-top:42px;padding-bottom:40px;padding-left:clamp(18px,5vw,28px);padding-right:clamp(18px,5vw,28px)}
+    .sheet.compact .sheet-col{padding-top:36px;padding-bottom:34px}
+    h1.headline{font-size:28px}
+    h2.sec-title{font-size:25px}
+    .body-p{font-size:16.5px}
+    .subhead{font-size:15px}
+    .case-hero{font-size:22px}
+    .lm-panel{padding:26px 22px}
+    .footer-top{flex-direction:column;gap:16px}
+    .stats .stat .snum{font-size:18px}
+    .btn-primary{width:100%;text-align:center}
+    .magnetic{width:100%}
+    .beat-cta .btn-primary{width:auto}
+    .lm-row{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<!-- курсор-карандаш (десктоп) -->
+<div class="quill" aria-hidden="true">
+  <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g transform="rotate(45 17 17)">
+      <!-- Ластик: красный округлый колпачок -->
+      <rect x="12" y="1" width="10" height="9" rx="4.5" fill="#E53935" stroke="#1a1a1a" stroke-width="1.4"/>
+      <ellipse cx="15" cy="3.5" rx="1.4" ry="1" fill="rgba(255,255,255,0.38)" transform="rotate(-15 15 3.5)"/>
+      <circle cx="15.2" cy="6.5" r="0.75" fill="rgba(0,0,0,0.22)"/>
+      <circle cx="18.2" cy="6" r="0.75" fill="rgba(0,0,0,0.22)"/>
+      <!-- Ферула: серебряные полоски -->
+      <rect x="12" y="9.5" width="10" height="5" fill="#CFD8DC" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="12.6" y1="11.3" x2="21.4" y2="11.3" stroke="#78909C" stroke-width="1.1"/>
+      <line x1="12.6" y1="13" x2="21.4" y2="13" stroke="#78909C" stroke-width="1.1"/>
+      <!-- Тело карандаша: жёлтый -->
+      <rect x="12" y="14" width="10" height="11" fill="#FFD600" stroke="#1a1a1a" stroke-width="1.3"/>
+      <!-- Боковые грани (эффект шестигранника) -->
+      <rect x="12" y="14" width="3.2" height="11" fill="#F9A825" stroke="none"/>
+      <rect x="18.8" y="14" width="3.2" height="11" fill="#E65100" opacity="0.35" stroke="none"/>
+      <line x1="15.2" y1="14.2" x2="15.2" y2="24.8" stroke="#1a1a1a" stroke-width="0.9" opacity="0.4"/>
+      <line x1="18.8" y1="14.2" x2="18.8" y2="24.8" stroke="#1a1a1a" stroke-width="0.9" opacity="0.4"/>
+      <!-- Деревянный конус (персиковый) -->
+      <polygon points="12,25 22,25 17,31" fill="#FFCCBC" stroke="#1a1a1a" stroke-width="1.3"/>
+      <line x1="17" y1="25.5" x2="17" y2="30.5" stroke="#A1887F" stroke-width="0.8" opacity="0.6"/>
+      <!-- Грифель (тёмный кончик) -->
+      <polygon points="14.8,30 19.2,30 17,33.5" fill="#37474F" stroke="#1a1a1a" stroke-width="0.9"/>
+    </g>
+  </svg>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="logo"><img src="логотип_мсф_красно_черный_для_светлого_фона.svg" alt="Медиасфера" class="logo-img"></a>
+    <nav class="mainnav">
+      <a href="#how" data-cursor="смотреть">Как доводим</a>
+      <a href="#cases" data-cursor="кейсы">Кейсы</a>
+      <a href="#team" data-cursor="редакция">Редакция</a>
+      <a href="#" data-cta data-cursor="написать">Контакты</a>
+      <a href="#" class="nav-lm" id="navLM" data-cursor="проверить">Продаст или нет</a>
+    </nav>
+    <a href="#" class="btn-head" id="btnHead" data-cursor="обсудить">Обсудить задачу</a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ============ ОВЕРЛЕЙ-МЕНЮ ============ -->
+<nav class="overlay-menu" id="overlayMenu" aria-hidden="true">
+  <span class="om-deco">правим прямо у вас на глазах</span>
+  <ul class="om-list">
+    <li><a href="#how">Как доводим до продаж</a></li>
+    <li><a href="#cases">Кейсы — до денег</a></li>
+    <li><a href="#team">Редакция и Яндекс</a></li>
+    <li><a href="#contact">Контакты</a></li>
+    <li><a href="#" class="om-lm" id="navLMm">Продаст или нет →</a></li>
+  </ul>
+  <a href="#" class="btn-primary om-cta" data-cta data-cta>Обсудить задачу</a>
+  <div class="om-foot">
+    <span>29 лет на рынке</span>
+    <span>945 млн охвата</span>
+    <a href="#" target="_blank" rel="noopener">Telegram агентства</a>
+  </div>
+</nav>
+
+<!-- ============ STICKY-ЗАКЛАДКА (уголок-ярлычок лид-магнита) ============ -->
+<button class="lm-tab" id="lmTab" type="button" aria-label="Открыть разбор «Продаст или нет»" data-cursor="проверить">
+  <span class="lm-tab-corner" aria-hidden="true"></span>
+  <span class="lm-tab-icon" aria-hidden="true">✦</span>
+  <span class="lm-tab-label">Продаст<br>или нет?</span>
+</button>
+
+<!-- Lottie фоновая анимация за hero-листом -->
+<div id="lottie-hero" aria-hidden="true"></div>
+
+<!-- ============ A. HERO ============ -->
+<main class="stage" id="top">
+  <div class="layout reveal pre">
+    <div class="sheet-wrap">
+      <article class="sheet">
+        <div class="sheet-col">
+          <span class="kicker">Документ редакции · в работе</span>
+
+          <!-- H1 с переносом строки в духе варианта C -->
+          <h1 class="headline">
+            <span class="line-reveal"><span>Контент,</span></span>
+            <span class="line-reveal"><span>который приводит <span class="mark">вашу ЦА</span></span></span>
+          </h1>
+          <!-- HERO «СЮЖЕТ»: кинетическая редактура (короткий вариант) -->
+          <div class="story" id="story" aria-hidden="true">
+            <div class="has-note" style="height:0">
+              <span class="note left" aria-hidden="false"><span class="pin">←</span>Пишем статьи<br>для<br>Яндекс ПромоСтраниц, Дзена, СМИ и блогов</span>
+            </div>
+            <p class="story-draft" id="storyDraft"></p>
+            <p class="story-clean" id="storyClean">
+              <span class="hl" id="storyHl">Статьи, после которых покупают ваш продукт</span>.
+            </p>
+            <div class="story-stamps has-note">
+              <span class="stamp-num s1" id="stamp1">+48%<small>аудитории</small></span>
+              <span class="stamp-dot" id="stampDot">·</span>
+              <span class="stamp-num s2" id="stamp2">6,59&nbsp;₽<small>стоимость контакта</small></span>
+              <span class="note right"><span class="pin">→</span>ведём до результата<small>а не «сдали файл — и пока»</small></span>
+            </div>
+            <p class="stamps-note">рост брендового спроса · стоимость контакта с покупателем</p>
+          </div>
+
+          <div class="cta-row">
+            <span class="magnetic"><a href="#" class="btn-primary" data-cta data-cursor="поехали">Обсудить задачу</a></span>
+          </div>
+
+          <div class="trust">
+            <span><span class="mark">сертифицированный партнёр <b>Яндекса</b></span></span>
+            <span><span class="mark">официальный <b>эксперт</b> Яндекс Рекламы</span></span>
+            <span><span class="mark">победитель <b>Silver Mercury 2024</b></span></span>
+          </div>
+
+          <div style="margin-top:18px">
+            <button class="link-secondary" id="openLM" type="button" data-cursor="проверить">
+              <span>А ваш контент работает? <span class="em">Проверьте бесплатно →</span></span>
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
+
+<!-- ============ B. КАК ДОВОДИМ ДО ПРОДАЖ ============ -->
+<section class="section" id="how">
+  <div class="layout reveal pre">
+    <div class="sheet-wrap">
+      <article class="sheet compact">
+        <div class="sheet-col">
+          <span class="kicker static">Раскрываем кухню · путь одной статьи</span>
+          <h2 class="sec-title has-note">
+            Хороший текст не продаёт. Продаёт <span class="mark">система</span>
+            <span class="note right"><span class="pin">←</span>текст — это шаг&nbsp;2<small>остальное — система до денег</small></span>
+          </h2>
+          <p class="subhead">Большинство агентств сдают файл — и на этом всё. У нас тут работа только начинается. Меряем не знаками, а <b>деньгами</b>.</p>
+
+          <div class="flow reveal pre">
+            <div class="flow-step"><span class="num">1</span><h4>Бриф</h4><p>Короткий бриф: по делу и без анкет на 100 полей. Остальное — спросим сами.</p></div>
+            <div class="flow-step has-note"><span class="num">2</span><h4>Сценарий статьи</h4><p>Не заход, а подробный сценарий статьи — вы согласуете его до первой строки.</p>
+              <span class="note blue right"><span class="pin">→</span>нормальный бриф,<br>без бюрократии</span>
+            </div>
+            <div class="flow-step"><span class="num">3</span><h4>Текст</h4><p>Штатная редакция полного цикла: автор → редактор → корректор.</p></div>
+            <div class="flow-step has-note"><span class="num">4</span><h4>Дистрибуция</h4><p>Доставляем туда, где статью прочитает ваш покупатель.</p><div class="branch"><span>ПромоСтраницы</span><span>Дзен</span><span>СМИ</span><span>блог</span></div>
+              <span class="note left"><span class="pin">↑</span>узел дистрибуции<small>без доставки текст не продаёт</small></span>
+            </div>
+            <div class="flow-step"><span class="num">5</span><h4>Тесты</h4><p>Заголовки и обложки гоняем, пока не найдём рабочую связку.</p></div>
+            <div class="flow-step"><span class="num">6</span><h4>Аналитика</h4><p>Дашборд: дочитывания, переходы, цена заявки, ROMI — цифры, не «всё хорошо».</p></div>
+            <div class="flow-step"><span class="num">7</span><h4>Масштаб</h4><p>Рабочие связки усиливаем, тёплых догоняем ретаргетингом.</p></div>
+          </div>
+
+          <div class="cta-row nomb">
+            <span class="magnetic"><a href="#" class="btn-primary" data-cta data-cursor="поехали">Обсудить задачу</a></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ B2. ТЁМНАЯ СЕКЦИЯ-МОСТИК (перенос из C) — перед каналами/ПромоСтраницами ============ -->
+<section class="beat reveal pre" id="beat" aria-label="Ключевая мысль">
+  <div class="beat-inner">
+    <div class="beat-kicker">Один кадр · без воды</div>
+    <p class="beat-line">Мало написать текст — важно получить <span class="um">измеримый результат</span></p>
+    <p class="beat-sub">Текст без дистрибуции — расход. Нужен подрядчик, который ведёт материал от черновика до читателя и дальше — до целевых метрик: дочитываний, переходов, заявок. Дальше — где именно мы это делаем.</p>
+    <div class="beat-cta">
+      <a href="#" class="btn-primary" data-cta data-cursor="поехали">Обсудить задачу</a>
+      <span class="beat-note">пишем и продвигаем →</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ C. КАНАЛЫ / КЕЙСЫ ============ -->
+<section class="section" id="cases">
+  <div class="layout reveal pre">
+    <div class="sheet-wrap">
+      <article class="sheet compact">
+        <div class="sheet-col">
+          <span class="kicker static">Каналы и примеры · посчитано до денег</span>
+          <h2 class="sec-title has-note">
+            Где продвигаем: ПромоСтраницы, Дзен, СМИ — <span class="mark">до денег</span>
+            <span class="note right"><span class="pin">←</span>считаем до денег<small>не «50 статей», а что они принесли</small></span>
+          </h2>
+          <p class="subhead">Основной канал — <b>Яндекс ПромоСтраницы</b>: статья находит покупателя внутри экосистемы Яндекса. Плюс Дзен, СМИ и блоги. Не «написали много статей», а что эти статьи принесли. Цифру можно проверить.</p>
+
+          <div class="cases reveal pre">
+            <div class="case">
+              <span class="stamp">x3</span>
+              <div class="case-tags"><span>ПромоСтраницы</span><span>БАДы</span></div>
+              <div class="case-name">Статинориз</div>
+              <div class="case-hero">x3 продажи</div>
+              <p class="case-sub">За полгода продвижения и <b>5,4x</b> брендового спроса.</p>
+              <a href="https://yandex.ru/adv/solutions/cases/proizvoditel-badov-uluchshil-ranzhirovanie-novinki-v-vydache-ozon" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Кейс Яндекса →</a>
+            </div>
+            <div class="case">
+              <span class="stamp">+450%</span>
+              <div class="case-tags"><span>ПромоСтраницы</span><span>Медицинские услуги</span></div>
+              <div class="case-name">Estetus</div>
+              <div class="case-hero">+450% интереса к бренду</div>
+              <p class="case-sub"><b>46 млн</b> показов и <b>483 942</b> просмотра статей.</p>
+              <a href="https://promopage.media-sfera.com/blog/drsevak" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Читать кейс →</a>
+            </div>
+            <div class="case">
+              <span class="stamp">71K</span>
+              <div class="case-tags"><span>ПромоСтраницы</span><span>БАДы</span></div>
+              <div class="case-name">Novonatum</div>
+              <div class="case-hero">71 000 конверсий</div>
+              <p class="case-sub"><b>161 млн</b> показов и <b>509 776</b> переходов на посадочные.</p>
+              <a href="https://promopage.media-sfera.com/blog/novonatum" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Читать кейс →</a>
+            </div>
+            <div class="case">
+              <span class="stamp">+229%</span>
+              <div class="case-tags"><span>ПромоСтраницы</span><span>Климатическая техника</span></div>
+              <div class="case-name">ТИОН</div>
+              <div class="case-hero">+228,9% брендовых запросов</div>
+              <p class="case-sub"><b>19,7 млн</b> показов и <b>91%</b> роста переходов на сайт.</p>
+              <a href="https://promopage.media-sfera.com/blog/tion" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Читать кейс →</a>
+            </div>
+          </div>
+
+          <p class="softline"><span class="mark">Нам доверяют бренды, которые умеют считать:</span></p>
+          <div class="logo-carousel">
+            <div class="logo-track" id="logoTrack">
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/527/fh3scy6x1pckw8zz3yw7eyufx4hk2kr5/200_200_1/LOGO_HANSA_COLOR_(1)-preview.jpg" alt="Hansa"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/431/lqx6pbtzkej2zaybav7k1po2r0sxjchu/200_200_1/orig.png" alt="Пиканта"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/3bc/jcxw2ounz0d81gph40yh20u0rs2mt277/200_200_1/orig2-preview.jpg" alt="KIBERCAR"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/68c/wb5s6vrplnixl8ad12b3htahh8plzm0u/200_200_1/%D0%9B%D0%BE%D0%B3%D0%BE.jpeg" alt="Spice Active"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/1be/23gptntdbn2sv27cvco61bpcendvg00u/200_200_1/logo.png" alt="Novonatum"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/f55/kc0x1bykrjehstp5oa6w5j0o0jgwzipc/200_200_1/_qieM_Fro-bjbffSDSFSSTWAjZMkEn0VW1UoMCa6WhE=.jpeg" alt="Vitabeauty"></div>
+              <!-- дублируем для бесшовной петли -->
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/527/fh3scy6x1pckw8zz3yw7eyufx4hk2kr5/200_200_1/LOGO_HANSA_COLOR_(1)-preview.jpg" alt="Hansa"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/431/lqx6pbtzkej2zaybav7k1po2r0sxjchu/200_200_1/orig.png" alt="Пиканта"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/3bc/jcxw2ounz0d81gph40yh20u0rs2mt277/200_200_1/orig2-preview.jpg" alt="KIBERCAR"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/68c/wb5s6vrplnixl8ad12b3htahh8plzm0u/200_200_1/%D0%9B%D0%BE%D0%B3%D0%BE.jpeg" alt="Spice Active"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/1be/23gptntdbn2sv27cvco61bpcendvg00u/200_200_1/logo.png" alt="Novonatum"></div>
+              <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/f55/kc0x1bykrjehstp5oa6w5j0o0jgwzipc/200_200_1/_qieM_Fro-bjbffSDSFSSTWAjZMkEn0VW1UoMCa6WhE=.jpeg" alt="Vitabeauty"></div>
+            </div>
+          </div>
+
+          <div class="cta-row nomb" style="margin-top:6px">
+            <span class="magnetic"><a href="#" class="btn-primary" data-cta data-cursor="разбор">Хочу разбор по моей нише</a></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ D. РЕДАКЦИЯ + ЯНДЕКС ============ -->
+<section class="section" id="team">
+  <div class="layout reveal pre">
+    <div class="sheet-wrap">
+      <article class="sheet compact">
+        <div class="sheet-col">
+          <span class="kicker static">Кто это пишет · редакция и партнёрство</span>
+          <h2 class="sec-title has-note">
+            Пишет не биржа. Пишет <span class="mark">редакция</span>
+            <span class="note left"><span class="pin">↓</span>не биржа<small>штатная редакция полного цикла</small></span>
+          </h2>
+          <p class="subhead">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>. Все сертифицированы Яндексом по ПромоСтраницам.</p>
+
+          <div class="team-slider-wrap">
+            <div class="team-slider" id="teamSlider">
+              <div class="team-slide"><div class="ava-lg">ТУ</div><div class="ts-name">Тимур Угулава</div><div class="ts-role">Совладелец, официальный эксперт Яндекс Рекламы по ПромоСтраницам</div></div>
+              <div class="team-slide"><div class="ava-lg">МБ</div><div class="ts-name">Майя Блюм</div><div class="ts-role">Главный редактор — отвечает за смыслы и качество текста</div></div>
+              <div class="team-slide"><div class="ava-lg">КУ</div><div class="ts-name">Ксения Угулава</div><div class="ts-role">Продюсер контент-направления — связывает редакцию и результат</div></div>
+              <div class="team-slide"><div class="ava-lg">АЛ</div><div class="ts-name">Александр Ломтадзе</div><div class="ts-role">Руководитель проекта</div></div>
+              <div class="team-slide"><div class="ava-lg">АШ</div><div class="ts-name">Анастасия Шершнева</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
+              <div class="team-slide"><div class="ava-lg">НК</div><div class="ts-name">Нина Карина</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
+            </div>
+            <div class="ts-nav">
+              <button class="ts-btn" id="tsPrev" aria-label="Назад">←</button>
+              <button class="ts-btn" id="tsNext" aria-label="Вперёд">→</button>
+            </div>
+          </div>
+
+          <hr class="divider mt">
+          <h3 class="sub-title">Нас выбирают и Яндекс, и рынок</h3>
+
+          <div class="cert-grid">
+            <div class="cert-card"><div class="cert-card-title">Партнёр Яндекса с 2011 года</div><div class="cert-card-text">Больше десяти лет сертифицированного опыта внутри платформы.</div></div>
+            <div class="cert-card"><div class="cert-card-title">2 эксперта Яндекс Рекламы в команде</div><div class="cert-card-text">Первыми тестируем новые функции ПромоСтраниц — вы получаете рабочие инструменты раньше рынка.</div></div>
+            <div class="cert-card"><div class="cert-card-title">Silver Mercury 2024</div><div class="cert-card-text">«Лучшая брендформанс‑кампания» — умеем собирать награды за результаты, а не за красивые слова.</div></div>
+            <div class="cert-card"><div class="cert-card-title">Вся команда сертифицирована</div><div class="cert-card-text">Каждый специалист по ПромоСтраницам подтверждён Яндексом, без «случайных людей в проекте».</div></div>
+          </div>
+
+          <div class="cta-row nomb">
+            <span class="magnetic"><a href="#" class="btn-primary" data-cta data-cursor="поехали">Обсудить задачу</a></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ E. FAQ (отдельная секция) ============ -->
+<section class="section" id="faq">
+  <div class="layout reveal pre">
+    <div class="sheet-wrap">
+      <article class="sheet compact">
+        <div class="sheet-col">
+          <span class="kicker static">Перед стартом · короткие ответы</span>
+          <h2 class="sec-title">Что обычно <span class="mark">спрашивают</span></h2>
+
+          <div class="faq">
+            <div class="faq-item">
+              <button class="faq-q" type="button" data-cursor="открыть">Мы небольшая компания. Нам подойдёт?</button>
+              <div class="faq-a"><div class="faq-a-inner">Да. Отбираем не по выручке, а по задаче. Если статейный канал вашему продукту не подходит — скажем честно на первом созвоне.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button" data-cursor="открыть">Когда ждать первых результатов?</button>
+              <div class="faq-a"><div class="faq-a-inner">Первая неделя — обучение алгоритма. Рабочий горизонт теста — один цикл вашей сделки: за это время видны дочитывания, переходы и первые заявки.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button" data-cursor="открыть">Кто будет писать и как разберётесь в нашей специфике?</button>
+              <div class="faq-a"><div class="faq-a-inner">Штатная редакция: автор → редактор → корректор. Сначала бриф и подробный сценарий, который вы согласуете. Работали с фармой, БАДами, B2B-финансами и недвижимостью.</div></div>
+            </div>
+          </div>
+
+          <div class="cta-row nomb" style="margin-top:24px">
+            <span class="magnetic"><a href="#" class="btn-primary" data-cta data-cursor="поехали">Обсудить задачу</a></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- якорь для навигации -->
+<div id="contact" style="height:0;overflow:hidden"></div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="#top" class="logo">медиасфера</a>
+      <div class="footer-links">
+        <a href="#how">Как доводим</a>
+        <a href="#cases">Каналы и кейсы</a>
+        <a href="#team">Редакция</a>
+        <a href="#" id="navLMf">Продаст или нет</a>
+        <a href="#" target="_blank" rel="noopener">Telegram агентства</a>
+        <a href="https://www.media-sfera.com/agreement/" target="_blank" rel="noopener">Политика конфиденциальности</a>
+      </div>
+    </div>
+    <div class="footer-meta">
+      ООО «Медиасфера» · контент, который продаёт · реквизиты по запросу
+      <span class="soft">Мы и в числе ведущих контент-агентств по версии Рейтинга Рунета — с отзывами клиентов на 5.0.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ LEAD-MAGNET MODAL ============ -->
+<div class="lm-backdrop" id="lmBackdrop" aria-hidden="true">
+  <div class="lm-panel" role="dialog" aria-modal="true" aria-label="Проверка текста — продаст или нет">
+    <div class="lm-kicker">Лид-магнит · живой AI-разбор</div>
+    <h3>Продаст или нет?</h3>
+    <p class="lm-sub">Вставьте заголовок, абзац или оффер — редактор (на базе ИИ) даст вердикт и 3 правки «было → стало». Это демо: показываем, как мы думаем над текстом.</p>
+    <textarea id="lmInput" placeholder="Например: «Наша компания предлагает широкий спектр качественных услуг для вашего бизнеса по выгодным ценам…»"></textarea>
+    <div class="lm-contact">
+      <div class="lm-contact-head">Хотите живой разбор от редакции? Оставьте контакт:</div>
+      <div class="lm-row">
+        <div class="field"><label for="lm-name" style="font-size:12px">Имя</label><input id="lm-name" type="text" placeholder="Как вас зовут"></div>
+        <div class="field"><label for="lm-contact-val" style="font-size:12px">Telegram / телефон</label><input id="lm-contact-val" type="text" placeholder="@username или +7…"></div>
+      </div>
+      <div class="form-check-row" style="margin-top:6px">
+        <input type="checkbox" id="lm-consent">
+        <label for="lm-consent">Соглашаюсь с <a href="https://www.media-sfera.com/agreement/" target="_blank" rel="noopener">политикой обработки персональных данных</a></label>
+      </div>
+    </div>
+    <div class="lm-actions">
+      <button class="btn-primary" id="lmRun" type="button">Проверить текст</button>
+      <span class="lm-hint" id="lmHint">Можно вставить даже один заголовок.</span>
+      <button class="lm-close" id="lmClose" type="button">Закрыть</button>
+    </div>
+    <div class="verdict" id="verdict">
+      <div class="verdict-head">
+        <div class="gauge" id="gauge"><div class="ginner"><span class="gnum" id="gnum">0</span><span class="gunit">/100</span></div></div>
+        <div>
+          <div class="vtag" id="vtag">—</div>
+          <div class="vsum" id="vsum">—</div>
+        </div>
+      </div>
+      <p class="edits-title">3 правки «было → стало»</p>
+      <ul class="edits" id="edits"></ul>
+      <div class="vfoot">Это упрощённое демо. Полный разбор с правками под вашу нишу делает живая редакция — <a href="#contact" id="vfootLink">обсудить задачу →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ПОПАП "ОБСУДИТЬ ЗАДАЧУ" (шапка) ============ -->
+<div class="lm-backdrop" id="contactBackdrop" aria-hidden="true">
+  <div class="lm-panel" role="dialog" aria-modal="true" aria-label="Обсудить задачу">
+    <div class="lm-kicker">Старт · оставьте заявку</div>
+    <h3>Обсудить задачу</h3>
+    <p class="lm-sub">Вернёмся в течение рабочего дня, посмотрим вашу нишу и предложим, в каких каналах статья принесёт заявки.</p>
+    <form class="form-grid" id="popupForm" onsubmit="return false" style="margin-top:4px">
+      <div class="field">
+        <label for="p-name">Имя <span style="color:var(--red)">*</span></label>
+        <input id="p-name" type="text" placeholder="Как к вам обращаться">
+      </div>
+      <div class="field">
+        <label for="p-email">Email <span style="color:var(--red)">*</span></label>
+        <input id="p-email" type="email" placeholder="почта@компания.ру">
+      </div>
+      <div class="field">
+        <label>Как удобнее связаться</label>
+        <div class="seg" id="p-seg">
+          <button type="button" class="on" data-m="Telegram">Telegram</button>
+          <button type="button" data-m="Телефон">Телефон</button>
+          <button type="button" data-m="Почта">Почта</button>
+        </div>
+        <input id="p-contact" type="text" placeholder="@username в Telegram">
+      </div>
+      <div class="field">
+        <label for="p-task">О задаче <span class="opt">(необязательно)</span></label>
+        <textarea id="p-task" placeholder="Пара слов о продукте — остальное спросим сами"></textarea>
+      </div>
+      <div class="form-check-row">
+        <input type="checkbox" id="p-consent">
+        <label for="p-consent">Нажимая «Обсудить задачу», я соглашаюсь с <a href="https://www.media-sfera.com/agreement/" target="_blank" rel="noopener">политикой обработки персональных данных</a> <span style="color:var(--red)">*</span></label>
+      </div>
+      <button class="btn-primary" style="text-align:center" id="p-submit" type="button">Обсудить задачу</button>
+      <div class="microcopy">Вернёмся в течение рабочего дня. Без рассылок и звонков.</div>
+      <div class="form-sent" id="popupSent">Спасибо! Мы получили заявку и вернёмся в течение рабочего дня.</div>
+    </form>
+    <div class="lm-actions" style="margin-top:0;justify-content:flex-end">
+      <button class="lm-close" id="contactClose" type="button">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  document.documentElement.classList.add('js');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isTouch = window.matchMedia && window.matchMedia('(hover: none)').matches;
+
+  /* ---- REVEAL c фолбэком ---- */
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  reveals.forEach(function(el){ if(!reduce) el.classList.add('pre'); });
+  function showAll(){ reveals.forEach(function(el){ el.classList.remove('pre'); el.classList.add('in'); }); }
+
+  if(reduce){
+    showAll();
+  } else if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.remove('pre'); e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    reveals.forEach(function(el){ io.observe(el); });
+    // таймаут убран — элементы появляются только при скролле
+  } else { showAll(); }
+
+  /* ---- STAGGER: карточки появляются поочерёдно при скролле ---- */
+  if(!reduce && 'IntersectionObserver' in window){
+    var staggerGroups = document.querySelectorAll('.cases,.cert-grid,.team-slider');
+    staggerGroups.forEach(function(group){
+      var children = Array.prototype.slice.call(group.children);
+      children.forEach(function(child){
+        child.style.opacity = '0';
+        child.style.transform = 'scale(.9) translateY(18px)';
+        child.style.transition = 'opacity .5s ease, transform .65s cubic-bezier(0.34,1.56,0.64,1)';
+      });
+      var sio = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            var idx = Array.prototype.indexOf.call(e.target.parentNode.children, e.target);
+            setTimeout(function(){
+              e.target.style.opacity='1';
+              e.target.style.transform='scale(1) translateY(0)';
+              setTimeout(function(){ e.target.style.transition=''; }, 700);
+            }, idx * 100);
+            sio.unobserve(e.target);
+          }
+        });
+      }, {threshold:0.08});
+      children.forEach(function(child){ sio.observe(child); });
+    });
+  }
+
+  /* ---- ФИЗИКА БУМАГИ: дрейф на скролле + наклон/подъём листа от курсора (десктоп) ---- */
+  var sheets = Array.prototype.slice.call(document.querySelectorAll('.sheet'));
+  var wraps  = Array.prototype.slice.call(document.querySelectorAll('.sheet-wrap'));
+  var paperOn = !reduce && !isTouch && window.matchMedia('(pointer:fine)').matches && window.innerWidth > 920;
+
+  var ticking = false;
+  function scrollDrift(){
+    var vh = window.innerHeight;
+    sheets.forEach(function(s){
+      var r = s.getBoundingClientRect();
+      var center = r.top + r.height/2;
+      var off = (center - vh/2) / vh;
+      var shift = Math.max(-16, Math.min(16, -off * 16));
+      s.style.setProperty('--py', shift.toFixed(2) + 'px');
+    });
+    ticking = false;
+  }
+  function reqDrift(){ if(!ticking){ window.requestAnimationFrame(scrollDrift); ticking = true; } }
+
+  if(paperOn){
+    window.addEventListener('scroll', reqDrift, {passive:true});
+    scrollDrift();
+
+    wraps.forEach(function(wrap){
+      var sheet = wrap.querySelector('.sheet');
+      if(!sheet) return;
+      var tx = 0, ty = 0, cx = 0, cy = 0, raf = null, inside = false;
+      function loop(){
+        cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
+        sheet.style.setProperty('--ry', cx.toFixed(2) + 'deg');
+        sheet.style.setProperty('--rx', cy.toFixed(2) + 'deg');
+        if(Math.abs(tx-cx) > 0.01 || Math.abs(ty-cy) > 0.01 || inside){ raf = requestAnimationFrame(loop); }
+        else { raf = null; }
+      }
+      function kick(){ if(!raf) raf = requestAnimationFrame(loop); }
+      wrap.addEventListener('mousemove', function(e){
+        var r = wrap.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width  - 0.5;
+        var py = (e.clientY - r.top)  / r.height - 0.5;
+        tx =  px * 5.5;
+        ty = -py * 4.2;
+        sheet.style.setProperty('--lift', '8');
+        kick();
+      });
+      wrap.addEventListener('mouseenter', function(){ inside = true; wrap.classList.add('lifted'); kick(); });
+      wrap.addEventListener('mouseleave', function(){
+        inside = false; tx = 0; ty = 0;
+        sheet.style.setProperty('--lift', '0');
+        wrap.classList.remove('lifted');
+        kick();
+      });
+    });
+  }
+
+  /* ---- ОВЕРЛЕЙ-МЕНЮ ---- */
+  var burger = document.getElementById('burger');
+  var overlay = document.getElementById('overlayMenu');
+  function setMenu(open){
+    burger.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open?'true':'false');
+    overlay.setAttribute('aria-hidden', open?'false':'true');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', function(){ setMenu(!overlay.classList.contains('open')); });
+  overlay.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && overlay.classList.contains('open')) setMenu(false); });
+
+  /* ---- HERO «СЮЖЕТ» ---- */
+  var draftEl  = document.getElementById('storyDraft');
+  var cleanEl  = document.getElementById('storyClean');
+  var hlEl     = document.getElementById('storyHl');
+  var stamp1   = document.getElementById('stamp1');
+  var stamp2   = document.getElementById('stamp2');
+  var stampDot = document.getElementById('stampDot');
+  var replayBtn= null; /* кнопка убрана */
+  // токены черновой фразы Майи; weak — слова, по которым пройдёт красное зачёркивание
+  var TOKENS = [
+    {t:'Наша '},{t:'компания '},{t:'предлагает '},
+    {t:'широкий ', weak:true},{t:'спектр ', weak:true},{t:'качественных ', weak:true},{t:'услуг '},
+    {t:'по '},{t:'выгодным ', weak:true},{t:'ценам', weak:true},{t:'.'}
+  ];
+  var storyTimers = [];
+  function clearStory(){ storyTimers.forEach(clearTimeout); storyTimers = []; }
+  function later(fn, ms){ var id = setTimeout(fn, ms); storyTimers.push(id); return id; }
+
+  function runStory(){
+    if(reduce){ return; }
+    clearStory();
+    draftEl.innerHTML = '';
+    draftEl.style.opacity = '';
+    cleanEl.classList.remove('show');
+    hlEl.classList.remove('swipe');
+    stamp1.classList.remove('stamped');
+    stamp2.classList.remove('stamped');
+    if(stampDot) stampDot.classList.remove('stamped');
+    if(replayBtn) replayBtn.classList.remove('show');
+
+    var caret = document.createElement('span');
+    caret.className = 'type-caret';
+
+    var i = 0;
+    function typeNext(){
+      if(i < TOKENS.length){
+        var sp = document.createElement('span');
+        sp.className = 'w' + (TOKENS[i].weak ? ' strike' : '');
+        sp.innerHTML = TOKENS[i].t.replace(/ /g,'&nbsp;') ;
+        if(caret.parentNode === draftEl){ draftEl.insertBefore(sp, caret); }
+        else { draftEl.appendChild(sp); draftEl.appendChild(caret); }
+        i++;
+        later(typeNext, 95 + (TOKENS[i-1].t.length*8));
+      } else {
+        var weakEls = draftEl.querySelectorAll('.w.strike');
+        var d = 220;
+        weakEls.forEach(function(w, k){ later(function(){ w.classList.add('go'); }, d + k*150); });
+        var strikeDone = d + weakEls.length*150 + 360;
+        later(function(){ caret.classList.add('gone'); draftEl.style.transition='opacity .4s ease'; draftEl.style.opacity='.45'; }, strikeDone);
+        later(function(){ cleanEl.classList.add('show'); }, strikeDone + 160);
+        later(function(){ hlEl.classList.add('swipe'); }, strikeDone + 560);
+        later(function(){ stamp1.classList.add('stamped'); }, strikeDone + 1000);
+        later(function(){ if(stampDot) stampDot.classList.add('stamped'); }, strikeDone + 1100);
+        later(function(){ stamp2.classList.add('stamped'); }, strikeDone + 1200);
+        if(replayBtn) later(function(){ replayBtn.classList.add('show'); }, strikeDone + 1500);
+      }
+    }
+    typeNext();
+  }
+  /* replayBtn убран из HTML */
+  var storyZone = document.getElementById('story');
+  if(!reduce && 'IntersectionObserver' in window){
+    var sObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ runStory(); }
+      });
+    }, {threshold:0.55});
+    later(function(){ sObs.observe(storyZone); }, 300);
+  } else if(!reduce){
+    later(runStory, 400);
+  }
+
+  /* ---- FAQ АККОРДЕОН ---- */
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = btn.closest('.faq-item');
+      var a = item.querySelector('.faq-a');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(o){
+        if(o!==item){ o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight = null; }
+      });
+      if(isOpen){ item.classList.remove('open'); a.style.maxHeight = null; }
+      else{ item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+
+  /* phoneFormat — используется в попап-форме */
+  var ph = {Telegram:'@username в Telegram', 'Телефон':'+7 (000) 000-00-00', 'Почта':'почта@компания.ру'};
+  function phoneFormat(val){
+    var d = val.replace(/\D/g,'');
+    if(d[0]==='8') d='7'+d.slice(1);
+    if(d[0]!=='7') d='7'+d;
+    d = d.slice(0,11);
+    var r='+7';
+    if(d.length>1) r+=' ('+d.slice(1,4);
+    if(d.length>=4) r+=') '+d.slice(4,7);
+    if(d.length>=7) r+='-'+d.slice(7,9);
+    if(d.length>=9) r+='-'+d.slice(9,11);
+    return r;
+  }
+
+  function captureUtms(){
+    var p = new URLSearchParams(window.location.search);
+    var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+    var r = {};
+    keys.forEach(function(k){ var v = p.get(k); if(v) r[k] = v; });
+    r['page_url'] = window.location.href;
+    if(document.referrer) r['referrer'] = document.referrer;
+    return r;
+  }
+
+  /* основная форма убрана — все заявки через попап */
+
+  /* ---- CTA → открывают попап "Обсудить задачу" ---- */
+  document.querySelectorAll('[data-cta]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openContact(); });
+  });
+  /* навигация Контакты тоже открывает попап */
+  document.querySelectorAll('a[href="#contact"]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); openContact(); });
+  });
+
+  /* ---- СЛАЙДЕР КОМАНДЫ ---- */
+  var tsSlider = document.getElementById('teamSlider');
+  var tsPrev = document.getElementById('tsPrev');
+  var tsNext = document.getElementById('tsNext');
+  if(tsSlider && tsPrev && tsNext){
+    var slideW = function(){ var s = tsSlider.querySelector('.team-slide'); return s ? s.offsetWidth + 14 : 180; };
+    tsPrev.addEventListener('click', function(){ tsSlider.scrollBy({left: -slideW(), behavior:'smooth'}); });
+    tsNext.addEventListener('click', function(){ tsSlider.scrollBy({left:  slideW(), behavior:'smooth'}); });
+  }
+
+  /* ---- ЛИД-МАГНИТ ---- */
+  var backdrop = document.getElementById('lmBackdrop');
+  function openLM(){ backdrop.classList.add('open'); backdrop.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(function(){ document.getElementById('lmInput').focus(); }, 60); }
+  function closeLM(){ backdrop.classList.remove('open'); backdrop.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  function bindOpen(id){ var el = document.getElementById(id); if(el) el.addEventListener('click', function(e){ if(el.tagName==='A') e.preventDefault(); openLM(); }); }
+  ['openLM','lmTab','navLM','navLMm','navLMf'].forEach(bindOpen);
+  document.getElementById('lmClose').addEventListener('click', closeLM);
+  backdrop.addEventListener('click', function(e){ if(e.target===backdrop) closeLM(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && backdrop.classList.contains('open')) closeLM(); });
+  document.getElementById('vfootLink').addEventListener('click', function(e){ closeLM(); });
+
+  var WEAK = [
+    {re:/широк(ий|ого|ому) спектр|спектр услуг/i, was:'широкий спектр качественных услуг', now:'статья, после которой покупают именно ваш продукт'},
+    {re:/индивидуальн\w* подход/i, was:'индивидуальный подход к каждому', now:'сценарий под вашу нишу — согласуете до первой строки'},
+    {re:/качествен\w+/i, was:'качественный текст', now:'текст, который снизил цену дочитки до 7,14 ₽'},
+    {re:/professional|профессионал\w*/i, was:'мы профессионалы своего дела', now:'29 лет, 945 млн охвата — считаем в деньгах'},
+    {re:/выгодн\w+ цен|низк\w+ цен|доступн\w+ цен/i, was:'по выгодным ценам', now:'+45% продаж за 7 месяцев — вот результат'},
+    {re:/лидер\w* рынка|№\s*1|номер один/i, was:'лидер рынка', now:'партнёр Яндекса с 2011 года, Silver Mercury 2024'},
+    {re:/комплексн\w+ решени/i, was:'комплексное решение под ключ', now:'путь статьи: бриф → текст → дистрибуция → заявки'}
+  ];
+  var GENERIC = [
+    {was:'длинное вступление «о компании»', now:'первая строка — про боль читателя, а не про вас'},
+    {was:'нет ни одной цифры', now:'добавьте проверяемый результат: %, ₽, срок'},
+    {was:'абзац без призыва', now:'в конце — один понятный следующий шаг'}
+  ];
+  function buildEdits(text){
+    var found = [];
+    WEAK.forEach(function(p){ if(p.re.test(text) && found.length<3) found.push({was:p.was, now:p.now}); });
+    var gi = 0;
+    while(found.length < 3 && gi < GENERIC.length){ found.push({was:GENERIC[gi].was, now:GENERIC[gi].now}); gi++; }
+    return found.slice(0,3);
+  }
+  function scoreText(text){
+    var t = text.trim();
+    var s = 52;
+    if(/\d/.test(t)) s += 10;
+    if(/[?!]/.test(t)) s += 4;
+    if(t.length > 60 && t.length < 600) s += 6;
+    WEAK.forEach(function(p){ if(p.re.test(t)) s -= 9; });
+    if(/\bвы\b|\bваш/i.test(t)) s += 6;
+    if(t.length < 25) s -= 12;
+    s = Math.max(18, Math.min(88, s + (t.length % 7) - 3));
+    return Math.round(s);
+  }
+  var verdict = document.getElementById('verdict');
+  var runBtn = document.getElementById('lmRun');
+  function runVerdict(){
+    var text = document.getElementById('lmInput').value;
+    if(!text.trim()){ document.getElementById('lmInput').focus(); document.getElementById('lmHint').textContent = 'Вставьте хотя бы заголовок.'; return; }
+    runBtn.classList.add('loading'); runBtn.textContent = 'Анализирую…';
+    setTimeout(function(){
+      var sc = scoreText(text);
+      var edits = buildEdits(text);
+      var tone = sc >= 70 ? 'good' : (sc >= 45 ? 'mid' : 'bad');
+      var tag = sc >= 70 ? 'Скорее продаёт' : (sc >= 45 ? 'Продаёт наполовину' : 'Пока не продаёт');
+      var sum = sc >= 70 ? 'Хорошая база. Доведём до денег точечными правками.' :
+                (sc >= 45 ? 'Есть смысл, но мешают штампы и нехватка фактов.' :
+                 'Много общих слов и мало конкретики — читатель не дочитает.');
+      var gnum = document.getElementById('gnum');
+      var start = 0, dur = 600, t0 = performance.now();
+      function tick(now){
+        var p = Math.min(1, (now - t0)/dur);
+        gnum.textContent = Math.round(start + (sc - start) * (1 - Math.pow(1-p,3)));
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      var gaugeEl = document.getElementById('gauge');
+      gaugeEl.setAttribute('data-tone', tone);
+      gaugeEl.style.setProperty('--p', '0');
+      requestAnimationFrame(function(){ gaugeEl.style.setProperty('--p', String(sc)); });
+      document.getElementById('vtag').textContent = tag;
+      document.getElementById('vsum').textContent = sum;
+      var ul = document.getElementById('edits'); ul.innerHTML = '';
+      edits.forEach(function(e){
+        var li = document.createElement('li'); li.className = 'edit';
+        li.innerHTML = '<span class="edit-n"></span><div><div class="edit-was">'+e.was+'</div><div class="edit-now">'+e.now+'</div></div>';
+        ul.appendChild(li);
+      });
+      verdict.classList.add('show');
+      runBtn.classList.remove('loading'); runBtn.textContent = 'Проверить ещё раз';
+
+      /* отправляем контакт, если заполнены поля и дано согласие */
+      var lmNameEl = document.getElementById('lm-name');
+      var lmCVal = document.getElementById('lm-contact-val');
+      var lmCons = document.getElementById('lm-consent');
+      if(lmNameEl && lmCVal && lmCons && lmCons.checked && lmNameEl.value.trim()){
+        fetch('submit.php', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+            name: lmNameEl.value.trim(),
+            contactValue: lmCVal.value.trim(),
+            task: '[LM] ' + text.slice(0,500),
+            consent: true,
+            utms: captureUtms()
+          })
+        }).catch(function(){});
+      }
+    }, 650);
+  }
+  runBtn.addEventListener('click', runVerdict);
+  var lmInput = document.getElementById('lmInput');
+  lmInput.addEventListener('keydown', function(e){
+    if((e.metaKey || e.ctrlKey) && e.key === 'Enter') runVerdict();
+  });
+  var lmHintEl = document.getElementById('lmHint');
+  lmInput.addEventListener('input', function(){
+    var n = lmInput.value.trim().length;
+    runBtn.classList.toggle('ready', n >= 12);
+    if(n === 0){ lmHintEl.textContent = 'Можно вставить даже один заголовок.'; }
+    else if(n < 12){ lmHintEl.textContent = 'Ещё чуть-чуть — и можно проверять…'; }
+    else if(n < 120){ lmHintEl.textContent = 'Достаточно. Нажмите «Проверить текст» →'; }
+    else { lmHintEl.textContent = n + ' символов — разберём по полной.'; }
+  });
+
+  /* ---- ПОПАП "ОБСУДИТЬ ЗАДАЧУ" (шапка) ---- */
+  var contactBackdrop = document.getElementById('contactBackdrop');
+  var pContactEl = document.getElementById('p-contact');
+  var popupMethod = 'Telegram';
+
+  function openContact(){
+    contactBackdrop.classList.add('open');
+    contactBackdrop.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ var n = document.getElementById('p-name'); if(n) n.focus(); }, 60);
+  }
+  function closeContact(){
+    contactBackdrop.classList.remove('open');
+    contactBackdrop.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  var btnHead = document.getElementById('btnHead');
+  if(btnHead){ btnHead.addEventListener('click', function(e){ e.preventDefault(); openContact(); }); }
+  document.getElementById('contactClose').addEventListener('click', closeContact);
+  contactBackdrop.addEventListener('click', function(e){ if(e.target===contactBackdrop) closeContact(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && contactBackdrop.classList.contains('open')) closeContact(); });
+
+  document.querySelectorAll('#p-seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#p-seg button').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      popupMethod = b.dataset.m;
+      pContactEl.placeholder = ph[b.dataset.m] || '';
+      pContactEl.value = '';
+    });
+  });
+  pContactEl.addEventListener('input', function(){ if(popupMethod==='Телефон') this.value = phoneFormat(this.value); });
+
+  document.getElementById('p-submit').addEventListener('click', function(){
+    var nameEl    = document.getElementById('p-name');
+    var emailEl   = document.getElementById('p-email');
+    var consentEl = document.getElementById('p-consent');
+    var submitBtn = this;
+    [nameEl, emailEl, pContactEl].forEach(function(el){ el.classList.remove('field-err'); });
+    var valid = true;
+    if(!nameEl.value.trim()){ nameEl.classList.add('field-err'); nameEl.focus(); valid = false; }
+    if(!emailEl.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())){
+      emailEl.classList.add('field-err'); if(valid) emailEl.focus(); valid = false;
+    }
+    if(!consentEl.checked){ if(valid) consentEl.focus(); valid = false; }
+    if(!valid) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправляем…';
+    var cType = popupMethod==='Telegram' ? 'telegram' : popupMethod==='Телефон' ? 'phone' : 'email_contact';
+    fetch('submit.php', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: nameEl.value.trim(), email: emailEl.value.trim(),
+        contactType: cType, contactValue: pContactEl.value.trim(),
+        task: (document.getElementById('p-task')||{}).value || '',
+        consent: true, utms: captureUtms()
+      })
+    })
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(){
+      document.getElementById('popupSent').classList.add('show');
+      if(typeof ym==='function') ym(57355,'reachGoal','form_rr_send');
+      submitBtn.textContent = 'Заявка отправлена';
+      submitBtn.style.background = 'var(--green)';
+      setTimeout(closeContact, 2800);
+    })
+    .catch(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Ошибка — попробуйте ещё раз';
+      setTimeout(function(){ submitBtn.textContent = 'Обсудить задачу'; }, 3000);
+    });
+  });
+
+  /* ---- МАГНИТНАЯ КНОПКА ---- */
+  if(!reduce && !isTouch && window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.magnetic').forEach(function(wrap){
+      var btn = wrap.querySelector('.btn-primary');
+      if(!btn) return;
+      wrap.addEventListener('mousemove', function(e){
+        var r = wrap.getBoundingClientRect();
+        var x = e.clientX - r.left - r.width/2;
+        var y = e.clientY - r.top - r.height/2;
+        btn.style.transform = 'translate(' + (x*0.28).toFixed(1) + 'px,' + (y*0.4).toFixed(1) + 'px)';
+      });
+      wrap.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
+    });
+  }
+
+  /* карандаш-курсор убран — используется обычный системный курсор */
+
+  /* ---- LOTTIE: фоновая анимация в hero ---- */
+  if(typeof lottie !== 'undefined' && !reduce){
+    lottie.loadAnimation({
+      container: document.getElementById('lottie-hero'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://assets10.lottiefiles.com/packages/lf20_tfb3estd.json'
+    });
+  }
+})();
+</script>
+</body>
+</html>
