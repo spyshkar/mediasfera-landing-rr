@@ -362,20 +362,29 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .note.right{padding-right:14px}
 
   /* ============ TEAM SLIDER ============ */
+  @keyframes sway{0%,100%{transform:rotate(-.7deg)}50%{transform:rotate(.7deg)}}
   .team-slider-wrap{position:relative;margin:8px -8px 24px}
-  .team-slider{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 8px 8px}
+  .team-slider{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:8px 8px 12px}
   .team-slider::-webkit-scrollbar{display:none}
-  .team-slide{flex:0 0 calc(50% - 7px);min-width:260px;scroll-snap-align:start;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:0 0 22px;display:flex;flex-direction:column;overflow:hidden;transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
-  .team-slide:hover{transform:translateY(-5px);box-shadow:0 20px 36px -20px rgba(27,27,29,.32)}
-  .ts-photo{width:100%;height:320px;object-fit:cover;object-position:top center;display:block;border-radius:0;margin:0 0 18px;border:none;flex-shrink:0}
+  .team-slide{flex:0 0 calc(50% - 7px);min-width:260px;scroll-snap-align:start;background:var(--bg);border:1.5px solid var(--line);border-radius:18px;padding:0 0 22px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 6px 22px -8px rgba(27,27,29,.16);animation:sway 4s ease-in-out infinite;transform-origin:bottom center;transition:box-shadow .3s var(--ease-out),border-color .2s ease}
+  .team-slide:nth-child(2){animation-delay:-1.3s}
+  .team-slide:nth-child(3){animation-delay:-.7s}
+  .team-slide:nth-child(4){animation-delay:-2.1s}
+  .team-slide:nth-child(5){animation-delay:-1.6s}
+  .team-slide:nth-child(6){animation-delay:-.4s}
+  .team-slide:nth-child(7){animation-delay:-2.8s}
+  .team-slide:nth-child(8){animation-delay:-1.1s}
+  .team-slide:hover{animation-play-state:paused;border-color:rgba(227,6,19,.35);box-shadow:0 22px 44px -10px rgba(27,27,29,.28)}
+  .ts-photo{width:100%;height:320px;object-fit:cover;object-position:top center;display:block;border-radius:0;margin:0 0 18px;border:none;flex-shrink:0;image-orientation:from-image}
   .ava-lg{width:100%;height:320px;border-radius:0;background:linear-gradient(160deg,var(--red),var(--red-dark));color:#fff;font-family:var(--serif);font-weight:600;font-size:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:18px}
-  .ts-name{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em;padding:0 18px}
-  .ts-role{font-family:var(--sans);font-size:13px;line-height:1.5;color:var(--grey);padding:0 18px}
-  .ts-nav{display:flex;justify-content:center;gap:10px;margin-top:10px}
-  .ts-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:border-color .18s ease,background .18s ease,color .18s ease;color:var(--ink)}
-  .ts-btn:hover{border-color:var(--red);background:var(--red);color:#fff}
+  .ts-name{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--ink);margin-bottom:5px;letter-spacing:-.02em;padding:0 18px;line-height:1.2}
+  .ts-role{font-family:var(--sans);font-size:12.5px;line-height:1.5;color:var(--grey);padding:0 18px}
+  .ts-nav{display:flex;justify-content:center;gap:12px;margin-top:14px}
+  .ts-btn{width:44px;height:44px;border-radius:50%;border:none;background:var(--red);color:#fff;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:background .18s ease,transform .18s var(--ease-spring),box-shadow .18s ease;box-shadow:0 4px 14px -4px rgba(227,6,19,.4)}
+  .ts-btn:hover{background:var(--red-dark);transform:scale(1.12);box-shadow:0 6px 20px -2px rgba(227,6,19,.5)}
   @media(max-width:920px){.team-slide{flex:0 0 calc(50% - 7px)}}
   @media(max-width:560px){.team-slide{flex:0 0 88%}}
+  @media(prefers-reduced-motion:reduce){.team-slide{animation:none}}
 
   /* ============ LOGO CAROUSEL ============ */
   .logo-carousel{overflow:hidden;margin:4px 0 16px;-webkit-mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%)}
@@ -1065,9 +1074,10 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             Пишет не биржа. Пишет <span class="mark">редакция</span>
             <span class="note left"><span class="pin">↓</span>не биржа<small>штатная редакция полного цикла</small></span>
           </h2>
-          <p class="subhead has-note">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>.<span class="note left blue"><span class="pin">←</span>Все сертифицированы Яндексом<small>по ПромоСтраницам</small></span></p>
+          <p class="subhead">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>.</p>
 
-          <div class="team-slider-wrap">
+          <div class="team-slider-wrap has-note">
+            <span class="note left blue"><span class="pin">←</span>Все сертифицированы Яндексом<small>по ПромоСтраницам</small></span>
             <div class="team-slider" id="teamSlider">
               <div class="team-slide"><img src="team-timur.jpg" alt="Тимур Угулава" class="ts-photo"><div class="ts-name">Тимур Угулава</div><div class="ts-role">Совладелец, официальный эксперт Яндекс Рекламы по ПромоСтраницам</div></div>
               <div class="team-slide"><img src="team-maya.jpg" alt="Майя Блюм" class="ts-photo"><div class="ts-name">Майя Блюм</div><div class="ts-role">Главный редактор — отвечает за смыслы и качество текста</div></div>
