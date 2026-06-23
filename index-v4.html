@@ -355,12 +355,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .flow-step::after{content:"";position:absolute;left:30px;bottom:-13px;width:2px;height:13px;background:rgba(227,6,19,.35)}
   .flow-step:last-child::after{display:none}
 
-  /* stamp-block: штамп + подпись снизу */
-  .stamp-block{display:inline-flex;flex-direction:column;align-items:center;gap:7px}
-  .stamp-label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.055em;color:var(--red);text-align:center;line-height:1.35;opacity:0;transform:translateY(5px);transition:opacity .35s ease,transform .38s ease}
-  .stamp-label.shown{opacity:1;transform:translateY(0)}
-  .stamp-num.stamped + .stamp-label{opacity:1;transform:translateY(0)}
-  html:not(.js) .stamp-label{opacity:1;transform:none}
+  /* подпись внутри штампа */
+  .stamp-num small{display:block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:4px;line-height:1}
 
   /* note right — отступ от края */
   .note.right{padding-right:14px}
@@ -674,7 +670,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .story-clean .hl{background-size:100% 100% !important}
     .stamp-num,.stamp-dot{opacity:1 !important;transform:rotate(-5deg) scale(1) !important}
     .stamp-num.s2{transform:rotate(4deg) scale(1) !important}
-    .stamp-label{opacity:1 !important;transform:none !important}
+
     .story-replay{display:none !important}
     .case .stamp{opacity:.92 !important;transform:rotate(7deg) scale(1) !important}
   }
@@ -876,15 +872,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
               <span class="hl" id="storyHl">Статьи, после которых покупают ваш продукт</span>.
             </p>
             <div class="story-stamps has-note">
-              <div class="stamp-block">
-                <span class="stamp-num s1" id="stamp1">+48%</span>
-                <span class="stamp-label" id="stampLabel1">аудитории</span>
-              </div>
+              <span class="stamp-num s1" id="stamp1">+48%<small>аудитории</small></span>
               <span class="stamp-dot" id="stampDot">·</span>
-              <div class="stamp-block">
-                <span class="stamp-num s2" id="stamp2">6,59&nbsp;₽</span>
-                <span class="stamp-label" id="stampLabel2">стоимость контакта</span>
-              </div>
+              <span class="stamp-num s2" id="stamp2">6,59&nbsp;₽<small>стоимость контакта</small></span>
               <span class="note right"><span class="pin">→</span>ведём до результата<small>а не «сдали файл — и пока»</small></span>
             </div>
           </div>
