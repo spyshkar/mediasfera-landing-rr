@@ -355,9 +355,10 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .flow-step::after{content:"";position:absolute;left:30px;bottom:-13px;width:2px;height:13px;background:rgba(227,6,19,.35)}
   .flow-step:last-child::after{display:none}
 
-  /* stamp подписи */
-  .stamp-num small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-top:3px;opacity:.78;line-height:1}
-  .stamps-note{font-family:var(--sans);font-size:12px;color:var(--grey);margin-top:8px;letter-spacing:.01em}
+  /* stamp-block: штамп + подпись снизу */
+  .stamp-block{display:inline-flex;flex-direction:column;align-items:center;gap:7px}
+  .stamp-label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.055em;color:var(--grey);text-align:center;line-height:1.35;opacity:0;transform:translateY(5px);transition:opacity .35s ease,transform .38s ease}
+  .stamp-label.shown{opacity:1;transform:translateY(0)}
 
   /* note right — отступ от края */
   .note.right{padding-right:14px}
@@ -671,6 +672,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .story-clean .hl{background-size:100% 100% !important}
     .stamp-num,.stamp-dot{opacity:1 !important;transform:rotate(-5deg) scale(1) !important}
     .stamp-num.s2{transform:rotate(4deg) scale(1) !important}
+    .stamp-label{opacity:1 !important;transform:none !important}
     .story-replay{display:none !important}
     .case .stamp{opacity:.92 !important;transform:rotate(7deg) scale(1) !important}
   }
@@ -704,6 +706,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     /* hero: anchor-div раскрываем, правая заметка занимает всю строку */
     .story > .has-note{height:auto !important}
     .story-stamps .note{width:100%;flex:0 0 100%}
+    .trust-notes{display:none}
     .sheet{grid-template-columns:1fr;transform:none !important}
     .sheet-wrap{animation:none !important}
     .layout{perspective:none}
@@ -871,22 +874,26 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
               <span class="hl" id="storyHl">Статьи, после которых покупают ваш продукт</span>.
             </p>
             <div class="story-stamps has-note">
-              <span class="stamp-num s1" id="stamp1">+48%<small>аудитории</small></span>
+              <div class="stamp-block">
+                <span class="stamp-num s1" id="stamp1">+48%</span>
+                <span class="stamp-label" id="stampLabel1">рост брендового<br>спроса</span>
+              </div>
               <span class="stamp-dot" id="stampDot">·</span>
-              <span class="stamp-num s2" id="stamp2">6,59&nbsp;₽<small>стоимость контакта</small></span>
+              <div class="stamp-block">
+                <span class="stamp-num s2" id="stamp2">6,59&nbsp;₽</span>
+                <span class="stamp-label" id="stampLabel2">стоимость контакта<br>с покупателем</span>
+              </div>
               <span class="note right"><span class="pin">→</span>ведём до результата<small>а не «сдали файл — и пока»</small></span>
             </div>
-            <p class="stamps-note">рост брендового спроса · стоимость контакта с покупателем</p>
           </div>
 
           <div class="cta-row">
             <span class="magnetic"><a href="#" class="btn-primary" data-cta data-cursor="поехали">Обсудить задачу</a></span>
           </div>
 
-          <div class="trust">
-            <span><span class="mark">сертифицированный партнёр <b>Яндекса</b></span></span>
-            <span><span class="mark">официальный <b>эксперт</b> Яндекс Рекламы</span></span>
-            <span><span class="mark">победитель <b>Silver Mercury 2024</b></span></span>
+          <div class="has-note trust-notes" style="padding-top:16px;min-height:72px;border-top:1px solid rgba(27,27,29,.10)">
+            <span class="note left blue"><span class="pin">←</span>сертифицированный партнёр Яндекса<small>официальный эксперт Яндекс Рекламы</small></span>
+            <span class="note right blue"><span class="pin">→</span>победитель Silver Mercury 2024</span>
           </div>
 
           <div style="margin-top:18px">
@@ -997,7 +1004,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             </div>
           </div>
 
-          <p class="softline"><span class="mark">Нам доверяют бренды, которые умеют считать:</span></p>
+          <p class="softline has-note"><span class="mark">Нам доверяют бренды, которые умеют считать:</span><span class="note right blue"><span class="pin">→</span>Бренды</span></p>
           <div class="logo-carousel">
             <div class="logo-track" id="logoTrack">
               <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/527/fh3scy6x1pckw8zz3yw7eyufx4hk2kr5/200_200_1/LOGO_HANSA_COLOR_(1)-preview.jpg" alt="Hansa"></div>
@@ -1036,7 +1043,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             Пишет не биржа. Пишет <span class="mark">редакция</span>
             <span class="note left"><span class="pin">↓</span>не биржа<small>штатная редакция полного цикла</small></span>
           </h2>
-          <p class="subhead">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>. Все сертифицированы Яндексом по ПромоСтраницам.</p>
+          <p class="subhead has-note">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>.<span class="note left blue"><span class="pin">←</span>Все сертифицированы Яндексом<small>по ПромоСтраницам</small></span></p>
 
           <div class="team-slider-wrap">
             <div class="team-slider" id="teamSlider">
@@ -1332,9 +1339,11 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   var draftEl  = document.getElementById('storyDraft');
   var cleanEl  = document.getElementById('storyClean');
   var hlEl     = document.getElementById('storyHl');
-  var stamp1   = document.getElementById('stamp1');
-  var stamp2   = document.getElementById('stamp2');
-  var stampDot = document.getElementById('stampDot');
+  var stamp1      = document.getElementById('stamp1');
+  var stamp2      = document.getElementById('stamp2');
+  var stampDot    = document.getElementById('stampDot');
+  var stampLabel1 = document.getElementById('stampLabel1');
+  var stampLabel2 = document.getElementById('stampLabel2');
   var replayBtn= null; /* кнопка убрана */
   // токены черновой фразы Майи; weak — слова, по которым пройдёт красное зачёркивание
   var TOKENS = [
@@ -1356,6 +1365,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     stamp1.classList.remove('stamped');
     stamp2.classList.remove('stamped');
     if(stampDot) stampDot.classList.remove('stamped');
+    if(stampLabel1) stampLabel1.classList.remove('shown');
+    if(stampLabel2) stampLabel2.classList.remove('shown');
     if(replayBtn) replayBtn.classList.remove('show');
 
     var caret = document.createElement('span');
@@ -1382,7 +1393,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
         later(function(){ stamp1.classList.add('stamped'); }, strikeDone + 1000);
         later(function(){ if(stampDot) stampDot.classList.add('stamped'); }, strikeDone + 1100);
         later(function(){ stamp2.classList.add('stamped'); }, strikeDone + 1200);
-        if(replayBtn) later(function(){ replayBtn.classList.add('show'); }, strikeDone + 1500);
+        later(function(){ if(stampLabel1) stampLabel1.classList.add('shown'); }, strikeDone + 1380);
+        later(function(){ if(stampLabel2) stampLabel2.classList.add('shown'); }, strikeDone + 1560);
+        if(replayBtn) later(function(){ replayBtn.classList.add('show'); }, strikeDone + 1700);
       }
     }
     typeNext();
