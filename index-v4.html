@@ -1615,13 +1615,14 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       var lmCVal = document.getElementById('lm-contact-val');
       var lmEmailEl = document.getElementById('lm-email');
       var lmCons = document.getElementById('lm-consent');
-      if(lmNameEl && lmCVal && lmCons && lmCons.checked && lmNameEl.value.trim()){
+      var lmContactOk = (lmCVal && lmCVal.value.trim()) || (lmEmailEl && lmEmailEl.value.trim());
+      if(lmNameEl && lmCons && lmCons.checked && lmNameEl.value.trim() && lmContactOk){
         fetch('submit.php', {
           method:'POST', headers:{'Content-Type':'application/json'},
           body: JSON.stringify({
             name: lmNameEl.value.trim(),
             email: lmEmailEl ? lmEmailEl.value.trim() : '',
-            contactValue: lmCVal.value.trim(),
+            contactValue: lmCVal ? lmCVal.value.trim() : '',
             task: '[LM] ' + text.slice(0,500),
             consent: true,
             utms: captureUtms()

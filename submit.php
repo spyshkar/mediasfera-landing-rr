@@ -58,10 +58,10 @@ $utms         = array_slice(
     0, 10, true
 );
 
-if (!$name || !$email || !$consent) {
+if (!$name || !$consent || (!$email && !$contactValue)) {
     http_response_code(400); echo json_encode(['error' => 'Missing required fields']); exit;
 }
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if ($email && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400); echo json_encode(['error' => 'Invalid email']); exit;
 }
 
