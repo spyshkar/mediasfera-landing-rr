@@ -429,7 +429,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
   /* ============ CASES ============ */
   .cases{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:4px 0 22px}
-  .case{border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;background:var(--bg);position:relative;transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out),border-color .25s ease,opacity .6s ease}
+  .case{border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;background:var(--bg);position:relative;transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out),border-color .25s ease,opacity .6s ease;display:flex;flex-direction:column}
   .case:nth-child(odd){transform:rotate(-.4deg)}
   .case:nth-child(even){transform:rotate(.4deg)}
   .js .cases.reveal.pre .case{opacity:0;transform:translateY(18px)}
@@ -448,9 +448,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .case-hero{font-family:var(--serif);font-size:25px;font-weight:700;line-height:1.18;color:var(--red);margin-bottom:8px;letter-spacing:-.01em}
   .case-sub{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-soft)}
   .case-sub b{color:var(--ink);font-weight:600}
-  .case .case-link{display:inline-block;margin-top:11px;font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--red);text-decoration:none;border-bottom:1px solid rgba(227,6,19,.4);padding-bottom:1px}
+  .case .case-link{display:inline-block;margin-top:auto;padding-top:14px;font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--red);text-decoration:none;border-bottom:1px solid rgba(227,6,19,.4);padding-bottom:1px}
   .case .case-link:hover{color:var(--red-dark)}
-  .case .stamp{position:absolute;top:12px;right:12px;font-family:var(--hand);font-weight:700;color:var(--green);font-size:17px;border:2px solid var(--green);border-radius:7px;padding:0 8px;line-height:1.4;opacity:0;transform:rotate(7deg) scale(2.4)}
+  .case .stamp{position:absolute;top:12px;right:12px;font-family:var(--hand);font-weight:700;color:#1a5fb0;font-size:17px;border:2px solid #1a5fb0;border-radius:7px;padding:0 8px;line-height:1.4;opacity:0;transform:rotate(7deg) scale(2.4)}
   .cases.reveal.in .case:nth-child(1) .stamp{animation:stampPress .42s var(--ease-spring) .65s both}
   .cases.reveal.in .case:nth-child(2) .stamp{animation:stampPress .42s var(--ease-spring) .84s both}
   .cases.reveal.in .case:nth-child(3) .stamp{animation:stampPress .42s var(--ease-spring) 1.02s both}
@@ -672,7 +672,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .stamp-num.s2{transform:rotate(4deg) scale(1) !important}
 
     .story-replay{display:none !important}
-    .case .stamp{opacity:.92 !important;transform:rotate(7deg) scale(1) !important}
+    .case .stamp{opacity:1 !important;transform:rotate(7deg) scale(1) !important}
   }
 
   @keyframes cardSway1{0%,100%{transform:rotate(-.4deg) translateY(0)}50%{transform:rotate(.6deg) translateY(-4px)}}
@@ -961,35 +961,37 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           <p class="subhead">Основной канал — <b>Яндекс ПромоСтраницы</b>: статья находит покупателя внутри экосистемы Яндекса. Плюс Дзен, СМИ и блоги. Не «написали много статей», а что эти статьи принесли. Цифру можно проверить.</p>
 
           <div class="cases reveal pre">
+            <!-- строка 1: БАДы -->
             <div class="case">
               <span class="stamp">x3</span>
               <div class="case-tags"><span>ПромоСтраницы</span><span>БАДы</span></div>
               <div class="case-name">Статинориз</div>
-              <div class="case-hero">x3 продажи</div>
-              <p class="case-sub">За полгода продвижения и <b>5,4x</b> брендового спроса.</p>
+              <div class="case-hero">x3 продаж<br>за полгода</div>
+              <p class="case-sub"><b>5,4x</b> брендового спроса и <b>5 114</b> добавлений в корзину на Ozon.</p>
               <a href="https://yandex.ru/adv/solutions/cases/proizvoditel-badov-uluchshil-ranzhirovanie-novinki-v-vydache-ozon" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Кейс Яндекса →</a>
-            </div>
-            <div class="case">
-              <span class="stamp">+450%</span>
-              <div class="case-tags"><span>ПромоСтраницы</span><span>Медицинские услуги</span></div>
-              <div class="case-name">Estetus</div>
-              <div class="case-hero">+450% интереса к бренду</div>
-              <p class="case-sub"><b>46 млн</b> показов и <b>483 942</b> просмотра статей.</p>
-              <a href="https://promopage.media-sfera.com/blog/drsevak" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Читать кейс →</a>
             </div>
             <div class="case">
               <span class="stamp">71K</span>
               <div class="case-tags"><span>ПромоСтраницы</span><span>БАДы</span></div>
               <div class="case-name">Novonatum</div>
-              <div class="case-hero">71 000 конверсий</div>
+              <div class="case-hero">71 000 конверсий<br>за 3 года</div>
               <p class="case-sub"><b>161 млн</b> показов и <b>509 776</b> переходов на посадочные.</p>
               <a href="https://promopage.media-sfera.com/blog/novonatum" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Читать кейс →</a>
             </div>
+            <!-- строка 2: медицина + климат -->
             <div class="case">
-              <span class="stamp">+229%</span>
+              <span class="stamp">+450%</span>
+              <div class="case-tags"><span>ПромоСтраницы</span><span>Медицинские услуги</span></div>
+              <div class="case-name">Estetus</div>
+              <div class="case-hero">+450% интереса<br>к бренду</div>
+              <p class="case-sub"><b>46 млн</b> показов и <b>483 942</b> просмотра статей.</p>
+              <a href="https://promopage.media-sfera.com/blog/drsevak" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Читать кейс →</a>
+            </div>
+            <div class="case">
+              <span class="stamp">+228%</span>
               <div class="case-tags"><span>ПромоСтраницы</span><span>Климатическая техника</span></div>
               <div class="case-name">ТИОН</div>
-              <div class="case-hero">+228,9% брендовых запросов</div>
+              <div class="case-hero">+228% брендовых<br>запросов</div>
               <p class="case-sub"><b>19,7 млн</b> показов и <b>91%</b> роста переходов на сайт.</p>
               <a href="https://promopage.media-sfera.com/blog/tion" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Читать кейс →</a>
             </div>
