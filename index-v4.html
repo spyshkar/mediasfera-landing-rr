@@ -365,17 +365,17 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .team-slider-wrap{position:relative;margin:8px -8px 24px}
   .team-slider{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 8px 8px}
   .team-slider::-webkit-scrollbar{display:none}
-  .team-slide{flex:0 0 calc(33.333% - 10px);min-width:200px;scroll-snap-align:start;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:0 0 20px;display:flex;flex-direction:column;overflow:hidden;transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+  .team-slide{flex:0 0 calc(50% - 7px);min-width:260px;scroll-snap-align:start;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:0 0 22px;display:flex;flex-direction:column;overflow:hidden;transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
   .team-slide:hover{transform:translateY(-5px);box-shadow:0 20px 36px -20px rgba(27,27,29,.32)}
-  .ts-photo{width:100%;height:240px;object-fit:cover;object-position:top center;display:block;border-radius:0;margin:0 0 16px;border:none;flex-shrink:0}
-  .ava-lg{width:100%;height:240px;border-radius:0;background:linear-gradient(160deg,var(--red),var(--red-dark));color:#fff;font-family:var(--serif);font-weight:600;font-size:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:16px}
-  .ts-name{font-family:var(--sans);font-size:15.5px;font-weight:700;color:var(--ink);margin-bottom:5px;letter-spacing:-.01em;padding:0 16px}
-  .ts-role{font-family:var(--sans);font-size:12.5px;line-height:1.5;color:var(--grey);padding:0 16px}
+  .ts-photo{width:100%;height:320px;object-fit:cover;object-position:top center;display:block;border-radius:0;margin:0 0 18px;border:none;flex-shrink:0}
+  .ava-lg{width:100%;height:320px;border-radius:0;background:linear-gradient(160deg,var(--red),var(--red-dark));color:#fff;font-family:var(--serif);font-weight:600;font-size:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:18px}
+  .ts-name{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em;padding:0 18px}
+  .ts-role{font-family:var(--sans);font-size:13px;line-height:1.5;color:var(--grey);padding:0 18px}
   .ts-nav{display:flex;justify-content:center;gap:10px;margin-top:10px}
   .ts-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:border-color .18s ease,background .18s ease,color .18s ease;color:var(--ink)}
   .ts-btn:hover{border-color:var(--red);background:var(--red);color:#fff}
   @media(max-width:920px){.team-slide{flex:0 0 calc(50% - 7px)}}
-  @media(max-width:560px){.team-slide{flex:0 0 82%}}
+  @media(max-width:560px){.team-slide{flex:0 0 88%}}
 
   /* ============ LOGO CAROUSEL ============ */
   .logo-carousel{overflow:hidden;margin:4px 0 16px;-webkit-mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%)}
@@ -1069,12 +1069,13 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
           <div class="team-slider-wrap">
             <div class="team-slider" id="teamSlider">
-              <div class="team-slide"><div class="ava-lg">ТУ</div><div class="ts-name">Тимур Угулава</div><div class="ts-role">Совладелец, официальный эксперт Яндекс Рекламы по ПромоСтраницам</div></div>
+              <div class="team-slide"><img src="team-timur.jpg" alt="Тимур Угулава" class="ts-photo"><div class="ts-name">Тимур Угулава</div><div class="ts-role">Совладелец, официальный эксперт Яндекс Рекламы по ПромоСтраницам</div></div>
               <div class="team-slide"><img src="team-maya.jpg" alt="Майя Блюм" class="ts-photo"><div class="ts-name">Майя Блюм</div><div class="ts-role">Главный редактор — отвечает за смыслы и качество текста</div></div>
               <div class="team-slide"><img src="team-kseniya.jpg" alt="Ксения Угулава" class="ts-photo"><div class="ts-name">Ксения Угулава</div><div class="ts-role">Продюсер контент-направления — связывает редакцию и результат</div></div>
               <div class="team-slide"><img src="team-tina.jpg" alt="Тина Коваль" class="ts-photo"><div class="ts-name">Тина Коваль</div><div class="ts-role">Редактор</div></div>
               <div class="team-slide"><img src="team-nastya.jpg" alt="Анастасия Шершнева" class="ts-photo"><div class="ts-name">Анастасия Шершнева</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
               <div class="team-slide"><img src="team-nina.jpg" alt="Нина Карина" class="ts-photo"><div class="ts-name">Нина Карина</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
+              <div class="team-slide"><img src="team-artem.jpg" alt="Артём Храпов" class="ts-photo"><div class="ts-name">Артём Храпов</div><div class="ts-role">Руководитель проекта</div></div>
               <div class="team-slide"><div class="ava-lg">АЛ</div><div class="ts-name">Александр Ломтадзе</div><div class="ts-role">Руководитель проекта</div></div>
             </div>
             <div class="ts-nav">
@@ -1123,6 +1124,30 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             <div class="faq-item">
               <button class="faq-q" type="button" data-cursor="открыть">Кто будет писать и как разберётесь в нашей специфике?</button>
               <div class="faq-a"><div class="faq-a-inner">Штатная редакция: автор → редактор → корректор. Сначала бриф и подробный сценарий, который вы согласуете. Работали с фармой, БАДами, B2B-финансами и недвижимостью.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button" data-cursor="открыть">Сколько статей нужно запускать в начале?</button>
+              <div class="faq-a"><div class="faq-a-inner">Если мы говорим о ПромоСтраницах Яндекса — минимум три разных захода под одну задачу. Так мы проверяем гипотезы и находим рабочие связки по текстам и креативам.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button" data-cursor="открыть">Какой бюджет нужен, чтобы было видно эффект?</button>
+              <div class="faq-a"><div class="faq-a-inner">Ориентир — от 300–500 тыс. ₽ в месяц на открутку плюс производство текстов. Конкретно посчитаем под вашу воронку на коротком созвоне.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button" data-cursor="открыть">Когда ПромоСтраницы начнут заметно влиять на деньги?</button>
+              <div class="faq-a"><div class="faq-a-inner">Первые лиды приходят в тестовый период, но устойчивый рост продаж и брендового спроса обычно начинается через 3–6 месяцев стабильной открутки.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button" data-cursor="открыть">Можем ли мы вести ПромоСтраницы своими силами?</button>
+              <div class="faq-a"><div class="faq-a-inner">Технически да. На практике без продюсеров и аналитики кампании быстро проседают: ПромоСтраницы надо докручивать каждую неделю по цифрам, а не «по ощущениям».</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button" data-cursor="открыть">ПромоСтраницы — это только про охваты или будут заявки?</button>
+              <div class="faq-a"><div class="faq-a-inner">При нормальной воронке ПромоСтраницы дают и охваты, и лиды. В кейсах — рост брендового спроса на сотни процентов и десятки тысяч конверсий из статей.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button" data-cursor="открыть">Нас интересует ведение канала в Дзен. Как считаете результаты?</button>
+              <div class="faq-a"><div class="faq-a-inner">Ориентируемся на органический трафик площадки — смотрим на охват, открытия, дочитки.</div></div>
             </div>
           </div>
 
