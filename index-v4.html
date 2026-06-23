@@ -1207,6 +1207,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
         <div class="field"><label for="lm-name" style="font-size:12px">Имя</label><input id="lm-name" type="text" placeholder="Как вас зовут"></div>
         <div class="field"><label for="lm-contact-val" style="font-size:12px">Telegram / телефон</label><input id="lm-contact-val" type="text" placeholder="@username или +7…"></div>
       </div>
+      <div class="field" style="margin-top:8px"><label for="lm-email" style="font-size:12px">Почта</label><input id="lm-email" type="email" placeholder="почта@компания.ру"></div>
       <div class="form-check-row" style="margin-top:6px">
         <input type="checkbox" id="lm-consent">
         <label for="lm-consent">Соглашаюсь с <a href="https://www.media-sfera.com/agreement/" target="_blank" rel="noopener">политикой обработки персональных данных</a></label>
@@ -1615,12 +1616,14 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       /* отправляем контакт, если заполнены поля и дано согласие */
       var lmNameEl = document.getElementById('lm-name');
       var lmCVal = document.getElementById('lm-contact-val');
+      var lmEmailEl = document.getElementById('lm-email');
       var lmCons = document.getElementById('lm-consent');
       if(lmNameEl && lmCVal && lmCons && lmCons.checked && lmNameEl.value.trim()){
         fetch('submit.php', {
           method:'POST', headers:{'Content-Type':'application/json'},
           body: JSON.stringify({
             name: lmNameEl.value.trim(),
+            email: lmEmailEl ? lmEmailEl.value.trim() : '',
             contactValue: lmCVal.value.trim(),
             task: '[LM] ' + text.slice(0,500),
             consent: true,
