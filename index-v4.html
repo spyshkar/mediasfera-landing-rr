@@ -362,19 +362,11 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .note.right{padding-right:14px}
 
   /* ============ TEAM SLIDER ============ */
-  @keyframes sway{0%,100%{transform:rotate(-.7deg)}50%{transform:rotate(.7deg)}}
   .team-slider-wrap{position:relative;margin:8px -8px 24px}
   .team-slider{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:8px 8px 12px}
   .team-slider::-webkit-scrollbar{display:none}
-  .team-slide{flex:0 0 calc(50% - 7px);min-width:260px;scroll-snap-align:start;background:var(--bg);border:1.5px solid var(--line);border-radius:18px;padding:0 0 22px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 6px 22px -8px rgba(27,27,29,.16);animation:sway 4s ease-in-out infinite;transform-origin:bottom center;transition:box-shadow .3s var(--ease-out),border-color .2s ease}
-  .team-slide:nth-child(2){animation-delay:-1.3s}
-  .team-slide:nth-child(3){animation-delay:-.7s}
-  .team-slide:nth-child(4){animation-delay:-2.1s}
-  .team-slide:nth-child(5){animation-delay:-1.6s}
-  .team-slide:nth-child(6){animation-delay:-.4s}
-  .team-slide:nth-child(7){animation-delay:-2.8s}
-  .team-slide:nth-child(8){animation-delay:-1.1s}
-  .team-slide:hover{animation-play-state:paused;border-color:rgba(227,6,19,.35);box-shadow:0 22px 44px -10px rgba(27,27,29,.28)}
+  .team-slide{flex:0 0 calc(50% - 7px);min-width:260px;scroll-snap-align:start;background:var(--bg);border:1.5px solid var(--line);border-radius:18px;padding:0 0 22px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 6px 22px -8px rgba(27,27,29,.16);transform-origin:bottom center;transition:transform .35s cubic-bezier(0.34,1.56,0.64,1),box-shadow .3s var(--ease-out),border-color .2s ease}
+  .team-slide:hover{transform:translateY(-10px) rotate(1.5deg);border-color:rgba(227,6,19,.35);box-shadow:0 24px 48px -10px rgba(27,27,29,.3)}
   .ts-photo{width:100%;height:320px;object-fit:cover;object-position:top center;display:block;border-radius:0;margin:0 0 18px;border:none;flex-shrink:0;image-orientation:from-image}
   .ava-lg{width:100%;height:320px;border-radius:0;background:linear-gradient(160deg,var(--red),var(--red-dark));color:#fff;font-family:var(--serif);font-weight:600;font-size:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:18px}
   .ts-name{font-family:var(--hand);font-size:clamp(15px,1.6vw,19px);font-weight:700;color:var(--red);border:2.5px solid var(--red);border-radius:9px;display:inline-block;padding:4px 12px 5px;margin:0 18px 10px;transform:rotate(-2deg);line-height:1.25}
@@ -1077,7 +1069,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           <p class="subhead">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>.</p>
 
           <div class="team-slider-wrap has-note">
-            <span class="note left blue"><span class="pin">←</span>Все сертифицированы Яндексом<small>по ПромоСтраницам</small></span>
+            <span class="note left blue" style="font-size:18px"><span class="pin">←</span>Все сертифицированы Яндексом<small style="font-size:14px">по ПромоСтраницам</small></span>
             <div class="team-slider" id="teamSlider">
               <div class="team-slide"><img src="team-timur.jpg" alt="Тимур Угулава" class="ts-photo"><div class="ts-name">Тимур Угулава</div><div class="ts-role">Совладелец, официальный эксперт Яндекс Рекламы по ПромоСтраницам</div></div>
               <div class="team-slide"><img src="team-maya.jpg" alt="Майя Блюм" class="ts-photo"><div class="ts-name">Майя Блюм</div><div class="ts-role">Главный редактор — отвечает за смыслы и качество текста</div></div>
@@ -1303,11 +1295,17 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   if(!reduce && 'IntersectionObserver' in window){
     var staggerGroups = document.querySelectorAll('.cases,.cert-grid,.team-slider');
     staggerGroups.forEach(function(group){
+      var isTeam = group.classList.contains('team-slider');
       var children = Array.prototype.slice.call(group.children);
-      children.forEach(function(child){
+      children.forEach(function(child, i){
         child.style.opacity = '0';
-        child.style.transform = 'scale(.9) translateY(18px)';
-        child.style.transition = 'opacity .5s ease, transform .65s cubic-bezier(0.34,1.56,0.64,1)';
+        child.style.transition = 'opacity .55s ease, transform .7s cubic-bezier(0.34,1.56,0.64,1)';
+        if(isTeam){
+          var dir = (i % 2 === 0) ? '-3deg' : '3deg';
+          child.style.transform = 'translateY(-28px) rotate(' + dir + ')';
+        } else {
+          child.style.transform = 'scale(.9) translateY(18px)';
+        }
       });
       var sio = new IntersectionObserver(function(entries){
         entries.forEach(function(e){
@@ -1315,9 +1313,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             var idx = Array.prototype.indexOf.call(e.target.parentNode.children, e.target);
             setTimeout(function(){
               e.target.style.opacity='1';
-              e.target.style.transform='scale(1) translateY(0)';
-              setTimeout(function(){ e.target.style.transition=''; }, 700);
-            }, idx * 100);
+              e.target.style.transform = isTeam ? 'translateY(0) rotate(0deg)' : 'scale(1) translateY(0)';
+              setTimeout(function(){ e.target.style.transition=''; }, 750);
+            }, idx * 120);
             sio.unobserve(e.target);
           }
         });
