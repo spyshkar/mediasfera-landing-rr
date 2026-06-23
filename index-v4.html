@@ -359,6 +359,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .stamp-block{display:inline-flex;flex-direction:column;align-items:center;gap:7px}
   .stamp-label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.055em;color:var(--red);text-align:center;line-height:1.35;opacity:0;transform:translateY(5px);transition:opacity .35s ease,transform .38s ease}
   .stamp-label.shown{opacity:1;transform:translateY(0)}
+  .stamp-num.stamped + .stamp-label{opacity:1;transform:translateY(0)}
+  html:not(.js) .stamp-label{opacity:1;transform:none}
 
   /* note right — отступ от края */
   .note.right{padding-right:14px}
