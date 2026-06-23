@@ -365,15 +365,16 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .team-slider-wrap{position:relative;margin:8px -8px 24px}
   .team-slider{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 8px 8px}
   .team-slider::-webkit-scrollbar{display:none}
-  .team-slide{flex:0 0 calc(33.333% - 10px);min-width:160px;scroll-snap-align:start;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:22px 16px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+  .team-slide{flex:0 0 calc(50% - 7px);min-width:200px;scroll-snap-align:start;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:26px 20px 22px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
   .team-slide:hover{transform:translateY(-4px);box-shadow:0 16px 28px -18px rgba(27,27,29,.3)}
-  .ava-lg{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;font-family:var(--serif);font-weight:600;font-size:22px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0}
-  .ts-name{font-family:var(--sans);font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em}
-  .ts-role{font-family:var(--sans);font-size:12px;line-height:1.45;color:var(--grey)}
+  .ts-photo{width:100px;height:100px;border-radius:50%;object-fit:cover;object-position:top center;margin:0 auto 14px;display:block;border:2.5px solid var(--line)}
+  .ava-lg{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;font-family:var(--serif);font-weight:600;font-size:26px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;flex-shrink:0}
+  .ts-name{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:5px;letter-spacing:-.01em}
+  .ts-role{font-family:var(--sans);font-size:12.5px;line-height:1.5;color:var(--grey)}
   .ts-nav{display:flex;justify-content:center;gap:10px;margin-top:10px}
   .ts-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:border-color .18s ease,background .18s ease,color .18s ease;color:var(--ink)}
   .ts-btn:hover{border-color:var(--red);background:var(--red);color:#fff}
-  @media(max-width:680px){.team-slide{flex:0 0 78%}}
+  @media(max-width:680px){.team-slide{flex:0 0 85%}}
 
   /* ============ LOGO CAROUSEL ============ */
   .logo-carousel{overflow:hidden;margin:4px 0 16px;-webkit-mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%)}
@@ -985,7 +986,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             Где продвигаем: ПромоСтраницы, Дзен, СМИ — <span class="mark">до денег</span>
             <span class="note right"><span class="pin">←</span>считаем до денег<small>не «50 статей», а что они принесли</small></span>
           </h2>
-          <p class="subhead">Основной канал — <b>Яндекс ПромоСтраницы</b>: статья находит покупателя внутри экосистемы Яндекса. Плюс Дзен, СМИ и блоги. Не «написали много статей», а что эти статьи принесли. Цифру можно проверить.</p>
+          <p class="subhead has-note">Основной канал — <b>Яндекс ПромоСтраницы</b>: статья находит покупателя внутри экосистемы Яндекса. Плюс Дзен, СМИ и блоги.<span class="note left blue"><span class="pin">←</span>Не «написали много статей»<small>а что эти статьи принесли. Цифру можно проверить.</small></span></p>
 
           <div class="cases reveal pre">
             <!-- строка 1: БАДы -->
@@ -1068,11 +1069,12 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           <div class="team-slider-wrap">
             <div class="team-slider" id="teamSlider">
               <div class="team-slide"><div class="ava-lg">ТУ</div><div class="ts-name">Тимур Угулава</div><div class="ts-role">Совладелец, официальный эксперт Яндекс Рекламы по ПромоСтраницам</div></div>
-              <div class="team-slide"><div class="ava-lg">МБ</div><div class="ts-name">Майя Блюм</div><div class="ts-role">Главный редактор — отвечает за смыслы и качество текста</div></div>
-              <div class="team-slide"><div class="ava-lg">КУ</div><div class="ts-name">Ксения Угулава</div><div class="ts-role">Продюсер контент-направления — связывает редакцию и результат</div></div>
+              <div class="team-slide"><img src="team-maya.jpg" alt="Майя Блюм" class="ts-photo"><div class="ts-name">Майя Блюм</div><div class="ts-role">Главный редактор — отвечает за смыслы и качество текста</div></div>
+              <div class="team-slide"><img src="team-kseniya.jpg" alt="Ксения Угулава" class="ts-photo"><div class="ts-name">Ксения Угулава</div><div class="ts-role">Продюсер контент-направления — связывает редакцию и результат</div></div>
+              <div class="team-slide"><img src="team-tina.jpg" alt="Тина Коваль" class="ts-photo"><div class="ts-name">Тина Коваль</div><div class="ts-role">Редактор</div></div>
+              <div class="team-slide"><img src="team-nastya.jpg" alt="Анастасия Шершнева" class="ts-photo"><div class="ts-name">Анастасия Шершнева</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
+              <div class="team-slide"><img src="team-nina.jpg" alt="Нина Карина" class="ts-photo"><div class="ts-name">Нина Карина</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
               <div class="team-slide"><div class="ava-lg">АЛ</div><div class="ts-name">Александр Ломтадзе</div><div class="ts-role">Руководитель проекта</div></div>
-              <div class="team-slide"><div class="ava-lg">АШ</div><div class="ts-name">Анастасия Шершнева</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
-              <div class="team-slide"><div class="ava-lg">НК</div><div class="ts-name">Нина Карина</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
             </div>
             <div class="ts-nav">
               <button class="ts-btn" id="tsPrev" aria-label="Назад">←</button>
