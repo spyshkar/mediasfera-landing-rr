@@ -10,24 +10,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Подготовить index.html из v4
-        run: cp index-v4.html index.html
+      - name: Собрать файлы для деплоя
+        run: |
+          mkdir dist
+          cp index-v4.html dist/index.html
+          cp submit.php dist/
+          cp team-*.jpg dist/ 2>/dev/null || true
+          cp *.svg dist/ 2>/dev/null || true
 
       - name: Деплой на Beget через FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.beget.com
+          server: svetlauz.beget.com
           username: svetlauz
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /text.svetlauz.beget.tech/public_html/
-          include: |
-            index.html
-            submit.php
-            team-artem.jpg
-            team-kseniya.jpg
-            team-maya.jpg
-            team-nastya.jpg
-            team-nina.jpg
-            team-timur.jpg
-            team-tina.jpg
-            логотип_мсф_красно_черный_для_светлого_фона.svg
+          local-dir: ./dist/
+          server-dir: text.svetlauz.beget.tech/public_html/
