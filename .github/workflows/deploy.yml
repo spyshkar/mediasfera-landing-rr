@@ -18,11 +18,13 @@ jobs:
           cp team-*.jpg dist/ 2>/dev/null || true
           cp *.svg dist/ 2>/dev/null || true
 
-      - name: Деплой на Beget через FTP
+      - name: Деплой на Beget через SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: svetlauz.beget.com
+          server: svetlauz.beget.tech
           username: svetlauz
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: sftp
+          port: 22
           local-dir: ./dist/
-          server-dir: text.svetlauz.beget.tech/public_html/
+          server-dir: /text.svetlauz.beget.tech/public_html/
