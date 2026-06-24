@@ -723,8 +723,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .note::before,.note::after{display:none}
     .note.left,.note.right{text-align:left;left:auto;right:auto}
     .note .pin{display:inline-block;margin-right:6px;color:var(--red);font-weight:700}
-    .note.blue{border-left-color:#1a5fb0;background:linear-gradient(90deg,rgba(26,95,176,.12),rgba(26,95,176,0))}
-    .note.blue .pin{color:#1a5fb0}
+    .note.blue{color:var(--red);border-left-color:var(--red);background:linear-gradient(90deg,rgba(255,230,128,.28),rgba(255,230,128,0))}
+    .note.blue .pin{color:var(--red)}
+    .note-brands{display:none !important}
   }
   @media (max-width:920px){
     .topbar-inner{padding:12px 16px;gap:12px}
@@ -738,6 +739,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .sheet{border-radius:8px}
     h1.headline{font-size:32px}
     .cases{grid-template-columns:1fr 1fr}
+    .case-tags{padding-right:52px}
     .people{grid-template-columns:1fr 1fr}
     .trophies{grid-template-columns:1fr 1fr}
     .layout,.beat-inner{max-width:680px}
@@ -1027,7 +1029,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
             </div>
           </div>
 
-          <p class="softline has-note"><span class="mark">Нам доверяют бренды, которые умеют считать:</span><span class="note right blue"><span class="pin">→</span>Бренды</span></p>
+          <p class="softline has-note"><span class="mark">Нам доверяют бренды, которые умеют считать:</span><span class="note right blue note-brands"><span class="pin">→</span>Бренды</span></p>
           <div class="logo-carousel">
             <div class="logo-track" id="logoTrack">
               <div class="logo-item"><img src="https://promopages.media-sfera.com/upload/resize_cache/iblock/527/fh3scy6x1pckw8zz3yw7eyufx4hk2kr5/200_200_1/LOGO_HANSA_COLOR_(1)-preview.jpg" alt="Hansa"></div>
@@ -1076,8 +1078,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
               <div class="team-slide"><img src="team-tina.jpg" alt="Тина Коваль" class="ts-photo"><div class="ts-name">Тина Коваль</div><div class="ts-role">Редактор</div></div>
               <div class="team-slide"><img src="team-nastya.jpg" alt="Анастасия Шершнева" class="ts-photo"><div class="ts-name">Анастасия Шершнева</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
               <div class="team-slide"><img src="team-nina.jpg" alt="Нина Карина" class="ts-photo"><div class="ts-name">Нина Карина</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
-              <div class="team-slide"><img src="team-artem.jpg" alt="Артём Храпов" class="ts-photo"><div class="ts-name">Артём Храпов</div><div class="ts-role">Руководитель проекта</div></div>
-              <div class="team-slide"><div class="ava-lg">АЛ</div><div class="ts-name">Александр Ломтадзе</div><div class="ts-role">Руководитель проекта</div></div>
+              <div class="team-slide"><img src="team-artem.jpg" alt="Артём Храпов" class="ts-photo"><div class="ts-name">Артём Храпов</div><div class="ts-role">Копирайтер, 6 лет работаю только с Дзеном и Яндекс Промостраницами, пишу статьи известным брендам и блогерам-миллионникам</div></div>
             </div>
             <div class="ts-nav">
               <button class="ts-btn" id="tsPrev" aria-label="Назад">←</button>
@@ -1190,8 +1191,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   <div class="lm-panel" role="dialog" aria-modal="true" aria-label="Проверка текста — продаст или нет">
     <div class="lm-kicker">Лид-магнит · живой AI-разбор</div>
     <h3>Продаст или нет?</h3>
-    <p class="lm-sub">Вставьте заголовок, абзац или оффер — редактор (на базе ИИ) даст вердикт и 3 правки «было → стало». Это демо: показываем, как мы думаем над текстом.</p>
-    <textarea id="lmInput" placeholder="Например: «Наша компания предлагает широкий спектр качественных услуг для вашего бизнеса по выгодным ценам…»"></textarea>
+    <p class="lm-sub">Пришлите свой текст — разберём, что в нём ломает продажи и предложим 3 правки, которые подтянут конверсию.</p>
+    <textarea id="lmInput" placeholder="Например: «Мы динамично развивающаяся компания, оказывающая комплексные услуги под ключ для клиентов, ценящих качество и индивидуальный подход…»"></textarea>
     <div class="lm-contact">
       <div class="lm-contact-head">Хотите живой разбор от редакции? Оставьте контакт:</div>
       <div class="lm-row">
