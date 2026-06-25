@@ -145,8 +145,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .overlay-menu.open .om-list li:nth-child(4) a{transition-delay:.37s}
   .overlay-menu.open .om-list li:nth-child(5) a{transition-delay:.44s}
   .om-list a.om-lm{color:var(--red)}
-  /* спокойный сдвиг на ховер, без тяжёлого свайп-подчёркивания */
-  .om-list a:hover{color:var(--red);transform:translateX(18px)}
+  .om-list a{border-bottom:2px solid rgba(27,27,29,.1);padding-bottom:2px}
+  .om-list a.om-lm{border-bottom-color:rgba(227,6,19,.3)}
+  .om-list a:hover{color:var(--red);transform:translateY(0) translateX(14px);border-bottom-color:var(--red)}
   .om-foot{margin-top:42px;font-family:var(--sans);font-size:14px;color:var(--grey);display:flex;gap:8px 22px;flex-wrap:wrap;opacity:0;transition:opacity .4s ease .5s}
   .overlay-menu.open .om-foot{opacity:1}
   .om-foot a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:1px}
@@ -379,11 +380,11 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   @media(prefers-reduced-motion:reduce){.team-slide{animation:none}}
 
   /* ============ LOGO CAROUSEL ============ */
-  .logo-carousel{overflow:hidden;margin:4px 0 16px;-webkit-mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%)}
-  .logo-track{display:flex;gap:32px;align-items:center;animation:logoScroll 40s linear infinite;width:max-content;padding:4px 0}
+  .logo-carousel{overflow:hidden;margin:16px 0 24px;-webkit-mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,black 8%,black 92%,transparent 100%)}
+  .logo-track{display:flex;gap:48px;align-items:center;animation:logoScroll 65s linear infinite;width:max-content;padding:12px 0}
   .logo-track:hover{animation-play-state:paused}
-  .logo-item{flex-shrink:0;height:44px;display:flex;align-items:center}
-  .logo-item img{height:36px;width:auto;max-width:130px;object-fit:contain;filter:grayscale(25%) opacity(.8);transition:filter .2s ease}
+  .logo-item{flex-shrink:0;height:56px;display:flex;align-items:center}
+  .logo-item img{height:46px;width:auto;max-width:160px;object-fit:contain;filter:grayscale(25%) opacity(.8);transition:filter .2s ease}
   .logo-item img:hover{filter:none}
   @keyframes logoScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
@@ -463,7 +464,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .logos{display:flex;flex-wrap:wrap;gap:9px 11px;align-items:center;margin:4px 0 16px}
   .logo-pill{font-family:var(--sans);font-size:13.5px;font-weight:700;letter-spacing:.02em;color:#4a4a4a;background:var(--bg);border:1px solid var(--line);padding:8px 16px;border-radius:8px;transition:transform .2s var(--ease-out),border-color .2s ease,color .2s ease}
   .logo-pill:hover{transform:translateY(-2px);border-color:rgba(227,6,19,.4);color:var(--ink)}
-  .softline{font-family:var(--serif);font-style:italic;font-size:14.5px;line-height:1.55;color:var(--grey);margin-bottom:4px}
+  .softline{font-family:var(--serif);font-size:15.5px;line-height:1.55;color:var(--grey);margin-bottom:0;margin-top:28px}
 
   /* ============ TEAM + YANDEX ============ */
   .people{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0 22px}
@@ -498,16 +499,16 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .form-lead{font-family:var(--serif);font-weight:700;font-size:clamp(24px,3vw,32px);line-height:1.18;letter-spacing:-.018em;color:var(--ink);margin-bottom:10px}
   .form-lead .mark{font-weight:700}
   .form-intro{font-family:var(--sans);font-size:15.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:18px;max-width:54ch}
-  .form-grid{display:flex;flex-direction:column;gap:16px;margin:6px 0 0}
+  .form-grid{display:flex;flex-direction:column;gap:10px;margin:4px 0 0}
   .field label{display:block;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px;letter-spacing:.01em}
-  .field input,.field textarea{width:100%;font-family:var(--serif);font-size:16px;line-height:1.5;color:var(--ink);border:1px solid rgba(27,27,29,.18);border-radius:10px;padding:13px 15px;outline:none;background:#fff;transition:border-color .18s ease,box-shadow .18s ease}
+  .field input,.field textarea{width:100%;font-family:var(--serif);font-size:15px;line-height:1.5;color:var(--ink);border:1px solid rgba(27,27,29,.18);border-radius:10px;padding:10px 13px;outline:none;background:#fff;transition:border-color .18s ease,box-shadow .18s ease}
   .field input:focus,.field textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(227,6,19,.08)}
-  .field textarea{min-height:80px;resize:vertical}
+  .field textarea{min-height:58px;resize:vertical}
   .field .opt{color:var(--grey);font-weight:500}
   .seg{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:9px}
   .seg button{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink-soft);background:var(--bg);border:1px solid rgba(27,27,29,.16);padding:9px 18px;border-radius:100px;cursor:pointer;transition:all .18s var(--ease-out)}
   .seg button.on{background:var(--red);color:#fff;border-color:var(--red)}
-  .microcopy{font-family:var(--sans);font-size:13px;color:var(--grey);margin-top:12px;line-height:1.5}
+  .microcopy{font-family:var(--sans);font-size:13px;color:var(--grey);margin-top:4px;line-height:1.5}
   .form-sent{display:none;margin-top:16px;padding:16px 18px;border-radius:10px;background:rgba(255,230,128,.3);border:1px solid rgba(227,6,19,.25);font-family:var(--serif);font-size:16px;color:var(--ink);line-height:1.55}
   .form-sent.show{display:block;animation:fadeIn .3s ease}
   /* Lottie */
@@ -520,6 +521,34 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .field-err{border-color:var(--red) !important;box-shadow:0 0 0 3px rgba(227,6,19,.1) !important}
   .consent-err label{color:var(--red) !important}
   .consent-err input[type=checkbox]{outline:2px solid var(--red);outline-offset:2px;border-radius:2px}
+
+  /* ===== FORM COMPACT LAYOUT ===== */
+  .form-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .seg-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .seg-row>label{margin-bottom:0}
+  .seg-row .seg{margin-bottom:0;gap:6px;flex-shrink:0}
+  .seg-row .seg button{padding:7px 13px;font-size:13px}
+  @media(max-width:540px){
+    .form-pair{grid-template-columns:1fr}
+    .seg-row{flex-direction:column;align-items:flex-start}
+  }
+
+  /* ===== COOKIE BANNER ===== */
+  .cookie-bar{
+    position:fixed;bottom:0;left:0;right:0;z-index:300;
+    background:#1b1b1d;color:#cfcfcf;
+    padding:14px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    font-family:var(--sans);font-size:13.5px;line-height:1.55;
+    box-shadow:0 -4px 28px rgba(0,0,0,.3);
+    transform:translateY(110%);transition:transform .45s var(--ease-out);
+  }
+  .cookie-bar.show{transform:translateY(0)}
+  .cookie-bar p{margin:0;max-width:700px}
+  .cookie-bar a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(227,6,19,.4)}
+  .cookie-btn{flex-shrink:0;font-family:var(--sans);font-size:14px;font-weight:600;background:var(--red);color:#fff;border:none;cursor:pointer;padding:10px 24px;border-radius:100px;white-space:nowrap;transition:background .18s ease}
+  .cookie-btn:hover{background:var(--red-dark)}
+  @media(max-width:560px){.cookie-bar{padding:14px 16px;gap:10px}.cookie-bar p{font-size:13px}}
 
   /* ===== NOTEBOOK SUCCESS POPUP ===== */
   .nb-backdrop{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(27,27,29,.52)}
@@ -613,12 +642,12 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .lm-backdrop{position:fixed;inset:0;z-index:140;background:rgba(27,27,29,.46);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:24px}
   .lm-backdrop.open{display:flex;animation:fadeIn .2s ease}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  .lm-panel{background:#fff;border-radius:16px;box-shadow:0 30px 70px -20px rgba(27,27,29,.45);width:100%;max-width:580px;padding:32px 32px 28px;animation:popUp .3s var(--ease-spring);max-height:90vh;overflow:auto;position:relative}
+  .lm-panel{background:#fff;border-radius:16px;box-shadow:0 30px 70px -20px rgba(27,27,29,.45);width:100%;max-width:580px;padding:24px 28px 20px;animation:popUp .3s var(--ease-spring);max-height:90vh;overflow:auto;position:relative}
   @keyframes popUp{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
   .lm-panel .lm-kicker{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
   .lm-panel h3{font-family:var(--serif);font-size:24px;font-weight:600;margin-bottom:6px;line-height:1.18}
-  .lm-panel .lm-sub{font-size:14px;color:var(--grey);margin-bottom:16px;line-height:1.5}
-  .lm-panel textarea{width:100%;min-height:118px;resize:vertical;font-family:var(--serif);font-size:15.5px;line-height:1.6;color:var(--ink);border:1px solid rgba(27,27,29,.18);border-radius:11px;padding:14px 16px;outline:none;transition:border-color .18s ease}
+  .lm-panel .lm-sub{font-size:14px;color:var(--grey);margin-bottom:10px;line-height:1.5}
+  .lm-panel textarea{width:100%;min-height:86px;resize:vertical;font-family:var(--serif);font-size:15.5px;line-height:1.6;color:var(--ink);border:1px solid rgba(27,27,29,.18);border-radius:11px;padding:11px 14px;outline:none;transition:border-color .18s ease}
   .lm-panel textarea:focus{border-color:var(--red)}
   .lm-actions{display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap}
   .lm-actions .btn-primary{padding:12px 24px;font-size:15px}
@@ -627,6 +656,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   @keyframes readyPulse{0%,100%{box-shadow:0 8px 18px -8px rgba(227,6,19,.55)}50%{box-shadow:0 10px 26px -6px rgba(227,6,19,.75)}}
   .lm-close{margin-left:auto;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:14px;color:var(--grey)}
   .lm-close:hover{color:var(--ink)}
+  .lm-panel-x{position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;font-size:22px;color:var(--grey);line-height:1;padding:4px 6px;z-index:2;transition:color .15s ease}
+  .lm-panel-x:hover{color:var(--ink)}
   .lm-hint{font-family:var(--sans);font-size:12.5px;color:var(--grey)}
   .verdict{margin-top:18px;display:none;border-top:1px dashed rgba(27,27,29,.18);padding-top:18px}
   .verdict.show{display:block;animation:fadeIn .3s ease}
@@ -788,7 +819,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     .body-p{font-size:16.5px}
     .subhead{font-size:15px}
     .case-hero{font-size:22px}
-    .lm-panel{padding:26px 22px}
+    .lm-panel{padding:20px 18px}
     .footer-top{flex-direction:column;gap:16px}
     .stats .stat .snum{font-size:18px}
     .btn-primary{width:100%;text-align:center}
@@ -866,7 +897,6 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       <a href="#how" data-cursor="смотреть">Как работаем</a>
       <a href="#cases" data-cursor="кейсы">Кейсы</a>
       <a href="#team" data-cursor="редакция">Редакция</a>
-      <a href="#" data-cta data-cursor="написать">Контакты</a>
       <a href="#" class="nav-lm" id="navLM" data-cursor="проверить">Продаст или нет</a>
     </nav>
     <a href="#" class="btn-head" id="btnHead" data-cursor="обсудить">Обсудить задачу</a>
@@ -888,7 +918,6 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   <div class="om-foot">
     <span>29 лет на рынке</span>
     <span>945 млн охвата</span>
-    <a href="#" target="_blank" rel="noopener">Telegram агентства</a>
   </div>
 </nav>
 
@@ -896,7 +925,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 <button class="lm-tab" id="lmTab" type="button" aria-label="Открыть разбор «Продаст или нет»" data-cursor="проверить">
   <span class="lm-tab-corner" aria-hidden="true"></span>
   <span class="lm-tab-icon" aria-hidden="true">✦</span>
-  <span class="lm-tab-label">Продаст<br>или нет?</span>
+  <span class="lm-tab-label">Продаст <br>или нет?</span>
 </button>
 
 <!-- Lottie фоновая анимация за hero-листом -->
@@ -991,8 +1020,8 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 <section class="beat reveal pre" id="beat" aria-label="Ключевая мысль">
   <div class="beat-inner">
     <div class="beat-kicker">Один кадр · без воды</div>
-    <p class="beat-line">Мало написать текст — важно получить <span class="um">измеримый результат</span></p>
-    <p class="beat-sub">Текст без дистрибуции — расход. Нужен подрядчик, который ведёт материал от черновика до читателя и дальше — до целевых метрик: дочитываний, переходов, заявок. Дальше — где именно мы это делаем.</p>
+    <p class="beat-line">Написать текст мало — он должен <span class="um">работать</span>.</p>
+    <p class="beat-sub">Текст без дистрибуции — просто статья в стол. Мы берём материал, доводим до читателя и считаем, что он принёс: дочитывания, переходы, заявки.</p>
     <div class="beat-cta">
       <a href="#" class="btn-primary" data-cta data-cursor="поехали">Обсудить задачу</a>
       <span class="beat-note">пишем и продвигаем →</span>
@@ -1016,12 +1045,12 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           <div class="cases reveal pre">
             <!-- строка 1: БАДы -->
             <div class="case">
-              <span class="stamp">x3</span>
-              <div class="case-tags"><span>ПромоСтраницы</span><span>БАДы</span></div>
-              <div class="case-name">Статинориз</div>
-              <div class="case-hero">x3 продаж<br>за полгода</div>
-              <p class="case-sub"><b>5,4x</b> брендового спроса и <b>5 114</b> добавлений в корзину на Ozon.</p>
-              <a href="https://yandex.ru/adv/solutions/cases/proizvoditel-badov-uluchshil-ranzhirovanie-novinki-v-vydache-ozon" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Кейс Яндекса →</a>
+              <span class="stamp">1M</span>
+              <div class="case-tags"><span>ПромоСтраницы</span><span>Продукты питания</span></div>
+              <div class="case-name">Пиканта</div>
+              <div class="case-hero">674 000 переходов<br>на сайт</div>
+              <p class="case-sub"><b>86,8 млн</b> показов и <b>1 млн</b> дочитываний за 8 месяцев.</p>
+              <a href="https://promopage.media-sfera.com/blog/pikanta" class="case-link" target="_blank" rel="noopener" data-cursor="читать">Читать кейс →</a>
             </div>
             <div class="case">
               <span class="stamp">71K</span>
@@ -1094,12 +1123,13 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           <div class="team-slider-wrap">
             <div class="team-slider" id="teamSlider">
               <div class="team-slide"><img src="team-timur.jpg" alt="Тимур Угулава" class="ts-photo"><div class="ts-name">Тимур Угулава</div><div class="ts-role">Совладелец, официальный эксперт Яндекс Рекламы по ПромоСтраницам</div></div>
-              <div class="team-slide"><img src="team-maya.jpg" alt="Майя Блюм" class="ts-photo"><div class="ts-name">Майя Блюм</div><div class="ts-role">Главный редактор — отвечает за смыслы и качество текста</div></div>
-              <div class="team-slide"><img src="team-kseniya.jpg" alt="Ксения Угулава" class="ts-photo"><div class="ts-name">Ксения Угулава</div><div class="ts-role">Продюсер контент-направления — связывает редакцию и результат</div></div>
-              <div class="team-slide"><img src="team-tina.jpg" alt="Тина Коваль" class="ts-photo"><div class="ts-name">Тина Коваль</div><div class="ts-role">Редактор</div></div>
+              <div class="team-slide"><img src="team-maya.jpg" alt="Майя Блюм" class="ts-photo"><div class="ts-name">Майя Блюм</div><div class="ts-role">Главный редактор — следит, чтобы в тексте были и смыслы, и деньги.</div></div>
+              <div class="team-slide"><img src="team-kseniya.jpg" alt="Ксения Угулава" class="ts-photo"><div class="ts-name">Ксения Угулава</div><div class="ts-role">Руководитель контент-направления — связывает редакцию и результат</div></div>
+              <div class="team-slide"><img src="team-tina.jpg" alt="Тина Коваль" class="ts-photo"><div class="ts-name">Тина Коваль</div><div class="ts-role">Ведущий продюсер проектов, знает как сделать, чтобы было хорошо</div></div>
               <div class="team-slide"><img src="team-nastya.jpg" alt="Анастасия Шершнева" class="ts-photo"><div class="ts-name">Анастасия Шершнева</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
-              <div class="team-slide"><img src="team-nina.jpg" alt="Нина Карина" class="ts-photo"><div class="ts-name">Нина Карина</div><div class="ts-role">Аналитик — считает результаты до рубля</div></div>
-              <div class="team-slide"><img src="team-artem.jpg" alt="Артём Храпов" class="ts-photo"><div class="ts-name">Артём Храпов</div><div class="ts-role">Копирайтер, 6 лет работаю только с Дзеном и Яндекс Промостраницами, пишу статьи известным брендам и блогерам-миллионникам</div></div>
+              <div class="team-slide"><img src="team-nina.jpg" alt="Нина Карина" class="ts-photo"><div class="ts-name">Нина Карина</div><div class="ts-role">Продюсер, человек дела, с ней всё работает как часы</div></div>
+              <div class="team-slide"><img src="team-artem.jpg" alt="Артём Храпов" class="ts-photo"><div class="ts-name">Артём Храпов</div><div class="ts-role">Копирайтер, пишет статьи для людей, за которые не стыдно брендам и блогерам‑миллионникам.</div></div>
+              <div class="team-slide"><img src="team-elina.jpg" alt="Элина Климович" class="ts-photo"><div class="ts-name">Элина Климович</div><div class="ts-role">Автор с высшим медобразованием. Объясняет сложное так, что поймёт даже бабушка.</div></div>
             </div>
             <div class="ts-nav">
               <button class="ts-btn" id="tsPrev" aria-label="Назад">←</button>
@@ -1108,7 +1138,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
           </div>
 
           <hr class="divider mt">
-          <h3 class="sub-title">Нас выбирают и Яндекс, и рынок</h3>
+          <h3 class="sub-title" id="yandex">Нас выбирают и Яндекс, и рынок</h3>
 
           <div class="cert-grid">
             <div class="cert-card"><div class="cert-card-title">Партнёр Яндекса с 2011 года</div><div class="cert-card-text">Больше десяти лет сертифицированного опыта внутри платформы.</div></div>
@@ -1190,19 +1220,18 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
-      <a href="#top" class="logo">медиасфера</a>
+      <a href="#top" class="logo"><img src="логотип_мсф_красно_черный_для_светлого_фона.svg" alt="Медиасфера" class="logo-img" style="filter:brightness(0) invert(1)"></a>
       <div class="footer-links">
         <a href="#how">Как работаем</a>
         <a href="#cases">Каналы и кейсы</a>
         <a href="#team">Редакция</a>
         <a href="#" id="navLMf">Продаст или нет</a>
-        <a href="#" target="_blank" rel="noopener">Telegram агентства</a>
         <a href="https://www.media-sfera.com/agreement/" target="_blank" rel="noopener">Политика конфиденциальности</a>
       </div>
     </div>
     <div class="footer-meta">
       ООО «Медиасфера» · контент, который продаёт · реквизиты по запросу
-      <span class="soft">Мы и в числе ведущих контент-агентств по версии Рейтинга Рунета — с отзывами клиентов на 5.0.</span>
+      <span class="soft">Мы в числе ведущих контент-агентств по версии Рейтинга Рунета — с отзывами клиентов на 5.0.</span>
     </div>
   </div>
 </footer>
@@ -1210,6 +1239,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 <!-- ============ LEAD-MAGNET MODAL ============ -->
 <div class="lm-backdrop" id="lmBackdrop" aria-hidden="true">
   <div class="lm-panel" role="dialog" aria-modal="true" aria-label="Проверка текста — продаст или нет">
+    <button class="lm-panel-x" id="lmCloseX" type="button" aria-label="Закрыть">✕</button>
     <div class="lm-kicker">Лид-магнит · живой AI-разбор</div>
     <h3>Продаст или нет?</h3>
     <p class="lm-sub">Пришлите свой текст — разберём, что в нём ломает продажи и предложим 3 правки, которые подтянут конверсию.</p>
@@ -1237,24 +1267,29 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 <!-- ============ ПОПАП "ОБСУДИТЬ ЗАДАЧУ" (шапка) ============ -->
 <div class="lm-backdrop" id="contactBackdrop" aria-hidden="true">
   <div class="lm-panel" role="dialog" aria-modal="true" aria-label="Обсудить задачу">
+    <button class="lm-panel-x" id="contactCloseX" type="button" aria-label="Закрыть">✕</button>
     <div class="lm-kicker">Старт · оставьте заявку</div>
     <h3>Обсудить задачу</h3>
     <p class="lm-sub">Вернёмся в течение рабочего дня, посмотрим вашу нишу и предложим, в каких каналах статья принесёт заявки.</p>
     <form class="form-grid" id="popupForm" onsubmit="return false" style="margin-top:4px">
-      <div class="field">
-        <label for="p-name">Имя <span style="color:var(--red)">*</span></label>
-        <input id="p-name" type="text" placeholder="Как к вам обращаться">
+      <div class="form-pair">
+        <div class="field">
+          <label for="p-name">Имя <span style="color:var(--red)">*</span></label>
+          <input id="p-name" type="text" placeholder="Как к вам обращаться">
+        </div>
+        <div class="field">
+          <label for="p-email">Email <span style="color:var(--red)">*</span></label>
+          <input id="p-email" type="email" placeholder="почта@компания.ру">
+        </div>
       </div>
       <div class="field">
-        <label for="p-email">Email <span style="color:var(--red)">*</span></label>
-        <input id="p-email" type="email" placeholder="почта@компания.ру">
-      </div>
-      <div class="field">
-        <label>Как удобнее связаться</label>
-        <div class="seg" id="p-seg">
-          <button type="button" class="on" data-m="Telegram">Telegram</button>
-          <button type="button" data-m="Телефон">Телефон</button>
-          <button type="button" data-m="Почта">Почта</button>
+        <div class="seg-row">
+          <label>Как удобнее связаться</label>
+          <div class="seg" id="p-seg">
+            <button type="button" class="on" data-m="Telegram">Telegram</button>
+            <button type="button" data-m="Телефон">Телефон</button>
+            <button type="button" data-m="Почта">Почта</button>
+          </div>
         </div>
         <input id="p-contact" type="text" placeholder="@username в Telegram">
       </div>
@@ -1270,9 +1305,6 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       <div class="microcopy">Вернёмся в течение рабочего дня. Без рассылок и звонков.</div>
       <div class="form-sent" id="popupSent">Спасибо! Мы получили заявку и вернёмся в течение рабочего дня.</div>
     </form>
-    <div class="lm-actions" style="margin-top:0;justify-content:flex-end">
-      <button class="lm-close" id="contactClose" type="button">Закрыть</button>
-    </div>
   </div>
 </div>
 
@@ -1546,6 +1578,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   function bindOpen(id){ var el = document.getElementById(id); if(el) el.addEventListener('click', function(e){ if(el.tagName==='A') e.preventDefault(); openLM(); }); }
   ['openLM','lmTab','navLM','navLMm','navLMf'].forEach(bindOpen);
   document.getElementById('lmClose').addEventListener('click', closeLM);
+  document.getElementById('lmCloseX').addEventListener('click', closeLM);
   backdrop.addEventListener('click', function(e){ if(e.target===backdrop) closeLM(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape' && backdrop.classList.contains('open')) closeLM(); });
 
@@ -1648,7 +1681,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
   var btnHead = document.getElementById('btnHead');
   if(btnHead){ btnHead.addEventListener('click', function(e){ e.preventDefault(); openContact(); }); }
-  document.getElementById('contactClose').addEventListener('click', closeContact);
+  document.getElementById('contactCloseX').addEventListener('click', closeContact);
   contactBackdrop.addEventListener('click', function(e){ if(e.target===contactBackdrop) closeContact(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape' && contactBackdrop.classList.contains('open')) closeContact(); });
 
@@ -1728,6 +1761,17 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
   /* карандаш-курсор убран — используется обычный системный курсор */
 
+  /* ---- COOKIE BANNER ---- */
+  var cookieBar = document.getElementById('cookieBar');
+  if(cookieBar && !localStorage.getItem('cookie_ok')){
+    setTimeout(function(){ cookieBar.classList.add('show'); }, 900);
+  }
+  var cookieBtn = document.getElementById('cookieAccept');
+  if(cookieBtn){ cookieBtn.addEventListener('click', function(){
+    localStorage.setItem('cookie_ok','1');
+    cookieBar.classList.remove('show');
+  }); }
+
   /* ---- LOTTIE: фоновая анимация в hero ---- */
   if(typeof lottie !== 'undefined' && !reduce){
     lottie.loadAnimation({
@@ -1745,9 +1789,9 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     <span class="bm-icon">!</span>
     <span class="bm-label">Реальный дашборд</span>
   </a>
-  <a class="bookmark bookmark-yellow" href="#team">
+  <a class="bookmark bookmark-yellow" href="#yandex">
     <span class="bm-icon">✓</span>
-    <span class="bm-label">Рекомендует Яндекс</span>
+    <span class="bm-label">Нас рекомендует Яндекс</span>
   </a>
 </nav>
 
@@ -1757,6 +1801,12 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     <button class="nb-close" id="nbClose" aria-label="Закрыть">✕</button>
     <div class="nb-text" id="nbText">Спасибо, мы скоро свяжемся с Вами</div>
   </div>
+</div>
+
+<!-- ============ COOKIE BANNER ============ -->
+<div class="cookie-bar" id="cookieBar" role="alert" aria-live="polite">
+  <p>Сайт использует технологию cookie. Используя сайт, вы соглашаетесь на обработку персональных данных на условиях, изложенных в <a href="https://www.media-sfera.com/agreement/" target="_blank" rel="noopener">Политике</a>.</p>
+  <button class="cookie-btn" id="cookieAccept" type="button">Принять</button>
 </div>
 
 </body>
