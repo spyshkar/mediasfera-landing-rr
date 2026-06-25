@@ -74,7 +74,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
 
   /* ============ HEADER ============ */
   header.topbar{
-    position:sticky;top:0;z-index:60;
+    position:sticky;top:0;z-index:125;
     background:rgba(243,239,231,.78);
     backdrop-filter:saturate(180%) blur(16px);
     -webkit-backdrop-filter:saturate(180%) blur(16px);
@@ -113,7 +113,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .btn-head:hover{background:var(--red-dark);transform:translateY(-1px)}
   .burger{display:none;background:none;border:none;cursor:pointer;width:44px;height:44px;flex-direction:column;justify-content:center;align-items:center;gap:5px;padding:8px;z-index:130;position:relative}
   .burger span{display:block;height:2px;width:24px;background:var(--ink);border-radius:2px;transition:transform .28s var(--ease-out),opacity .2s ease,background .2s ease}
-  .burger.open span{background:#fff}
+  .burger.open span{background:var(--ink)}
   .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .burger.open span:nth-child(2){opacity:0}
   .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -518,6 +518,27 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   .form-check-row label{font-family:var(--sans);font-size:13px;color:var(--grey);line-height:1.5;cursor:pointer}
   .form-check-row label a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(227,6,19,.35)}
   .field-err{border-color:var(--red) !important;box-shadow:0 0 0 3px rgba(227,6,19,.1) !important}
+  .consent-err label{color:var(--red) !important}
+  .consent-err input[type=checkbox]{outline:2px solid var(--red);outline-offset:2px;border-radius:2px}
+
+  /* ===== NOTEBOOK SUCCESS POPUP ===== */
+  .nb-backdrop{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(27,27,29,.52)}
+  .nb-backdrop.open{display:flex;animation:fadeIn .2s ease}
+  .nb-popup{
+    position:relative;background:#fffdf0;border-radius:2px 2px 4px 4px;
+    box-shadow:0 20px 60px -16px rgba(27,27,29,.45),2px 6px 0 0 rgba(27,27,29,.06);
+    max-width:320px;width:100%;padding:52px 32px 36px;text-align:center;
+    font-family:var(--hand);animation:popUp .35s var(--ease-spring);
+  }
+  .nb-popup::before{content:"";display:block;position:absolute;top:0;left:0;right:0;height:34px;background:linear-gradient(90deg,#e2b44a,#f0c84e,#e2b44a);border-radius:2px 2px 0 0}
+  .nb-popup::after{
+    content:"";position:absolute;left:0;right:0;top:34px;bottom:0;pointer-events:none;border-radius:0 0 4px 4px;
+    background:repeating-linear-gradient(transparent,transparent 27px,rgba(27,27,29,.09) 27px,rgba(27,27,29,.09) 28px);
+  }
+  .nb-close{position:absolute;top:8px;right:12px;background:none;border:none;cursor:pointer;font-size:18px;color:var(--ink);opacity:.7;z-index:2;line-height:1;padding:2px 4px}
+  .nb-close:hover{opacity:1}
+  .nb-text{position:relative;z-index:1;font-size:26px;line-height:1.35;color:var(--ink)}
+
   .relaunch-box{margin-top:28px;border-top:1px dashed var(--line);padding-top:22px}
   .relaunch-box h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:7px}
   .relaunch-box p{font-family:var(--sans);font-size:14.5px;line-height:1.58;color:var(--ink-soft);margin-bottom:13px}
@@ -1200,7 +1221,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
         <div class="field"><label for="lm-contact-val" style="font-size:12px">Telegram / телефон</label><input id="lm-contact-val" type="text" placeholder="@username или +7…"></div>
       </div>
       <div class="field" style="margin-top:8px"><label for="lm-email" style="font-size:12px">Почта</label><input id="lm-email" type="email" placeholder="почта@компания.ру"></div>
-      <div class="form-check-row" style="margin-top:6px">
+      <div class="form-check-row" id="lm-consent-row" style="margin-top:6px">
         <input type="checkbox" id="lm-consent">
         <label for="lm-consent">Соглашаюсь с <a href="https://www.media-sfera.com/agreement/" target="_blank" rel="noopener">политикой обработки персональных данных</a></label>
       </div>
@@ -1209,18 +1230,6 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       <button class="btn-primary" id="lmRun" type="button">Проверить текст</button>
       <span class="lm-hint" id="lmHint">Можно вставить даже один заголовок.</span>
       <button class="lm-close" id="lmClose" type="button">Закрыть</button>
-    </div>
-    <div class="verdict" id="verdict">
-      <div class="verdict-head">
-        <div class="gauge" id="gauge"><div class="ginner"><span class="gnum" id="gnum">0</span><span class="gunit">/100</span></div></div>
-        <div>
-          <div class="vtag" id="vtag">—</div>
-          <div class="vsum" id="vsum">—</div>
-        </div>
-      </div>
-      <p class="edits-title">3 правки «было → стало»</p>
-      <ul class="edits" id="edits"></ul>
-      <div class="vfoot">Это упрощённое демо. Полный разбор с правками под вашу нишу делает живая редакция — <a href="#contact" id="vfootLink">обсудить задачу →</a></div>
     </div>
   </div>
 </div>
@@ -1539,105 +1548,78 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
   document.getElementById('lmClose').addEventListener('click', closeLM);
   backdrop.addEventListener('click', function(e){ if(e.target===backdrop) closeLM(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape' && backdrop.classList.contains('open')) closeLM(); });
-  document.getElementById('vfootLink').addEventListener('click', function(e){ closeLM(); });
 
-  var WEAK = [
-    {re:/широк(ий|ого|ому) спектр|спектр услуг/i, was:'широкий спектр качественных услуг', now:'статья, после которой покупают именно ваш продукт'},
-    {re:/индивидуальн\w* подход/i, was:'индивидуальный подход к каждому', now:'сценарий под вашу нишу — согласуете до первой строки'},
-    {re:/качествен\w+/i, was:'качественный текст', now:'текст, который снизил цену дочитки до 7,14 ₽'},
-    {re:/professional|профессионал\w*/i, was:'мы профессионалы своего дела', now:'29 лет, 945 млн охвата — считаем в деньгах'},
-    {re:/выгодн\w+ цен|низк\w+ цен|доступн\w+ цен/i, was:'по выгодным ценам', now:'+45% продаж за 7 месяцев — вот результат'},
-    {re:/лидер\w* рынка|№\s*1|номер один/i, was:'лидер рынка', now:'партнёр Яндекса с 2011 года, Silver Mercury 2024'},
-    {re:/комплексн\w+ решени/i, was:'комплексное решение под ключ', now:'путь статьи: бриф → текст → дистрибуция → заявки'}
-  ];
-  var GENERIC = [
-    {was:'длинное вступление «о компании»', now:'первая строка — про боль читателя, а не про вас'},
-    {was:'нет ни одной цифры', now:'добавьте проверяемый результат: %, ₽, срок'},
-    {was:'абзац без призыва', now:'в конце — один понятный следующий шаг'}
-  ];
-  function buildEdits(text){
-    var found = [];
-    WEAK.forEach(function(p){ if(p.re.test(text) && found.length<3) found.push({was:p.was, now:p.now}); });
-    var gi = 0;
-    while(found.length < 3 && gi < GENERIC.length){ found.push({was:GENERIC[gi].was, now:GENERIC[gi].now}); gi++; }
-    return found.slice(0,3);
+  /* ---- NOTEBOOK POPUP ---- */
+  var nbBackdrop = document.getElementById('nbBackdrop');
+  var nbText = document.getElementById('nbText');
+  function openNb(text){
+    nbText.textContent = text;
+    nbBackdrop.classList.add('open');
+    nbBackdrop.setAttribute('aria-hidden','false');
   }
-  function scoreText(text){
-    var t = text.trim();
-    var s = 52;
-    if(/\d/.test(t)) s += 10;
-    if(/[?!]/.test(t)) s += 4;
-    if(t.length > 60 && t.length < 600) s += 6;
-    WEAK.forEach(function(p){ if(p.re.test(t)) s -= 9; });
-    if(/\bвы\b|\bваш/i.test(t)) s += 6;
-    if(t.length < 25) s -= 12;
-    s = Math.max(18, Math.min(88, s + (t.length % 7) - 3));
-    return Math.round(s);
+  function closeNb(){
+    nbBackdrop.classList.remove('open');
+    nbBackdrop.setAttribute('aria-hidden','true');
   }
-  var verdict = document.getElementById('verdict');
+  document.getElementById('nbClose').addEventListener('click', closeNb);
+  nbBackdrop.addEventListener('click', function(e){ if(e.target===nbBackdrop) closeNb(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && nbBackdrop.classList.contains('open')) closeNb(); });
+
+  /* ---- ЛИД-МАГНИТ: форма ---- */
   var runBtn = document.getElementById('lmRun');
-  function runVerdict(){
-    var text = document.getElementById('lmInput').value;
-    if(!text.trim()){ document.getElementById('lmInput').focus(); document.getElementById('lmHint').textContent = 'Вставьте хотя бы заголовок.'; return; }
-    runBtn.classList.add('loading'); runBtn.textContent = 'Анализирую…';
-    setTimeout(function(){
-      var sc = scoreText(text);
-      var edits = buildEdits(text);
-      var tone = sc >= 70 ? 'good' : (sc >= 45 ? 'mid' : 'bad');
-      var tag = sc >= 70 ? 'Скорее продаёт' : (sc >= 45 ? 'Продаёт наполовину' : 'Пока не продаёт');
-      var sum = sc >= 70 ? 'Хорошая база. Доведём до денег точечными правками.' :
-                (sc >= 45 ? 'Есть смысл, но мешают штампы и нехватка фактов.' :
-                 'Много общих слов и мало конкретики — читатель не дочитает.');
-      var gnum = document.getElementById('gnum');
-      var start = 0, dur = 600, t0 = performance.now();
-      function tick(now){
-        var p = Math.min(1, (now - t0)/dur);
-        gnum.textContent = Math.round(start + (sc - start) * (1 - Math.pow(1-p,3)));
-        if(p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-      var gaugeEl = document.getElementById('gauge');
-      gaugeEl.setAttribute('data-tone', tone);
-      gaugeEl.style.setProperty('--p', '0');
-      requestAnimationFrame(function(){ gaugeEl.style.setProperty('--p', String(sc)); });
-      document.getElementById('vtag').textContent = tag;
-      document.getElementById('vsum').textContent = sum;
-      var ul = document.getElementById('edits'); ul.innerHTML = '';
-      edits.forEach(function(e){
-        var li = document.createElement('li'); li.className = 'edit';
-        li.innerHTML = '<span class="edit-n"></span><div><div class="edit-was">'+e.was+'</div><div class="edit-now">'+e.now+'</div></div>';
-        ul.appendChild(li);
-      });
-      verdict.classList.add('show');
-      runBtn.classList.remove('loading'); runBtn.textContent = 'Проверить ещё раз';
-
-      /* отправляем контакт, если заполнены поля и дано согласие */
-      var lmNameEl = document.getElementById('lm-name');
-      var lmCVal = document.getElementById('lm-contact-val');
-      var lmEmailEl = document.getElementById('lm-email');
-      var lmCons = document.getElementById('lm-consent');
-      var lmContactOk = (lmCVal && lmCVal.value.trim()) || (lmEmailEl && lmEmailEl.value.trim());
-      if(lmNameEl && lmCons && lmCons.checked && lmNameEl.value.trim() && lmContactOk){
-        fetch('submit.php', {
-          method:'POST', headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({
-            name: lmNameEl.value.trim(),
-            email: lmEmailEl ? lmEmailEl.value.trim() : '',
-            contactValue: lmCVal ? lmCVal.value.trim() : '',
-            task: '[LM] ' + text.slice(0,500),
-            consent: true,
-            utms: captureUtms()
-          })
-        }).catch(function(){});
-      }
-    }, 650);
-  }
-  runBtn.addEventListener('click', runVerdict);
   var lmInput = document.getElementById('lmInput');
-  lmInput.addEventListener('keydown', function(e){
-    if((e.metaKey || e.ctrlKey) && e.key === 'Enter') runVerdict();
-  });
   var lmHintEl = document.getElementById('lmHint');
+
+  function lmClearErr(els){ els.forEach(function(el){ el.classList.remove('field-err'); }); }
+
+  function runLmSubmit(){
+    var text = lmInput.value;
+    var lmNameEl   = document.getElementById('lm-name');
+    var lmCVal     = document.getElementById('lm-contact-val');
+    var lmEmailEl  = document.getElementById('lm-email');
+    var lmConsRow  = document.getElementById('lm-consent-row');
+    var lmCons     = document.getElementById('lm-consent');
+
+    lmClearErr([lmInput, lmNameEl, lmCVal, lmEmailEl]);
+    if(lmConsRow) lmConsRow.classList.remove('consent-err');
+
+    var valid = true;
+    if(!text.trim()){ lmInput.classList.add('field-err'); lmInput.focus(); lmHintEl.textContent = 'Вставьте хотя бы заголовок.'; valid = false; }
+    if(!lmNameEl.value.trim()){ lmNameEl.classList.add('field-err'); if(valid) lmNameEl.focus(); valid = false; }
+    var contactOk = (lmCVal && lmCVal.value.trim()) || (lmEmailEl && lmEmailEl.value.trim());
+    if(!contactOk){ if(lmCVal) lmCVal.classList.add('field-err'); if(lmEmailEl) lmEmailEl.classList.add('field-err'); valid = false; }
+    if(!lmCons.checked){ if(lmConsRow) lmConsRow.classList.add('consent-err'); valid = false; }
+    if(!valid) return;
+
+    runBtn.disabled = true; runBtn.textContent = 'Отправляем…';
+    fetch('submit.php', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: lmNameEl.value.trim(),
+        email: lmEmailEl ? lmEmailEl.value.trim() : '',
+        contactValue: lmCVal ? lmCVal.value.trim() : '',
+        task: '[LM] ' + text.trim().slice(0,500),
+        consent: true,
+        utms: captureUtms()
+      })
+    })
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(){
+      if(typeof ym==='function') ym(57355,'reachGoal','form_rr_send');
+      closeLM();
+      openNb('Спасибо, мы скоро вернёмся с ответом');
+      runBtn.disabled = false; runBtn.textContent = 'Проверить текст';
+    })
+    .catch(function(){
+      runBtn.disabled = false; runBtn.textContent = 'Ошибка — попробуйте ещё раз';
+      setTimeout(function(){ runBtn.textContent = 'Проверить текст'; }, 3000);
+    });
+  }
+
+  runBtn.addEventListener('click', runLmSubmit);
+  lmInput.addEventListener('keydown', function(e){
+    if((e.metaKey || e.ctrlKey) && e.key === 'Enter') runLmSubmit();
+  });
   lmInput.addEventListener('input', function(){
     var n = lmInput.value.trim().length;
     runBtn.classList.toggle('ready', n >= 12);
@@ -1676,23 +1658,31 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
       b.classList.add('on');
       popupMethod = b.dataset.m;
       pContactEl.placeholder = ph[b.dataset.m] || '';
-      pContactEl.value = '';
+      /* автозаполнение почтой при выборе «Почта» */
+      if(b.dataset.m === 'Почта'){
+        var emailVal = (document.getElementById('p-email')||{}).value || '';
+        pContactEl.value = emailVal.trim();
+      } else {
+        pContactEl.value = '';
+      }
     });
   });
   pContactEl.addEventListener('input', function(){ if(popupMethod==='Телефон') this.value = phoneFormat(this.value); });
 
   document.getElementById('p-submit').addEventListener('click', function(){
-    var nameEl    = document.getElementById('p-name');
-    var emailEl   = document.getElementById('p-email');
-    var consentEl = document.getElementById('p-consent');
-    var submitBtn = this;
+    var nameEl      = document.getElementById('p-name');
+    var emailEl     = document.getElementById('p-email');
+    var consentEl   = document.getElementById('p-consent');
+    var consentRow  = consentEl ? consentEl.closest('.form-check-row') : null;
+    var submitBtn   = this;
     [nameEl, emailEl, pContactEl].forEach(function(el){ el.classList.remove('field-err'); });
+    if(consentRow) consentRow.classList.remove('consent-err');
     var valid = true;
     if(!nameEl.value.trim()){ nameEl.classList.add('field-err'); nameEl.focus(); valid = false; }
     if(!emailEl.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())){
       emailEl.classList.add('field-err'); if(valid) emailEl.focus(); valid = false;
     }
-    if(!consentEl.checked){ if(valid) consentEl.focus(); valid = false; }
+    if(!consentEl.checked){ if(consentRow) consentRow.classList.add('consent-err'); valid = false; }
     if(!valid) return;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Отправляем…';
@@ -1708,11 +1698,11 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     })
     .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
     .then(function(){
-      document.getElementById('popupSent').classList.add('show');
       if(typeof ym==='function') ym(57355,'reachGoal','form_rr_send');
-      submitBtn.textContent = 'Заявка отправлена';
-      submitBtn.style.background = 'var(--green)';
-      setTimeout(closeContact, 2800);
+      closeContact();
+      openNb('Спасибо, мы скоро свяжемся с Вами');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Обсудить задачу';
     })
     .catch(function(){
       submitBtn.disabled = false;
@@ -1760,6 +1750,14 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     <span class="bm-label">Рекомендует Яндекс</span>
   </a>
 </nav>
+
+<!-- ============ NOTEBOOK POPUP ============ -->
+<div class="nb-backdrop" id="nbBackdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Спасибо">
+  <div class="nb-popup">
+    <button class="nb-close" id="nbClose" aria-label="Закрыть">✕</button>
+    <div class="nb-text" id="nbText">Спасибо, мы скоро свяжемся с Вами</div>
+  </div>
+</div>
 
 </body>
 </html>
