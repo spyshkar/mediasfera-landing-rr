@@ -322,7 +322,7 @@
   .stats .stat+.stat::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:1px;background:var(--line)}
   .stats .stat .snum{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.4vw,27px);line-height:1;letter-spacing:-.01em;color:var(--ink);display:block;margin-bottom:6px}
   .stats .stat .slabel{font-family:var(--sans);font-size:12px;line-height:1.4;color:var(--grey)}
-  @media (max-width:680px){.stats{grid-template-columns:1fr 1fr}.stats .stat:nth-child(3)::before,.stats .stat:nth-child(odd)::before{display:none}}
+  @media (max-width:680px){.stats{grid-template-columns:repeat(4,1fr)}}
 
   /* ============ FLOW (схема пути) ============ */
   .flow{margin:6px 0 24px;display:flex;flex-direction:column}
@@ -555,7 +555,7 @@
   .cookie-bar a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(227,6,19,.4)}
   .cookie-btn{flex-shrink:0;font-family:var(--sans);font-size:14px;font-weight:600;background:var(--red);color:#fff;border:none;cursor:pointer;padding:10px 24px;border-radius:100px;white-space:nowrap;transition:background .18s ease}
   .cookie-btn:hover{background:var(--red-dark)}
-  @media(max-width:560px){.cookie-bar{padding:14px 16px;gap:10px}.cookie-bar p{font-size:13px}}
+  @media(max-width:560px){.cookie-bar{padding:14px 16px;gap:8px;flex-direction:column;align-items:flex-start}.cookie-bar p{font-size:13px}.cookie-btn{align-self:flex-end}}
 
   /* ===== NOTEBOOK SUCCESS POPUP ===== */
   .nb-backdrop{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(27,27,29,.52)}
@@ -643,6 +643,7 @@
     .lm-tab .lm-tab-label br{display:none}
     .lm-tab:hover,.lm-tab:focus-visible{transform:translateY(-2px)}
     .lm-tab .lm-tab-corner{display:none}
+    .om-deco{display:none}
   }
 
   /* ============ LEAD-MAGNET PANEL ============ */
@@ -828,7 +829,9 @@
     .case-hero{font-size:22px}
     .lm-panel{padding:20px 18px}
     .footer-top{flex-direction:column;gap:16px}
-    .stats .stat .snum{font-size:18px}
+    .stats .stat .snum{font-size:13px}
+    .stats .stat .slabel{font-size:10px}
+    .stats .stat{padding:14px 6px}
     .btn-primary{width:100%;text-align:center}
     .magnetic{width:100%}
     .beat-cta .btn-primary{width:auto}
