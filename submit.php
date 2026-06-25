@@ -210,10 +210,10 @@ function send_to_amo(array $d, string $domain, string $token, string $pipeline, 
 
     $headers = ["Authorization: Bearer {$token}"];
 
-    $contact_fields = [
-        ['field_code' => 'EMAIL', 'values' => [['value' => $d['email'], 'enum_code' => 'WORK']]],
-    ];
-    // Если контакт — телефон, добавляем в контакт
+    $contact_fields = [];
+    if ($d['email']) {
+        $contact_fields[] = ['field_code' => 'EMAIL', 'values' => [['value' => $d['email'], 'enum_code' => 'WORK']]];
+    }
     if ($d['contactType'] === 'phone' && $d['contactValue']) {
         $contact_fields[] = ['field_code' => 'PHONE', 'values' => [['value' => $d['contactValue'], 'enum_code' => 'MOB']]];
     }
@@ -221,29 +221,43 @@ function send_to_amo(array $d, string $domain, string $token, string $pipeline, 
     $lead_name = "РР — {$d['name']}";
     if ($d['company']) $lead_name .= " / {$d['company']}";
 
-    $lead_data = [
-        'name'     => $lead_name,
+    $lead_payload = [
+        'name'        => $lead_name,
         'tags_to_add' => [['name' => 'Рейтинг Рунета 2026']],
-        '_embedded' => ['contacts' => [[
-            'name'                 => $d['name'],
-            'custom_fields_values' => $contact_fields,
-        ]]],
     ];
+    if ($pipeline) $lead_payload['pipeline_id'] = (int)$pipeline;
 
-    // Добавляем pipeline/status если заданы
-    if ($pipeline) $lead_data['pipeline_id'] = (int)$pipeline;
-    if ($status)   $lead_data['status_id']   = (int)$status;
+    // Unsorted (Неразобранное) — специальный endpoint AMO
+    $unsorted = [[
+        'source_uid'  => uniqid('rr_', true),
+        'source_name' => 'Рейтинг Рунета лендинг',
+        'created_at'  => time(),
+        'metadata'    => [
+            'form_id'   => 'rr-landing',
+            'form_name' => 'Заявка с лендинга РР',
+            'form_page' => (string)($d['utms']['page_url'] ?? ''),
+            'referer'   => (string)($d['utms']['referrer']  ?? ''),
+            'ip'        => (string)($_SERVER['REMOTE_ADDR'] ?? ''),
+        ],
+        '_embedded' => [
+            'leads'    => [$lead_payload],
+            'contacts' => [[
+                'name'                 => $d['name'],
+                'custom_fields_values' => $contact_fields,
+            ]],
+        ],
+    ]];
 
-    $lead_res = curl_post("https://{$domain}/api/v4/leads/complex", [$lead_data], $headers);
+    $res = curl_post("https://{$domain}/api/v4/leads/unsorted/forms", $unsorted, $headers);
 
-    if ($lead_res['status'] < 200 || $lead_res['status'] >= 300) {
-        error_log('[AMO Error] lead: ' . $lead_res['status'] . ' ' . $lead_res['body']);
+    if ($res['status'] < 200 || $res['status'] >= 300) {
+        error_log('[AMO Error] unsorted: ' . $res['status'] . ' ' . $res['body']);
         return;
     }
 
-    $lead_json = json_decode($lead_res['body'], true);
-    $lead_id   = $lead_json[0]['id'] ?? null;
-    if (!$lead_id) { error_log('[AMO Error] no lead id: ' . $lead_res['body']); return; }
+    $json    = json_decode($res['body'], true);
+    $lead_id = $json['_embedded']['unsorted'][0]['_embedded']['leads'][0]['id'] ?? null;
+    if (!$lead_id) { error_log('[AMO Error] no lead id in unsorted response: ' . $res['body']); return; }
 
     // Примечание к лиду
     $note_parts = [
@@ -257,7 +271,7 @@ function send_to_amo(array $d, string $domain, string $token, string $pipeline, 
     }
     if ($d['company']) $note_parts[] = "Компания: {$d['company']}";
     if ($d['site'])    $note_parts[] = "Сайт: {$d['site']}";
-    if ($d['task'])  { $note_parts[] = ''; $note_parts[] = "Задача:"; $note_parts[] = $d['task']; }
+    if ($d['task'])  { $note_parts[] = ''; $note_parts[] = 'Задача:'; $note_parts[] = $d['task']; }
     if (!empty($d['utms'])) {
         $note_parts[] = '';
         $note_parts[] = 'UTM:';
