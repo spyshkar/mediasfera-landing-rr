@@ -10,14 +10,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 <!-- Lottie player (diffusionstudio/lottie) -->
 <script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
-<!-- Яндекс.Метрика -->
+<!-- Yandex.Metrika counter -->
 <script type="text/javascript">
-(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
-ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+    ym(57355, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/57355" style="position:absolute;left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/57355" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 <style>
   :root{
     --bg:#f3efe7;            /* воздушный off-white фон за листом */
@@ -1652,7 +1657,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     })
     .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
     .then(function(){
-      if(typeof ym==='function') ym(57355,'reachGoal','form_rr_send');
+      if(typeof ym==='function') ym(57355,'reachGoal','content_send_form_text_ii');
       closeLM();
       openNb('Спасибо, мы скоро вернёмся с ответом');
       runBtn.disabled = false; runBtn.textContent = 'Проверить текст';
@@ -1745,7 +1750,7 @@ ym(57355,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor
     })
     .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
     .then(function(){
-      if(typeof ym==='function') ym(57355,'reachGoal','form_rr_send');
+      if(typeof ym==='function') ym(57355,'reachGoal','content_send_form_task');
       closeContact();
       openNb('Спасибо, мы скоро свяжемся с Вами');
       submitBtn.disabled = false;
