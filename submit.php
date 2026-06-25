@@ -226,38 +226,26 @@ function send_to_amo(array $d, string $domain, string $token, string $pipeline, 
         'tags_to_add' => [['name' => 'Рейтинг Рунета 2026']],
     ];
     if ($pipeline) $lead_payload['pipeline_id'] = (int)$pipeline;
+    if ($status)   $lead_payload['status_id']   = (int)$status;
 
-    // Unsorted (Неразобранное) — специальный endpoint AMO
-    $unsorted = [[
-        'source_uid'  => uniqid('rr_', true),
-        'source_name' => 'Рейтинг Рунета лендинг',
-        'created_at'  => time(),
-        'metadata'    => [
-            'form_id'   => 'rr-landing',
-            'form_name' => 'Заявка с лендинга РР',
-            'form_page' => (string)($d['utms']['page_url'] ?? ''),
-            'referer'   => (string)($d['utms']['referrer']  ?? ''),
-            'ip'        => (string)($_SERVER['REMOTE_ADDR'] ?? ''),
-        ],
-        '_embedded' => [
-            'leads'    => [$lead_payload],
-            'contacts' => [[
-                'name'                 => $d['name'],
-                'custom_fields_values' => $contact_fields,
-            ]],
-        ],
+    $complex = [[
+        'leads'    => [$lead_payload],
+        'contacts' => [[
+            'name'                 => $d['name'],
+            'custom_fields_values' => $contact_fields,
+        ]],
     ]];
 
-    $res = curl_post("https://{$domain}/api/v4/leads/unsorted/forms", $unsorted, $headers);
+    $res = curl_post("https://{$domain}/api/v4/leads/complex", $complex, $headers);
 
     if ($res['status'] < 200 || $res['status'] >= 300) {
-        error_log('[AMO Error] unsorted: ' . $res['status'] . ' ' . $res['body']);
+        error_log('[AMO Error] complex: ' . $res['status'] . ' ' . $res['body']);
         return;
     }
 
     $json    = json_decode($res['body'], true);
-    $lead_id = $json['_embedded']['unsorted'][0]['_embedded']['leads'][0]['id'] ?? null;
-    if (!$lead_id) { error_log('[AMO Error] no lead id in unsorted response: ' . $res['body']); return; }
+    $lead_id = $json[0]['id'] ?? null;
+    if (!$lead_id) { error_log('[AMO Error] no lead id: ' . $res['body']); return; }
 
     // Примечание к лиду
     $note_parts = [
