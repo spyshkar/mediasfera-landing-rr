@@ -5,6 +5,8 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Медиасфера — контент, который продаёт</title>
+<link rel="icon" href="https://conf4june.media-sfera.com/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="https://conf4june.media-sfera.com/favicon.ico" type="image/x-icon">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
@@ -1123,7 +1125,7 @@
             Пишет не биржа. Пишет <span class="mark">редакция</span>
             <span class="note left"><span class="pin">↓</span>не биржа<small>штатная редакция полного цикла</small></span>
           </h2>
-          <p class="subhead has-note">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>.<span class="note left blue" style="font-size:18px;top:80px"><span class="pin">←</span>Все сертифицированы Яндексом<small style="font-size:14px">по ПромоСтраницам</small></span></p>
+          <p class="subhead has-note">Полный цикл над каждым текстом: <b>автор → редактор → корректор</b>.<span class="note left blue" style="font-size:22px"><span class="pin">←</span>Все сертифицированы<br>Яндексом<small style="font-size:17px;display:block;margin-top:2px">по ПромоСтраницам</small></span></p>
 
           <div class="team-slider-wrap">
             <div class="team-slider" id="teamSlider">
@@ -1225,7 +1227,7 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
-      <a href="#top" class="logo"><img src="логотип_мсф_красно_черный_для_светлого_фона.svg" alt="Медиасфера" class="logo-img" style="filter:brightness(0) invert(1)"></a>
+      <a href="#top" class="logo"><img src="логотип_мсф_красно_белый_для_темного_фона.svg" alt="Медиасфера" class="logo-img"></a>
       <div class="footer-links">
         <a href="#how">Как работаем</a>
         <a href="#cases">Каналы и кейсы</a>
@@ -1634,13 +1636,33 @@
 
     lmClearErr([lmInput, lmNameEl, lmCVal, lmEmailEl]);
     if(lmConsRow) lmConsRow.classList.remove('consent-err');
+    lmHintEl.style.color = '';
 
     var valid = true;
-    if(!text.trim()){ lmInput.classList.add('field-err'); lmInput.focus(); lmHintEl.textContent = 'Вставьте хотя бы заголовок.'; valid = false; }
-    if(!lmNameEl.value.trim()){ lmNameEl.classList.add('field-err'); if(valid) lmNameEl.focus(); valid = false; }
-    var contactOk = (lmCVal && lmCVal.value.trim()) || (lmEmailEl && lmEmailEl.value.trim());
-    if(!contactOk){ if(lmCVal) lmCVal.classList.add('field-err'); if(lmEmailEl) lmEmailEl.classList.add('field-err'); valid = false; }
-    if(!lmCons.checked){ if(lmConsRow) lmConsRow.classList.add('consent-err'); valid = false; }
+    var errMsg = '';
+    if(!text.trim()){
+      lmInput.classList.add('field-err'); lmInput.focus();
+      errMsg = 'Вставьте хотя бы заголовок.'; valid = false;
+    } else if(text.trim().length < 12){
+      lmInput.classList.add('field-err'); lmInput.focus();
+      errMsg = 'Текст слишком короткий — добавьте ещё немного.'; valid = false;
+    }
+    if(!lmNameEl.value.trim()){ lmNameEl.classList.add('field-err'); if(valid) lmNameEl.focus(); if(!errMsg) errMsg = 'Заполните имя.'; valid = false; }
+    var contactVal = lmCVal ? lmCVal.value.trim() : '';
+    var emailVal   = lmEmailEl ? lmEmailEl.value.trim() : '';
+    var emailOk    = !emailVal || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+    if(!contactVal && !emailVal){
+      if(lmCVal) lmCVal.classList.add('field-err');
+      if(lmEmailEl) lmEmailEl.classList.add('field-err');
+      if(!errMsg) errMsg = 'Укажите Telegram / телефон или почту.';
+      valid = false;
+    } else if(emailVal && !emailOk){
+      lmEmailEl.classList.add('field-err');
+      if(!errMsg) errMsg = 'Проверьте формат почты.';
+      valid = false;
+    }
+    if(!lmCons.checked){ if(lmConsRow) lmConsRow.classList.add('consent-err'); if(!errMsg) errMsg = 'Нужно согласие на обработку данных.'; valid = false; }
+    if(errMsg){ lmHintEl.textContent = errMsg; lmHintEl.style.color = 'var(--red)'; }
     if(!valid) return;
 
     runBtn.disabled = true; runBtn.textContent = 'Отправляем…';
@@ -1674,6 +1696,8 @@
   });
   lmInput.addEventListener('input', function(){
     var n = lmInput.value.trim().length;
+    lmInput.classList.remove('field-err');
+    lmHintEl.style.color = '';
     runBtn.classList.toggle('ready', n >= 12);
     if(n === 0){ lmHintEl.textContent = 'Можно вставить даже один заголовок.'; }
     else if(n < 12){ lmHintEl.textContent = 'Ещё чуть-чуть — и можно проверять…'; }
