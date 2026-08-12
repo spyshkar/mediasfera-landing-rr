@@ -177,9 +177,8 @@
       0 40px 80px -34px rgba(27,27,29,.26),
       0 12px 30px -18px rgba(27,27,29,.16);
     will-change:transform;
-    --py:0px;--rx:0deg;--ry:0deg;--lift:0px;
-    transform:translateY(var(--py)) translateZ(0) rotateX(var(--rx)) rotateY(var(--ry)) scale(calc(1 + var(--lift)/1000));
-    transform-style:preserve-3d;
+    --py:0px;--lift:0px;
+    transform:translateY(var(--py)) scale(calc(1 + var(--lift)/1000));
     transition:box-shadow .5s var(--ease-paper);
     max-width:100%;min-width:0;
   }
@@ -1415,30 +1414,13 @@
     wraps.forEach(function(wrap){
       var sheet = wrap.querySelector('.sheet');
       if(!sheet) return;
-      var tx = 0, ty = 0, cx = 0, cy = 0, raf = null, inside = false;
-      function loop(){
-        cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
-        sheet.style.setProperty('--ry', cx.toFixed(2) + 'deg');
-        sheet.style.setProperty('--rx', cy.toFixed(2) + 'deg');
-        if(Math.abs(tx-cx) > 0.01 || Math.abs(ty-cy) > 0.01 || inside){ raf = requestAnimationFrame(loop); }
-        else { raf = null; }
-      }
-      function kick(){ if(!raf) raf = requestAnimationFrame(loop); }
-      wrap.addEventListener('mousemove', function(e){
-        var r = wrap.getBoundingClientRect();
-        var px = (e.clientX - r.left) / r.width  - 0.5;
-        var py = (e.clientY - r.top)  / r.height - 0.5;
-        tx =  px * 5.5;
-        ty = -py * 4.2;
+      wrap.addEventListener('mouseenter', function(){
+        wrap.classList.add('lifted');
         sheet.style.setProperty('--lift', '8');
-        kick();
       });
-      wrap.addEventListener('mouseenter', function(){ inside = true; wrap.classList.add('lifted'); kick(); });
       wrap.addEventListener('mouseleave', function(){
-        inside = false; tx = 0; ty = 0;
-        sheet.style.setProperty('--lift', '0');
         wrap.classList.remove('lifted');
-        kick();
+        sheet.style.setProperty('--lift', '0');
       });
     });
   }
