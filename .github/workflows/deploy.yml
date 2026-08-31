@@ -17,6 +17,7 @@ jobs:
           cp submit.php dist/
           cp team-*.jpg dist/ 2>/dev/null || true
           cp *.svg dist/ 2>/dev/null || true
+          cp favicon.ico favicon-192.png favicon-512.png apple-touch-icon.png dist/ 2>/dev/null || true
 
       - name: Деплой на Beget через SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
